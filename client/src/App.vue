@@ -6,13 +6,21 @@
       <router-link to="/login">Login</router-link> |
       <router-link to="/users">Users</router-link> |
       <router-link to="/tours">Tours</router-link> |
-      <router-link to="/newtour">New tour</router-link>
+      <router-link to="/tours/new">New tour</router-link>
     </div>
-    <router-view/>
+    <transition name="components">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
 <style lang="scss">
+  .components-enter-active, .fade-leave-active {
+    transition: opacity .7s;
+  }
+  .components-enter, .fade-leave-to {
+    opacity: 0;
+  }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

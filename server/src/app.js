@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const router = express.Router();
+
+mongoose.set('useCreateIndex', true);
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -38,11 +39,27 @@ app.listen(PORT, () => {
   console.log('server started');
 });
 
-router.get('/tours', (req, res) => {
-  Tour.find().toArray((err, docs) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(docs);
+app.get('/tours', async (req, res) => {
+ try{
+   const tours = await Tour.find();
+   res.json(tours);
+ }catch (err) {
+   res.sendStatus(500);
+ }
+});
+
+app.post('/tours/new', async (req, res) => {
+  let tour = new Tour({
+    name: req.body.name,
+    description: req.body.description,
+    category: req.body.category,
+    price: req.body.price
   });
+  try {
+  const savedTour = await tour.save()
+    res.json(savedTour);
+  }catch (err) {
+    res.sendStatus(500)
+  }
+
 });
