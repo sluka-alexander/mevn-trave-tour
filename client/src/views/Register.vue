@@ -1,26 +1,63 @@
-<template>
-  <div class="about">
-    <h1>Register</h1>
-    <div class="register-form">
-      <input type="text" name="password" placeholder="Enter name">
-      <input type="email" name="password" placeholder="Enter email">
-      <input type="password" name="password" placeholder="Enter password">
-    </div>
-  </div>
-</template>
+<div id="app">
+  <v-app id="inspire">
+    <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+    >
+      <v-text-field
+        v-model="name"
+        :counter="10"
+        :rules="nameRules"
+        label="Name"
+        required
+      ></v-text-field>
 
-<style lang="scss">
-  .register-form {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    width: 400px;
+      <v-text-field
+        v-model="email"
+        :rules="emailRules"
+        label="E-mail"
+        required
+      ></v-text-field>
 
-    input {
-      font-size: 18px;
-      padding: 20px;
-      margin-bottom: 10px;
-      outline: 0;
-    }
-  }
-</style>
+      <v-select
+        v-model="select"
+        :items="items"
+        :rules="[v => !!v || 'Item is required']"
+        label="Item"
+        required
+      ></v-select>
+
+      <v-checkbox
+        v-model="checkbox"
+        :rules="[v => !!v || 'You must agree to continue!']"
+        label="Do you agree?"
+        required
+      ></v-checkbox>
+
+      <v-btn
+        :disabled="!valid"
+        color="success"
+        class="mr-4"
+        @click="validate"
+      >
+        Validate
+      </v-btn>
+
+      <v-btn
+        color="error"
+        class="mr-4"
+        @click="reset"
+      >
+        Reset Form
+      </v-btn>
+
+      <v-btn
+        color="warning"
+        @click="resetValidation"
+      >
+        Reset Validation
+      </v-btn>
+    </v-form>
+  </v-app>
+</div>

@@ -1,0 +1,17 @@
+@import "config";
+
+@mixin size($width, $height: $width) {
+  height: $height;
+  width: $width;
+}
+
+@mixin color-and-weight($color: black, $weight: 500 ) {
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin media($device){
+  @media screen and (min-width: map_get($breakpoints, $device)){
+    @content;
+  }
+}

@@ -7,11 +7,9 @@ const tourSchema = new Schema({
     },
     description: {
         type: String,
-        default: '-'
     },
     category: {
         type: String,
-        default: '-'
     },
     price: {
         type: Number,

@@ -51,15 +51,16 @@ app.get('/tours', async (req, res) => {
 app.post('/tours/new', async (req, res) => {
   let tour = new Tour({
     name: req.body.name,
-    description: req.body.description,
     category: req.body.category,
+    description: req.body.description,
     price: req.body.price
   });
-  try {
-  const savedTour = await tour.save()
-    res.json(savedTour);
-  }catch (err) {
-    res.sendStatus(500)
-  }
-
+  await tour.save((err, doc)=>{
+    if(err){
+      console.log(err)
+    }
+    else {
+      res.send(doc);
+    }
+  });
 });

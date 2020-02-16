@@ -45,6 +45,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import './common/variables';
 
   table {
     margin: 0 auto;
@@ -60,7 +61,7 @@ export default {
 
   th {
     font-weight: 600;
-    border-bottom: 2px solid #6678b1;
+    border-bottom: 2px solid $purple;
     padding: 10px 8px;
   }
   td {
