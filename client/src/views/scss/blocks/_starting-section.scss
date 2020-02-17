@@ -1,0 +1,194 @@
+@import "../common/mixins";
+@import "../common/placeholders";
+@import "../common/variables";
+@import "../common/functions";
+@import "../common/config";
+
+
+header {
+  @extend %flex-between;
+
+  @include color-and-weight($gray, $medium);
+
+  font-size: calcFluidFontSize(14, $font-M, 320, 1920);
+  margin-top: 60px;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  @include media(tablet) {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  @include media(large-desktop) {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+}
+
+.logo {
+  @include color-and-weight($purple, $extra-bold);
+
+  @extend %flex-center;
+
+  cursor: pointer;
+  font-size: calcFluidFontSize($font-logo, $font-logo, 320, 1920);
+  text-transform: uppercase;
+
+  @include media(mobile) {
+    justify-content: flex-start;
+  }
+}
+
+.navbar {
+  @extend %flex-center;
+
+  flex-direction: column;
+  margin: 20px 0;
+  z-index: 1;
+  width: 100%;
+
+  a{
+    &.router-link-exact-active {
+      transition: .5s;
+      color: $pink;
+    }
+  }
+
+  @include media(mobile) {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+  @include media(small-tablet) {
+    align-items: center;
+  }
+
+  &__left {
+    @extend %flex-between;
+
+    width: 100%;
+
+    @include media(small-tablet) {
+      width: 50%;
+    }
+    @include media(desktop) {
+      width: 30%;
+    }
+    @include media(large-desktop) {
+      width: 70%;
+    }
+  }
+
+  &__right {
+    @extend %flex;
+    justify-content: space-between;
+    width: 40%;
+
+    @include media(small-tablet) {
+      width: 30%;
+    }
+    @include media(tablet) {
+      width: 20%;
+    }
+    @include media(desktop) {
+      width: 15%;
+    }
+    @include media(large-desktop) {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    &__item{
+      @include media(large-desktop) {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  &__item {
+    cursor: pointer;
+    transition: .3s;
+
+    &::after {
+      @include size(20px, 3px);
+
+      content: '';
+      display: block;
+      border-radius: 50px;
+      transition: .5s;
+      background-color: $purple;
+    }
+
+    &:hover::after {
+      transition: .5s;
+      width: 100%;
+    }
+  }
+}
+
+.main-info {
+  margin-top: 50px;
+
+  @include media(tablet) {
+    margin-top: 200px;
+  }
+  @include media(large-desktop) {
+    margin-top: 360px;
+  }
+
+  &__title {
+    @include color-and-weight($black, $extra-bold);
+
+    font-size: calcFluidFontSize(25, $font-XL, 320, 1920);
+  }
+
+  &__subtitle {
+    @include color-and-weight($gray, bold);
+    font-size: calcFluidFontSize(15, $font-L, 320, 1920);
+  }
+}
+
+.search {
+  margin: 50px 0;
+  width: 100%;
+  max-width: 650px;
+
+  @include media(small-tablet) {
+    display: flex;
+  }
+  @include media(tablet) {
+    margin: 150px 0;
+  }
+
+  &__input {
+    @extend %flex-center;
+
+    @include size(100%,70px);
+    @include color-and-weight($black, $regular);
+
+    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
+    background-color: $white;
+    transition: .3s;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    @extend %flex-center;
+
+    @include color-and-weight($white, $medium);
+    @include size(200px, 70px);
+
+    cursor: pointer;
+    transition: .3s;
+    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
+    margin: 0 auto;
+    background-color: $purple;
+    color: $white;
+
+    &:hover {
+      transition: .3s;
+      background-color: $pink;
+    }
+  }
+}

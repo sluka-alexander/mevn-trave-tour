@@ -1,0 +1,58 @@
+@import "../common/mixins";
+@import "../common/placeholders";
+@import "../common/functions";
+@import "../common/config";
+@import "../common/variables";
+
+form{
+  width: 100%;
+
+  .form-item{
+    @extend %flex;
+
+    flex-direction: column;
+    width: 100%;
+  }
+
+  label{
+    @include color-and-weight($black,$bold);
+
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    margin: 40px 0px 10px 0px;
+  }
+
+  input, textarea, select{
+    @include color-and-weight($black,$regular);
+
+    font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
+    font-family: "Montserrat", sans-serif;
+    border-bottom: 1px solid $gray;
+    background-color: $background;
+    outline: 0;
+    width: 100%;
+    resize: none;
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  button{
+    @include color-and-weight($white,$regular);
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    border: none;
+    padding: 10px 50px;
+    margin: 20px auto;
+    background-color: $purple;
+    cursor: pointer;
+    transition: .3s;
+    border-radius: 5px;
+    outline: 0;
+
+    &:hover{
+      background-color: $pink;
+    }
+  }
+  .validate{
+    color: $red;
+    margin: 10px 0;
+  }
+}

@@ -1,12 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/users">Users</router-link> |
-      <router-link to="/tours">Tours</router-link> |
-      <router-link to="/tours/new">New tour</router-link>
+    <div class="container">
+      <header class="header">
+        <router-link to="/" class="logo">advento</router-link>
+        <div class="navbar">
+          <div class="navbar__left">
+            <router-link to="/" class="navbar__item">Home</router-link>
+            <router-link to="/tours" class="navbar__item">Tours</router-link>
+            <router-link to="/tours/new" class="navbar__item">New tour</router-link>
+          </div>
+        </div>
+        <div class="navbar">
+          <div class="navbar__right">
+            <router-link to="/login" class="navbar__item">Login</router-link>
+            <router-link to="/register" class="navbar__item
+            navbar__right__item">Register</router-link>
+          </div>
+        </div>
+      </header>
     </div>
     <transition name="components">
       <router-view/>
@@ -15,31 +26,5 @@
 </template>
 
 <style lang="scss">
-  .components-enter-active, .fade-leave-active {
-    transition: opacity .7s;
-  }
-  .components-enter, .fade-leave-to {
-    opacity: 0;
-  }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      transition: .5s;
-      color: #5c86ff;
-    }
-  }
-}
+  @import 'views/scss/main';
 </style>
