@@ -2,15 +2,21 @@
   <div>
     <div class="container">
       <div class="title-item">Add tour</div>
-      <form>
-        <div class="form-item">
+      <form @submit.prevent="submit" >
+        <div class="form-item"
+             :class="{'form-item-err' : $v.tour.name.$error}">
           <label for="name">Name of tour</label>
           <input
             type="text"
             id="name"
             v-model.trim="tour.name"
             placeholder="Enter name"
+            @blur="$v.tour.name.$touch()"
           >
+          <div class="error" v-if="!$v.tour.name.required">Fill in the field</div>
+          <div class="error" v-if="!$v.tour.name.minLength">Name must have at least
+            {{$v.tour.name.$params.minLength.min}}
+          </div>
         </div>
         <div class="form-item">
           <label for="category">Category</label>
@@ -18,6 +24,7 @@
                   id="category"
                   v-model.trim="tour.category"
                   placeholder="Enter category"
+                  @blur="$v.tour.category.$touch()"
                   >
             <option>Nature</option>
             <option>Snow</option>
@@ -25,32 +32,45 @@
             <option>Mountain</option>
           </select>
         </div>
-        <div class="form-item">
+        <div class="form-item"
+             :class="{'form-item-err' : $v.tour.desc.$error}">
           <label for="desc">Description</label>
-          <textarea
+          <input
             id="desc"
             v-model.trim="tour.desc"
             placeholder="Enter description"
-          ></textarea>
+            @blur="$v.tour.desc.$touch()"
+          >
+          <div class="error" v-if="!$v.tour.desc.required">Fill in the field</div>
+          <div class="error" v-if="!$v.tour.desc.minLength">Name must have at least
+            {{$v.tour.desc.$params.minLength.min}}
+          </div>
         </div>
-        <div class="form-item">
+        <div class="form-item"
+             :class="{'form-item-err' : $v.tour.price.$error}">
           <label for="price">Price</label>
           <input
             type="text"
             id="price"
             v-model.trim="tour.price"
             placeholder="Enter price"
+            @blur="$v.tour.price.$touch()"
           >
+          <div class="error" v-if="!$v.tour.price.numeric">
+            Insert the number
+          </div>
+          <div class="error" v-if="!$v.tour.price.required">
+            Fill in the field
+          </div>
         </div>
-        <div class="validate">Fill in all the fields</div>
-        <button @click="addTour()">Add tour</button>
+        <button type="submit" @click="addTour()">Add tour</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-
+import { required, minLength, numeric } from 'vuelidate/lib/validators';
 import TourService from '../services/TourService';
 
 export default {
@@ -60,17 +80,25 @@ export default {
       tour: {
         name: '',
         category: 'Nature',
-        description: '',
+        desc: '',
         price: '',
       },
     };
   },
+  validations: {
+    tour: {
+      name: { required, minLength: minLength(4) },
+      category: { required },
+      desc: { required, minLength: minLength(10) },
+      price: { required, numeric },
+    },
+  },
   methods: {
     async addTour() {
-      if (this.tour.name !== ''
-        && this.tour.category !== ''
-        && this.tour.desc !== ''
-        && this.tour.price !== '') {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        console.log('error');
+      } else {
         this.$router.push({ name: 'Tours' });
 
         await TourService.addNewTour({

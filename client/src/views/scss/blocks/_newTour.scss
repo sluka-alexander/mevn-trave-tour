@@ -12,6 +12,30 @@ form{
 
     flex-direction: column;
     width: 100%;
+
+  }
+
+  .error{
+    display: none;
+  }
+
+  .form-item-err{
+
+    input::-webkit-input-placeholder {
+      color: $red;
+    }
+
+    input{
+      transition: .4s;
+      color: $red;
+      margin: 10px 0;
+      border-color: $red;
+    }
+
+    .error{
+      display: block;
+      color: red;
+    }
   }
 
   label{
@@ -22,6 +46,7 @@ form{
   }
 
   input, textarea, select{
+
     @include color-and-weight($black,$regular);
 
     font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
@@ -50,9 +75,5 @@ form{
     &:hover{
       background-color: $pink;
     }
-  }
-  .validate{
-    color: $red;
-    margin: 10px 0;
   }
 }
