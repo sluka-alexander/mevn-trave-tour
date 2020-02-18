@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="title-item">Add tour</div>
-      <form @submit.prevent="submit" >
+      <form @submit.prevent="addTour">
         <div class="form-item"
              :class="{'form-item-err' : $v.tour.name.$error}">
           <label for="name">Name of tour</label>
@@ -63,7 +63,7 @@
             Fill in the field
           </div>
         </div>
-        <button type="submit" @click="addTour()">Add tour</button>
+        <button type="submit">Add tour</button>
       </form>
     </div>
   </div>
@@ -87,7 +87,7 @@ export default {
   },
   validations: {
     tour: {
-      name: { required, minLength: minLength(4) },
+      name: { required, minLength: minLength(3) },
       category: { required },
       desc: { required, minLength: minLength(10) },
       price: { required, numeric },
@@ -99,14 +99,13 @@ export default {
       if (this.$v.$invalid) {
         console.log('error');
       } else {
-        this.$router.push({ name: 'Tours' });
-
         await TourService.addNewTour({
           name: this.tour.name,
           category: this.tour.category,
           description: this.tour.desc,
           price: this.tour.price,
         });
+        this.$router.push({ name: 'Tours' });
       }
     },
   },

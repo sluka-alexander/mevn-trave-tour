@@ -108,7 +108,7 @@ input {
 }
 //
 .main-img {
-  @include size(44vw,1080px);
+  @include size(44vw,1000px);
 
   position: absolute;
   background-size: cover;
@@ -119,22 +119,6 @@ input {
 
   @include media(large-desktop) {
     background-image: url("https://i.ibb.co/zby7Kps/main.jpg");
-  }
-}
-
-
-.circle {
-  @include size(100%,453px);
-
-  z-index: -3;
-  left: 0;
-  top: 0;
-  position: absolute;
-  background-size: auto;
-  background-repeat: no-repeat;
-
-  @include media(large-desktop) {
-    background-image: url('#{$img}circle.png');
   }
 }
 

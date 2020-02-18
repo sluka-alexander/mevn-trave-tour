@@ -2,7 +2,7 @@
   <div class="tours">
     <div class="container">
       <div class="title-item">Tours</div>
-      <table>
+      <table v-if="tours.length">
         <tr>
           <th>Name</th>
           <th>Category</th>
@@ -10,7 +10,6 @@
           <th>Price</th>
           <th>Date</th>
         <tr>
-        <hr>
         <tr v-for="tour in tours" v-bind:key="tour.id">
           <td>{{ tour.name }}</td>
           <td>{{ tour.category}}</td>
@@ -21,6 +20,7 @@
           <td><i class="fas fa-trash-alt btn-edit" ></i></td>
         </tr>
       </table>
+      <div style="text-align: center" v-if="!tours.length">Please, add your first tour</div>
     </div>
   </div>
 </template>
