@@ -71,10 +71,10 @@
             tour.name === oldTour.name &&
             tour.category === oldTour.category &&
             tour.desc === oldTour.desc &&
-            tour.price === oldTour.price "
-            class="button-no-active">Add tour
+            Number(tour.price)=== oldTour.price "
+            class="button button__no-active">Add tour
           </div>
-          <button type="submit" v-else>Add tour</button>
+          <button type="submit" v-else class="button">Add tour</button>
           <span class="button-back" @click="Back">Cancel</span>
         </span>
       </form>
@@ -155,7 +155,6 @@ export default {
   },
   mounted() {
     this.getTour();
-    this.validateArrow();
   },
 };
 </script>

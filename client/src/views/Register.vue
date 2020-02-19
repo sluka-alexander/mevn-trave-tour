@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="container">
+      <transition name="smooth">
+        <div v-if="confirmForm" class="page-form"></div>
+      </transition>
       <div class="title-item">
         Register
         <div class="icon icon__user"
@@ -8,7 +11,22 @@
               'icon__user-incorrect' : $v.name.$error || $v.email.$error || $v.password.$error}"
         ></div>
       </div>
+
       <form @submit.prevent="addUser" >
+        <transition name="smooth">
+          <div v-if="confirmForm" class="confirm-form">
+            <div class="confirm-form__icon confirm-form__icon__register">
+            </div>
+            <div class="confirm-form__title">
+              Congratulations,<br>
+              you can now log in
+            </div>
+            <div class="confirm-form__buttons">
+              <button type="submit" class="confirm-form__button confirm-form__button__positive">
+                OK</button>
+            </div>
+          </div>
+        </transition>
         <div class="form-item"
              :class="{'form-item-err' : $v.name.$error}">
           <label for="name">Name</label>
@@ -51,8 +69,8 @@
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
         </div>
-        <div v-if="$v.$invalid" class="button-no-active">Sign up</div>
-        <button type="submit" v-else>Sign up</button>
+        <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
+        <div v-else @click="confirmForm = !confirmForm" class="button">Sign up</div>
       </form>
     </div>
   </div>
@@ -72,6 +90,7 @@ export default {
       name: '',
       email: '',
       password: '',
+      confirmForm: false,
     };
   },
   components: {

@@ -3,7 +3,6 @@
 @import "common/variables";
 @import "common/functions";
 @import "common/config";
-
 @import "blocks/starting-section";
 @import "blocks/experience";
 @import "blocks/category";
@@ -12,7 +11,6 @@
 @import "blocks/feedback";
 @import "blocks/footer";
 @import "blocks/newTour";
-
 @import "blocks/tours";
 
 
@@ -27,11 +25,18 @@ html {
   background-color: $background;
 }
 
-.components-enter-active, .fade-leave-active {
-  transition: opacity .7s;
+.smooth-enter-active {
+  transition: opacity .3s;
+}
+.smooth-leave-active {
+  transition: opacity .3s;
 }
 
-.components-enter, .fade-leave-to {
+.smooth-enter{
+  opacity: 0;
+}
+
+.smooth-leave-to {
   opacity: 0;
 }
 
@@ -41,6 +46,10 @@ input, textarea {
   outline: 0;
   padding: 0;
   margin: 0;
+}
+
+select {
+  font-family: 'Nunito', sans-serif;
 }
 
 button {
@@ -100,7 +109,6 @@ a {
   margin: 30px 0;
   text-align: center;
 }
-
 .subtitle {
   @include color-and-weight($gray, $regular);
 
@@ -143,14 +151,16 @@ a {
     background-image: url('#{$img}line-back.png');
   }
 }
+
 .icon {
   @include size(50px);
 
   margin: 20px auto;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   transition: .5s;
+
   &:hover {
     transform: rotate(360deg);
   }
@@ -158,6 +168,7 @@ a {
   &__tours {
     background-image: url('https://image.flaticon.com/icons/svg/2569/2569869.svg');
   }
+
   &__edit {
     background-image: url('https://image.flaticon.com/icons/svg/1508/1508034.svg');
   }
@@ -178,8 +189,9 @@ a {
     background-image: url('https://image.flaticon.com/icons/svg/2154/2154516.svg');
   }
 }
+
 .button-back {
-  @include color-and-weight($white,$medium);
+  @include color-and-weight($white, $medium);
   @include size(120px, 50px);
 
   @extend %flex-center;
@@ -195,5 +207,85 @@ a {
 
   &:hover {
     background-color: #8b0000;
+  }
+}
+
+.page-form{
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(2px);
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 1;
+}
+.confirm-form {
+  @extend %flex-center;
+
+  @include size(300px,400px);
+
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+
+  flex-direction: column;
+  padding: 50px;
+  background-color: $white;
+  border: 2px solid $black;
+  z-index: 2;
+
+  &__buttons {
+    @extend %flex;
+  }
+
+  &__title {
+    @include color-and-weight($black, $extra-bold);
+
+    text-align: center;
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    padding: 10px;
+  }
+  &__button {
+    @include color-and-weight($white, $medium);
+
+    border: 2px solid $black;
+    background-color: $purple;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: .2s;
+
+    &__positive {
+      &:hover{
+        @include color-and-weight($white, $medium);
+
+        background-color: $green;
+        border-color: $green;
+      }
+    }
+    &__negative {
+      margin-left: 5px;
+
+      &:hover{
+        @include color-and-weight($white, $medium);
+
+        background-color: $red;
+        border-color: $red;
+      }
+    }
+  }
+
+  &__icon {
+    @include size(50px);
+
+    background-size: cover;
+
+    &__warning {
+      background-image: url('https://image.flaticon.com/icons/svg/1209/1209961.svg');
+    }
+
+    &__register {
+      background-image: url('https://image.flaticon.com/icons/svg/1474/1474713.svg');
+    }
   }
 }

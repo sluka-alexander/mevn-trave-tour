@@ -66,8 +66,8 @@
             Fill in the field
           </div>
         </div>
-        <div v-if="$v.$invalid" class="button-no-active">Add tour</div>
-        <button type="submit" v-else>Add tour</button>
+        <div v-if="$v.$invalid" class="button button__no-active">Add tour</div>
+        <button v-else type="submit" class="button">Add tour</button>
       </form>
     </div>
   </div>

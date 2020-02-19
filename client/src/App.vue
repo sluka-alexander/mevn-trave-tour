@@ -19,9 +19,7 @@
         </div>
       </header>
     </div>
-    <transition name="components">
-      <router-view/>
-    </transition>
+      <router-view></router-view>
   </div>
 </template>
 
