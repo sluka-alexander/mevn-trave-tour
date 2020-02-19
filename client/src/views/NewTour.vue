@@ -53,7 +53,7 @@
              :class="{'form-item-err' : $v.tour.price.$error}">
           <label for="price">Price</label>
           <input
-            type="text"
+            type="number"
             id="price"
             v-model.trim="tour.price"
             placeholder="Enter price"

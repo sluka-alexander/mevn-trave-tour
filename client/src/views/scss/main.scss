@@ -43,6 +43,10 @@ input, textarea {
   margin: 0;
 }
 
+button {
+  font-family: 'Nunito', sans-serif;
+}
+
 a::selection {
   background-color: $purple;
 }
@@ -110,7 +114,6 @@ a {
   }
 }
 
-//
 .main-img {
   @include size(44vw, 1000px);
 
@@ -140,19 +143,23 @@ a {
     background-image: url('#{$img}line-back.png');
   }
 }
-
 .icon {
   @include size(50px);
 
   margin: 20px auto;
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   transition: .5s;
+  &:hover {
+    transform: rotate(360deg);
+  }
 
   &__tours {
     background-image: url('https://image.flaticon.com/icons/svg/2569/2569869.svg');
+  }
+  &__edit {
+    background-image: url('https://image.flaticon.com/icons/svg/1508/1508034.svg');
   }
 
   &__new {
@@ -169,5 +176,24 @@ a {
 
   &__user-incorrect {
     background-image: url('https://image.flaticon.com/icons/svg/2154/2154516.svg');
+  }
+}
+.button-back {
+  @include color-and-weight($white,$medium);
+  @include size(120px, 50px);
+
+  @extend %flex-center;
+
+  font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+  border: none;
+  background-color: $red;
+  cursor: pointer;
+  margin: 20px;
+  transition: .3s;
+  border-radius: 5px;
+  outline: 0;
+
+  &:hover {
+    background-color: #8b0000;
   }
 }

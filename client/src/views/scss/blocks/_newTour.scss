@@ -58,7 +58,7 @@ form{
   }
 
   .button-no-active{
-    @include color-and-weight($white,$regular);
+    @include color-and-weight($white,$medium);
     @include size(200px, 50px);
 
     @extend %flex-center;
@@ -74,13 +74,12 @@ form{
   }
 
   button{
-    @include color-and-weight($white,$regular);
+    @include color-and-weight($white,$medium);
     @include size(200px, 50px);
 
     @extend %flex-center;
 
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
-    font-family: "Montserrat", sans-serif;
     border: none;
     background-color: $purple;
     cursor: pointer;

@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="container">
-      <div class="title-item">Edit tour</div>
+      <div class="title-item">
+        Edit tour
+        <div class="icon icon__edit"></div>
+      </div>
       <form @submit.prevent="UpdateTour">
         <div class="form-item"
              :class="{'form-item-err' : $v.tour.name.$error}">
@@ -43,14 +46,14 @@
           >
           <div class="error" v-if="!$v.tour.desc.required">Fill in the field</div>
           <div class="error" v-if="!$v.tour.desc.minLength">Name must have at least
-            {{$v.tour.desc.$params.minLength.min}}
+            {{ $v.tour.desc.$params.minLength.min }}
           </div>
         </div>
         <div class="form-item"
              :class="{'form-item-err' : $v.tour.price.$error}">
           <label for="price">Price</label>
           <input
-            type="text"
+            type="number"
             id="price"
             v-model.trim="tour.price"
             placeholder="Enter price"
@@ -63,8 +66,16 @@
             Fill in the field
           </div>
         </div>
-        <span>
-          <button type="submit" name="UpdateTour">Save tour</button>
+        <span style="display: flex">
+          <div v-if="$v.$invalid ||
+            tour.name === oldTour.name &&
+            tour.category === oldTour.category &&
+            tour.desc === oldTour.desc &&
+            tour.price === oldTour.price "
+            class="button-no-active">Add tour
+          </div>
+          <button type="submit" v-else>Add tour</button>
+          <span class="button-back" @click="Back">Cancel</span>
         </span>
       </form>
     </div>
@@ -75,17 +86,25 @@
 import { required, minLength, numeric } from 'vuelidate/lib/validators';
 import TourService from '../services/TourService';
 
+
 export default {
   name: 'EditTour',
 
   data() {
     return {
+      oldTour: {
+        name: '',
+        category: '',
+        desc: '',
+        price: '',
+      },
       tour: {
         name: '',
         category: '',
         desc: '',
         price: '',
       },
+      comparison: false,
     };
   },
 
@@ -107,6 +126,11 @@ export default {
       this.tour.category = tour.data.category;
       this.tour.desc = tour.data.description;
       this.tour.price = tour.data.price;
+
+      this.oldTour.name = tour.data.name;
+      this.oldTour.category = tour.data.category;
+      this.oldTour.desc = tour.data.description;
+      this.oldTour.price = tour.data.price;
     },
     async UpdateTour() {
       this.$v.$touch();
@@ -124,9 +148,14 @@ export default {
         await this.$router.push({ name: 'Tours' });
       }
     },
+
+    async Back() {
+      await this.$router.push({ name: 'Tours' });
+    },
   },
   mounted() {
     this.getTour();
+    this.validateArrow();
   },
 };
 </script>
