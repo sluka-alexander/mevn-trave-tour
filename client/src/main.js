@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import App from './App.vue';
+import VueConfirmDialog from 'vue-confirm-dialog';
 import router from './router';
+import App from './App.vue';
 
 Vue.use(Vuelidate);
+Vue.use(VueConfirmDialog);
 
 Vue.config.productionTip = false;
 

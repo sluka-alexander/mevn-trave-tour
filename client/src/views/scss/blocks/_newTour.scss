@@ -42,15 +42,12 @@ form{
     @include color-and-weight($black,$bold);
 
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
-    margin: 40px 0px 10px 0px;
+    margin: 20px 0px 10px 0px;
   }
 
   input, textarea, select{
-
     @include color-and-weight($black,$regular);
-
     font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
-    font-family: "Montserrat", sans-serif;
     border-bottom: 1px solid $gray;
     background-color: $background;
     outline: 0;
@@ -60,14 +57,34 @@ form{
     padding: 10px 0;
   }
 
-  button{
+  .button-no-active{
     @include color-and-weight($white,$regular);
+    @include size(200px, 50px);
+
+    @extend %flex-center;
+
+    margin: 20px 0;
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
     border: none;
-    padding: 10px 50px;
-    margin: 20px auto;
+    background-color: $purple;
+    opacity: .5;
+    transition: .3s;
+    border-radius: 5px;
+    outline: 0;
+  }
+
+  button{
+    @include color-and-weight($white,$regular);
+    @include size(200px, 50px);
+
+    @extend %flex-center;
+
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    font-family: "Montserrat", sans-serif;
+    border: none;
     background-color: $purple;
     cursor: pointer;
+    margin: 20px 0;
     transition: .3s;
     border-radius: 5px;
     outline: 0;

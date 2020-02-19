@@ -23,32 +23,35 @@
 }
 
 html {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background-color: $background;
 }
 
 .components-enter-active, .fade-leave-active {
   transition: opacity .7s;
 }
+
 .components-enter, .fade-leave-to {
   opacity: 0;
+}
+
+input, textarea {
+  font-family: 'Nunito', sans-serif;
+  border: none;
+  outline: 0;
+  padding: 0;
+  margin: 0;
 }
 
 a::selection {
   background-color: $purple;
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
 }
 
-input {
-  border: none;
-  outline: 0;
-  padding: 0;
-  margin: 0;
-}
 
 .container {
   transition: .3s;
@@ -86,7 +89,7 @@ input {
   margin: 30px 0;
 }
 
-.title-item{
+.title-item {
   @include color-and-weight($black, $bold);
 
   font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
@@ -106,9 +109,10 @@ input {
     text-align: start;
   }
 }
+
 //
 .main-img {
-  @include size(44vw,1000px);
+  @include size(44vw, 1000px);
 
   position: absolute;
   background-size: cover;
@@ -123,7 +127,7 @@ input {
 }
 
 .line-back {
-  @include size(100%,957px);
+  @include size(100%, 957px);
 
   z-index: -7;
   left: 0;
@@ -134,5 +138,36 @@ input {
 
   @include media(large-desktop) {
     background-image: url('#{$img}line-back.png');
+  }
+}
+
+.icon {
+  @include size(50px);
+
+  margin: 20px auto;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: .5s;
+
+  &__tours {
+    background-image: url('https://image.flaticon.com/icons/svg/2569/2569869.svg');
+  }
+
+  &__new {
+    background-image: url('https://image.flaticon.com/icons/svg/2569/2569865.svg');
+  }
+
+  &__user {
+    background-image: url('https://image.flaticon.com/icons/svg/2154/2154798.svg');
+  }
+
+  &__user-correct {
+    background-image: url('https://image.flaticon.com/icons/svg/2154/2154494.svg');
+  }
+
+  &__user-incorrect {
+    background-image: url('https://image.flaticon.com/icons/svg/2154/2154516.svg');
   }
 }

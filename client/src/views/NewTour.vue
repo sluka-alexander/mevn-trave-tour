@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="container">
-      <div class="title-item">Add tour</div>
+      <div class="title-item">
+        Add tour
+        <div class="icon icon__new"></div>
+      </div>
       <form @submit.prevent="addTour">
         <div class="form-item"
              :class="{'form-item-err' : $v.tour.name.$error}">
@@ -63,7 +66,8 @@
             Fill in the field
           </div>
         </div>
-        <button type="submit">Add tour</button>
+        <div v-if="$v.$invalid" class="button-no-active">Add tour</div>
+        <button type="submit" v-else>Add tour</button>
       </form>
     </div>
   </div>
@@ -102,10 +106,10 @@ export default {
         await TourService.addNewTour({
           name: this.tour.name,
           category: this.tour.category,
-          description: this.tour.desc,
+          desc: this.tour.desc,
           price: this.tour.price,
         });
-        this.$router.push({ name: 'Tours' });
+        await this.$router.push({ name: 'Tours' });
       }
     },
   },

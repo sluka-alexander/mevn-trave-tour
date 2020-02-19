@@ -10,17 +10,19 @@ table {
   max-width: 100%;
   width: 100%;
   border-collapse: collapse;
-  -webkit-box-shadow: 0px 4px 58px -2px rgba(220,213,222,1);
-  -moz-box-shadow: 0px 4px 58px -2px rgba(220,213,222,1);
-  box-shadow: 0px 4px 58px -2px rgba(220,213,222,1);
+  -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+  -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+  box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
 }
 
 th {
   @include color-and-weight($black, $bold);
-
   font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
   padding: 10px;
+  text-align: start;
+  border-bottom: 3px solid $purple;
 }
+
 td {
   @include color-and-weight($gray, $regular);
 
@@ -29,15 +31,25 @@ td {
   transition: .3s linear;
   border-bottom: 1px solid #ccc;
 }
-.btn-delete, .btn-edit{
+
+th:nth-last-child(1), td:nth-last-child(1){
+  text-align: center;
+}
+
+th:nth-last-child(2), td:nth-last-child(2){
+  text-align: center;
+}
+
+.btn-delete, .btn-edit {
   font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
   cursor: pointer;
   transition: .4s;
 
-  &:hover{
+  &:hover {
     color: $purple;
   }
 }
-hr{
+
+hr {
   width: 100%;
 }

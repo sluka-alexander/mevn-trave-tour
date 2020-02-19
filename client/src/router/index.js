@@ -34,6 +34,11 @@ const routes = [
     name: 'NewTour',
     component: () => import('../views/NewTour.vue'),
   },
+  {
+    path: '/tours/:id',
+    name: 'EditTour',
+    component: () => import('../views/EditTour.vue'),
+  },
 ];
 
 const router = new VueRouter({

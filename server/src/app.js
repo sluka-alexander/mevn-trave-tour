@@ -39,20 +39,49 @@ app.listen(PORT, () => {
   console.log('server started');
 });
 
-app.get('/tours', async (req, res) => {
+app.get('/tours/:id', async (req,res)=>{
   try {
-    const tours = await Tour.find();
-    res.json(tours);
+    const tour = await Tour.findById(req.params.id);
+    await res.json(tour);
   } catch (err) {
     res.sendStatus(500);
   }
+});
+
+app.get('/tours', async (req, res) => {
+  try {
+    const tours = await Tour.find();
+    await res.json(tours);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+app.put('/tours/:id', (req, res) => {
+  Tour.findById(req.params.id, (err, tour) => {
+    if (err) {
+      console.log(err)
+    } else {
+      tour.name = req.body.name;
+      tour.category = req.body.category;
+      tour.description = req.body.desc;
+      tour.price = req.body.price;
+      tour.save(err => {
+        if (err) {
+          res.sendStatus(500)
+        } else {
+          res.sendStatus(200)
+        }
+      })
+    }
+  })
 });
 
 app.post('/tours/new', async (req, res) => {
   let tour = new Tour({
     name: req.body.name,
     category: req.body.category,
-    description: req.body.description,
+    description: req.body.desc,
     price: req.body.price
   });
   await tour.save((err, doc)=>{
@@ -64,6 +93,7 @@ app.post('/tours/new', async (req, res) => {
     }
   });
 });
+
 
 app.post('/register', async (req, res) => {
   let newUser = new User({

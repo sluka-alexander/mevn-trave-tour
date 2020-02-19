@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="container">
-      <div class="title-item">Register</div>
+      <div class="title-item">
+        Register
+        <div class="icon icon__user"
+             :class="{'icon__user-correct' : !$v.$invalid,
+              'icon__user-incorrect' : $v.name.$error || $v.email.$error || $v.password.$error}"
+        ></div>
+      </div>
       <form @submit.prevent="addUser" >
         <div class="form-item"
              :class="{'form-item-err' : $v.name.$error}">
@@ -45,7 +51,8 @@
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
         </div>
-        <button type="submit">Sign up</button>
+        <div v-if="$v.$invalid" class="button-no-active">Sign up</div>
+        <button type="submit" v-else>Sign up</button>
       </form>
     </div>
   </div>
