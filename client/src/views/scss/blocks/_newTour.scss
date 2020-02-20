@@ -80,6 +80,10 @@ form{
     &__no-active {
       opacity: .5;
       cursor: auto;
+
+      &:hover {
+        background-color: $purple;
+      }
     }
   }
 

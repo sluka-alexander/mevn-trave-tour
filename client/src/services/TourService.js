@@ -13,4 +13,7 @@ export default {
   updateTour(params) {
     return Api().put(`tours/${params.id}`, params);
   },
+  deleteTour(id) {
+    return Api().delete(`tours/${id}`);
+  },
 };

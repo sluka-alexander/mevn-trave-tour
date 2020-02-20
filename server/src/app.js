@@ -77,6 +77,16 @@ app.put('/tours/:id', (req, res) => {
   })
 });
 
+app.delete('/tours/:id', (req, res) => {
+    Tour.remove({ _id: req.params.id }, err => {
+        if (err) {
+            res.sendStatus(500)
+        } else {
+            res.sendStatus(200)
+        }
+    })
+})
+
 app.post('/tours/new', async (req, res) => {
   let tour = new Tour({
     name: req.body.name,

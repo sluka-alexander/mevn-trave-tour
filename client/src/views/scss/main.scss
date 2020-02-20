@@ -214,11 +214,11 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  backdrop-filter: blur(2px);
   height: 100%;
   width: 100%;
   z-index: 1;
-  opacity: 1;
+  opacity: .4;
+  background-color: black;
 }
 .confirm-form {
   @extend %flex-center;
@@ -288,4 +288,43 @@ a {
       background-image: url('https://image.flaticon.com/icons/svg/1474/1474713.svg');
     }
   }
+}
+
+.tours-enter-active {
+  transition: opacity .3s;
+  transition-delay: 300ms;
+}
+.tours-leave-active {
+  transition: opacity .3s;
+}
+
+.tours-enter{
+  opacity: 0;
+}
+
+.tours-leave-to {
+  opacity: 0;
+}
+
+.loading {
+  @include size(50px);
+
+  margin: 0 auto;
+  background-size: cover;
+  background-image: url('#{$img}Spinner-1s-200px.gif');
+}
+
+.loading-enter-active {
+  transition: opacity .3s;
+}
+.loading-leave-active {
+  transition: opacity .3s;
+}
+
+.loading-enter{
+  opacity: 0;
+}
+
+.loading-leave-to {
+  opacity: 0;
 }
