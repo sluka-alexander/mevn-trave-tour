@@ -2,8 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const session = require('express-session');
 
 mongoose.set('useCreateIndex', true);
+
+//Passport config
+require('../config/passport')(passport);
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -21,6 +26,15 @@ const User = require('../models/User');
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 mongoose.connect(key, {
@@ -85,7 +99,7 @@ app.delete('/tours/:id', (req, res) => {
             res.sendStatus(200)
         }
     })
-})
+});
 
 app.post('/tours/new', async (req, res) => {
   let tour = new Tour({
@@ -111,17 +125,32 @@ app.post('/register', async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   });
-  bcrypt.genSalt(10,  (err, salt) => {
-    bcrypt.hash(newUser.password, salt,async (err, hash) => {
-      if (err) throw err;
-      newUser.password = hash;
-      newUser.save((err, doc) => {
-        if (err) {
-          console.log(err)
-        } else {
-          res.send(doc);
-        }
+  User.findOne({ email: req.body.email }).then(user => {
+    if(user) {
+      console.log('such email is already there')
+    }
+    else {
+      bcrypt.genSalt(10,  (err, salt) => {
+        bcrypt.hash(newUser.password, salt,async (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser.save((err, doc) => {
+            if (err) {
+              console.log(err)
+            } else {
+              res.send(doc);
+            }
+          });
+        });
       });
-    });
-  });
+    }
+  }).catch(err => console.log(err));
+});
+
+app.post('/login', (req,res, next) =>{
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login',
+    failureFlash: true
+  })(req, res, next);
 });

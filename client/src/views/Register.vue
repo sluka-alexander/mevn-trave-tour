@@ -93,8 +93,6 @@ export default {
       confirmForm: false,
     };
   },
-  components: {
-  },
   validations: {
     name: {
       required,

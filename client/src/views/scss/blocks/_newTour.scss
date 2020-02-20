@@ -33,6 +33,10 @@ form{
     }
 
     .error{
+      @include color-and-weight($black,$medium);
+
+      text-align: start;
+      font-size: #{$font-S}px;
       display: block;
       color: red;
     }
@@ -43,6 +47,7 @@ form{
 
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
     margin: 20px 0px 10px 0px;
+    text-align: start;
   }
 
   input, textarea, select{

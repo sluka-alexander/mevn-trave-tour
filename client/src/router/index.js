@@ -39,6 +39,11 @@ const routes = [
     name: 'EditTour',
     component: () => import('../views/EditTour.vue'),
   },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('../views/Dashboard.vue'),
+  },
 ];
 
 const router = new VueRouter({
