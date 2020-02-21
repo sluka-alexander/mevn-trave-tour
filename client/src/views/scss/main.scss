@@ -192,6 +192,18 @@ a {
   &__login {
     background-image: url('https://image.flaticon.com/icons/svg/1651/1651104.svg');
   }
+
+  &__404 {
+    @include size(150px);
+
+    background-image: url('https://image.flaticon.com/icons/svg/1794/1794725.svg');
+  }
+
+  &__error {
+    @include size(150px);
+
+    background-image: url('https://image.flaticon.com/icons/svg/2210/2210217.svg');
+  }
 }
 
 .button-back {

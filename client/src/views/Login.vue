@@ -68,15 +68,19 @@ export default {
   },
   methods: {
     async SignIn() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log('error');
-      } else {
-        this.$router.push({ name: 'Dashboard' });
-        await UserService.Login({
-          email: this.email,
-          password: this.password,
-        });
+      try {
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          console.log('error');
+        } else {
+          await UserService.Login({
+            email: this.email,
+            password: this.password,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        await this.$router.push({ name: 'Error' });
       }
     },
   },

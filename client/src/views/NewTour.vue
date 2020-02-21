@@ -99,17 +99,22 @@ export default {
   },
   methods: {
     async addTour() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log('error');
-      } else {
-        await TourService.addNewTour({
-          name: this.tour.name,
-          category: this.tour.category,
-          desc: this.tour.desc,
-          price: this.tour.price,
-        });
-        await this.$router.push({ name: 'Tours' });
+      try {
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          console.log('error');
+        } else {
+          await TourService.addNewTour({
+            name: this.tour.name,
+            category: this.tour.category,
+            desc: this.tour.desc,
+            price: this.tour.price,
+          });
+          await this.$router.push({ name: 'Tours' });
+        }
+      } catch (error) {
+        console.log(error);
+        await this.$router.push({ name: 'Error' });
       }
     },
   },

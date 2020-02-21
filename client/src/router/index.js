@@ -1,48 +1,69 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+const Home = import('../views/Home.vue');
+const Register = import('../views/Register.vue');
+const Login = import('../views/Login.vue');
+const Users = import('../views/Users.vue');
+const Tours = import('../views/Tours.vue');
+const NewTour = import('../views/NewTour.vue');
+const EditTour = import('../views/EditTour.vue');
+const Dashboard = import('../views/Dashboard.vue');
+const NotFound = import('../views/NotFound.vue');
+const Error = import('../views/Error.vue');
+
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: () => Home,
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Register.vue'),
+    component: () => Register,
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue'),
+    component: () => Login,
   },
   {
     path: '/users',
     name: 'User',
-    component: () => import('../views/Users.vue'),
+    component: () => Users,
   },
   {
     path: '/tours',
     name: 'Tours',
-    component: () => import('../views/Tours.vue'),
+    component: () => Tours,
   },
   {
     path: '/tours/new',
     name: 'NewTour',
-    component: () => import('../views/NewTour.vue'),
+    component: () => NewTour,
   },
   {
     path: '/tours/:id',
     name: 'EditTour',
-    component: () => import('../views/EditTour.vue'),
+    component: () => EditTour,
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue'),
+    component: () => Dashboard,
+  },
+  {
+    path: '/error',
+    name: 'Error',
+    component: () => Error,
+  },
+  {
+    path: '/*',
+    name: 'NotFound',
+    component: () => NotFound,
   },
 ];
 

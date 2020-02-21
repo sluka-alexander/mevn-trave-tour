@@ -127,7 +127,7 @@ app.post('/register', async (req, res) => {
   });
   User.findOne({ email: req.body.email }).then(user => {
     if(user) {
-      console.log('such email is already there')
+      console.log('such email is already there');
     }
     else {
       bcrypt.genSalt(10,  (err, salt) => {
