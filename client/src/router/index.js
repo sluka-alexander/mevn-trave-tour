@@ -65,6 +65,11 @@ const routes = [
     name: 'NotFound',
     component: () => NotFound,
   },
+  {
+    path: '/tours/*',
+    name: 'NotFound',
+    component: () => NotFound,
+  },
 ];
 
 const router = new VueRouter({

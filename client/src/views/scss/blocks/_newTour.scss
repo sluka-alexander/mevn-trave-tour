@@ -112,3 +112,12 @@ form{
     }
   }
 }
+
+.error-login {
+  font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+  text-align: start;
+  transition: .4s;
+  color: $red;
+  margin: 10px 0;
+  border-color: $red;
+}

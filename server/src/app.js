@@ -9,6 +9,7 @@ mongoose.set('useCreateIndex', true);
 
 //Passport config
 require('../config/passport')(passport);
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -66,6 +67,14 @@ app.get('/tours', async (req, res) => {
   try {
     const tours = await Tour.find();
     await res.json(tours);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+app.get('/dashboard', async (req, res) => {
+  try {
+    res.send('Dashboard');
   } catch (err) {
     res.sendStatus(500);
   }
@@ -147,10 +156,15 @@ app.post('/register', async (req, res) => {
   }).catch(err => console.log(err));
 });
 
-app.post('/login', (req,res, next) =>{
-  passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
-    failureFlash: true
-  })(req, res, next);
+app.post('/login', async (req, res, next) => {
+  try {
+     passport.authenticate('local', {
+       successRedirect: '/dashboard',
+       failureRedirect: '/login',
+       failureFlash: true
+     })(req, res, next);
+   } catch (err) {
+     console.log(err);
+   }
 });
+

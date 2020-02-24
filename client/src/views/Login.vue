@@ -31,6 +31,9 @@
           <div class="error" v-if="!$v.password.required">Fill in the field</div>
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
+          <div class="error-login" v-if="validateLogin">
+            Incorrect login or password
+          </div>
         </div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
         <div v-else @click="SignIn" class="button">Sign up</div>
@@ -53,6 +56,7 @@ export default {
     return {
       email: '',
       password: '',
+      validateLogin: false,
     };
   },
   validations: {
@@ -77,10 +81,14 @@ export default {
             email: this.email,
             password: this.password,
           });
+          await this.$router.push({ name: 'Dashboard' });
         }
       } catch (error) {
         console.log(error);
-        await this.$router.push({ name: 'Error' });
+        if (this.validateLogin === false) {
+          this.validateLogin = !this.validateLogin;
+        }
+        await this.$router.push({ name: 'Login' });
       }
     },
   },
