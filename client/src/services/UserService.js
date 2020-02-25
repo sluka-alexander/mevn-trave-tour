@@ -10,4 +10,7 @@ export default {
   Dashboard() {
     return Api().post('/dashboard');
   },
+  LogOut() {
+    return Api().get('/logout');
+  },
 };

@@ -4,6 +4,7 @@
         Hello
         <div class="icon icon__welcome"></div>
       </div>
+      <div class="logOut" @click="Logout">LogOut</div>
     </div>
 </template>
 
@@ -20,6 +21,10 @@ export default {
         console.log(err);
         await this.$router.push({ name: 'Login' });
       }
+    },
+    async Logout() {
+      await UserService.LogOut;
+      await this.$router.push({ name: 'Logout' });
     },
   },
   mounted() {

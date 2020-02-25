@@ -350,3 +350,15 @@ a {
 .loading-leave-to {
   opacity: 0;
 }
+
+.logOut {
+  @extend %flex-center;
+
+  @include color-and-weight($white, $medium);
+
+  margin: 0 auto;
+  padding: 5px 10px;
+  width: 150px;
+  background-color: $purple;
+  cursor: pointer;
+}

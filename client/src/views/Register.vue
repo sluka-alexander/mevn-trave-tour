@@ -111,17 +111,21 @@ export default {
   },
   methods: {
     async addUser() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log('error');
-      } else {
-        this.$router.push({ name: 'Login' });
-
-        await UserService.addNewUser({
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        });
+      try {
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          console.log('error');
+        } else {
+          await this.$router.push({ name: 'Login' });
+          await UserService.addNewUser({
+            name: this.name,
+            email: this.email,
+            password: this.password,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        await this.$router.push({ name: 'Register' });
       }
     },
   },

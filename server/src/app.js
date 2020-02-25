@@ -54,6 +54,10 @@ app.listen(PORT, () => {
   console.log('server started');
 });
 
+app.get('/', forwardAuthenticated, async (req, res) => {
+  res.send('welcome');
+});
+
 app.get('/tours/:id', async (req,res)=>{
   try {
     const tour = await Tour.findById(req.params.id);
@@ -72,9 +76,9 @@ app.get('/tours', async (req, res) => {
   }
 });
 
-app.get('/dashboard', async (req, res) => {
+app.get('/dashboard', ensureAuthenticated, async (req, res) => {
   try {
-    res.send('Dashboard');
+    res.send('Hello');
   } catch (err) {
     res.sendStatus(500);
   }
@@ -135,10 +139,7 @@ app.post('/register', async (req, res) => {
     password: req.body.password,
   });
   User.findOne({ email: req.body.email }).then(user => {
-    if(user) {
-      console.log('such email is already there');
-    }
-    else {
+    if(!user) {
       bcrypt.genSalt(10,  (err, salt) => {
         bcrypt.hash(newUser.password, salt,async (err, hash) => {
           if (err) throw err;
@@ -152,6 +153,8 @@ app.post('/register', async (req, res) => {
           });
         });
       });
+    } else {
+      console.log('есть такой уже')
     }
   }).catch(err => console.log(err));
 });
@@ -168,3 +171,9 @@ app.post('/login', async (req, res, next) => {
    }
 });
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+//{"email": "elka@gmail.com", "password" : "111111"}

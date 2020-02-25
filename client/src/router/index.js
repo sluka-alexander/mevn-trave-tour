@@ -9,6 +9,7 @@ const Tours = import('../views/Tours.vue');
 const NewTour = import('../views/NewTour.vue');
 const EditTour = import('../views/EditTour.vue');
 const Dashboard = import('../views/Dashboard.vue');
+const Logout = import('../views/Logout.vue');
 const NotFound = import('../views/NotFound.vue');
 const Error = import('../views/Error.vue');
 
@@ -59,6 +60,11 @@ const routes = [
     path: '/error',
     name: 'Error',
     component: () => Error,
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => Logout,
   },
   {
     path: '/*',

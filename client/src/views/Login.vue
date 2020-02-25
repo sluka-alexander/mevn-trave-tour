@@ -88,7 +88,6 @@ export default {
         if (this.validateLogin === false) {
           this.validateLogin = !this.validateLogin;
         }
-        await this.$router.push({ name: 'Login' });
       }
     },
   },
