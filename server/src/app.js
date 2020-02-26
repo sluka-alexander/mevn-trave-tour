@@ -8,8 +8,8 @@ const session = require('express-session');
 mongoose.set('useCreateIndex', true);
 
 //Passport config
+
 require('../config/passport')(passport);
-const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -26,8 +26,16 @@ const User = require('../models/User');
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-app.use(cors());
 
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+next();
+});
+
+app.use(require('cookie-parser')());
 app.use(session({
   secret: 'secret',
   resave: true,
@@ -54,7 +62,7 @@ app.listen(PORT, () => {
   console.log('server started');
 });
 
-app.get('/', forwardAuthenticated, async (req, res) => {
+app.get('/', async (req, res) => {
   res.send('welcome');
 });
 
@@ -71,14 +79,6 @@ app.get('/tours', async (req, res) => {
   try {
     const tours = await Tour.find();
     await res.json(tours);
-  } catch (err) {
-    res.sendStatus(500);
-  }
-});
-
-app.get('/dashboard', ensureAuthenticated, async (req, res) => {
-  try {
-    res.send('Hello');
   } catch (err) {
     res.sendStatus(500);
   }
@@ -160,6 +160,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/login', async (req, res, next) => {
+  console.log('Cookies: login ', req.cookies);
   try {
      passport.authenticate('local', {
        successRedirect: '/dashboard',
@@ -169,6 +170,15 @@ app.post('/login', async (req, res, next) => {
    } catch (err) {
      console.log(err);
    }
+});
+
+app.get('/dashboard', async (req, res) => {
+  console.log('Cookies: dash ', req.cookies);
+  try {
+    res.json({ name: req.user.name });
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
 app.get('/logout', function(req, res){

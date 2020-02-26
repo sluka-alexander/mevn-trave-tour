@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="title-item">
-        Hello
+        Hello, {{ nameUser.name }}
         <div class="icon icon__welcome"></div>
       </div>
       <div class="logOut" @click="Logout">LogOut</div>
@@ -13,13 +13,18 @@ import UserService from '../services/UserService';
 
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      nameUser: '',
+    };
+  },
   methods: {
     async Dashboard() {
       try {
-        await UserService.Dashboard;
+        const response = await UserService.Dashboard();
+        this.nameUser = response.data;
       } catch (err) {
         console.log(err);
-        await this.$router.push({ name: 'Login' });
       }
     },
     async Logout() {

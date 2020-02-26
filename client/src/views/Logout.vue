@@ -3,10 +3,18 @@
 </template>
 
 <script>
+import UserService from '../services/UserService';
+
 export default {
   name: 'Logout',
+  methods: {
+    async SignOut() {
+      await UserService.LogOut();
+      await this.$router.push({ name: 'Home' });
+    },
+  },
   mounted() {
-    this.$router.push({ name: 'Home' });
+    this.SignOut();
   },
 };
 

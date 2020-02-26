@@ -8,7 +8,7 @@ export default {
     return Api().post('/login', params);
   },
   Dashboard() {
-    return Api().post('/dashboard');
+    return Api().get('/dashboard');
   },
   LogOut() {
     return Api().get('/logout');
