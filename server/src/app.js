@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS, DELETE');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 next();
@@ -154,7 +155,7 @@ app.post('/register', async (req, res) => {
         });
       });
     } else {
-      console.log('есть такой уже')
+      console.log('есть такой уже');
     }
   }).catch(err => console.log(err));
 });

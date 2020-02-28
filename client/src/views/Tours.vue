@@ -133,7 +133,13 @@ export default {
   },
   computed: {
     filteredTours() {
-      return this.tours.filter((tour) => tour.name.match(this.search));
+      return this.tours.filter((tour) => tour.name.match(this.search)
+        || tour.category.match(this.search));
+    },
+  },
+  filters: {
+    lowercase(value) {
+      return value.toLowerCase();
     },
   },
   mounted() {
