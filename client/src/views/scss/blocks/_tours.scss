@@ -13,6 +13,21 @@ table {
   -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
   -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
   box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+
+}
+
+.tours {
+  input {
+    @include color-and-weight($black,$regular);
+    font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
+    border-bottom: 1px solid $gray;
+    background-color: $background;
+    outline: 0;
+    width: 100%;
+    resize: none;
+    margin: 0;
+    padding: 10px 0;
+  }
 }
 
 th {

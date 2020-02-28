@@ -47,35 +47,36 @@
         <div style="text-align: center" v-if="!tours.length && NotTours">
           Please, add your first tour</div>
       </transition>
+      <input v-model="search" placeholder='Enter name of tour'>
       <transition name="tours">
-      <table v-if="tours.length">
-        <tr>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Date</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        <tr>
-        <tr v-for="tour in tours" v-bind:key="tour.id">
-          <td>{{ tour.name }}</td>
-          <td>{{ tour.category}}</td>
-          <td>{{ tour.description}}</td>
-          <td>{{ tour.price}}$</td>
-          <td>{{ tour.date}}</td>
-          <td>
-            <div @click="Update">
-              <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
-            </div>
-          </td>
-          <td>
-            <div @click="Delete">
-              <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
-            </div>
-          </td>
-        </tr>
-      </table>
+        <table v-if="tours.length">
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          <tr>
+          <tr v-for="tour in filteredTours" v-bind:key="tour.id">
+            <td>{{ tour.name }}</td>
+            <td>{{ tour.category}}</td>
+            <td>{{ tour.description}}</td>
+            <td>{{ tour.price}}$</td>
+            <td>{{ tour.date}}</td>
+            <td>
+              <div @click="Update">
+                <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
+              </div>
+            </td>
+            <td>
+              <div @click="Delete">
+                <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
+              </div>
+            </td>
+          </tr>
+        </table>
       </transition>
     </div>
   </div>
@@ -95,6 +96,7 @@ export default {
       buttonDelete: false,
       clickId: '',
       NotTours: false,
+      search: '',
     };
   },
   methods: {
@@ -129,7 +131,11 @@ export default {
       }, 2000);
     },
   },
-
+  computed: {
+    filteredTours() {
+      return this.tours.filter((tour) => tour.name.match(this.search));
+    },
+  },
   mounted() {
     this.getTours();
     this.Loading();
