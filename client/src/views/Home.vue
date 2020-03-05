@@ -10,8 +10,11 @@
         <div class="main-info__title">Adventure<br>Without BOUNDARIES...</div>
       </div>
       <div class="search">
-        <input type="text" class="search__input" placeholder="Find out the best place...">
-        <div class="search__button">Search</div>
+        <input type="text" class="search__input" placeholder="Find out the best place..."
+               v-model="search">
+        <router-link :to="{ name: 'Tours', query: { search: search } }"
+                     class="search__button">Search
+        </router-link>
       </div>
     </div>
   </div>
@@ -94,24 +97,32 @@
 
       <div class="boxes">
         <div class="experience__column">
-          <div class="box img-category-1">
-            <div class="box__category">Mountain</div>
-          </div>
+          <router-link :to="{ name: 'Tours', query: { search: 'mountain' } }">
+            <div class="box img-category-1">
+              <div class="box__category">Mountain</div>
+            </div>
+          </router-link>
         </div>
         <div class="experience__column">
-          <div class="box img-category-2">
-            <div class="box__category">Waterfall</div>
-          </div>
+          <router-link :to="{ name: 'Tours', query: { search: 'waterfall' } }">
+            <div class="box img-category-2">
+              <div class="box__category">Waterfall</div>
+            </div>
+          </router-link>
         </div>
         <div class="experience__column">
-          <div class="box img-category-3">
-            <div class="box__category">Snow</div>
-          </div>
+          <router-link :to="{ name: 'Tours', query: { search: 'snow' } }">
+            <div class="box img-category-3">
+              <div class="box__category">Snow</div>
+            </div>
+          </router-link>
         </div>
         <div class="experience__column">
-          <div class="box img-category-4">
-            <div class="box__category">Nature</div>
-          </div>
+          <router-link :to="{ name: 'Tours', query: { search: 'nature' } }">
+            <div class="box img-category-4">
+              <div class="box__category">Nature</div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -285,6 +296,11 @@
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      search: '',
+    };
+  },
   components: {
   },
 };

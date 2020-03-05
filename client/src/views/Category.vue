@@ -26,7 +26,7 @@
         </div>
         <div class="confirm-form__buttons">
           <div class="confirm-form__button confirm-form__button__positive"
-                 @click="DeleteTour(clickId)">Delete</div>
+               @click="DeleteTour(clickId)">Delete</div>
           <div class="confirm-form__button confirm-form__button__negative"
                @click="confirmFormDelete = !confirmFormDelete">
             Cancel
@@ -34,6 +34,7 @@
         </div>
       </div>
     </transition>
+    <button @click="getTourSort">SORT</button>
     <div v-if="confirmFormEdit || confirmFormDelete" class="page-form"></div>
     <div class="container">
       <div class="title-item">
@@ -47,55 +48,36 @@
         <div style="text-align: center" v-if="!tours.length && NotTours">
           Please, add your first tour</div>
       </transition>
-      <div class="table-tours">
-        <transition name="tours">
-          <input v-if="tours.length" v-model="search" placeholder='Enter name of tour'>
-        </transition>
-        <button v-if="search" class="table-tours__search-item" @click="cleanSearch">{{ search }}
-          <i class="fas fa-times"></i>
-        </button>
-        <transition name="tours">
-          <table v-if="tours.length">
-            <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Price
-                <router-link v-if="this.$route.query.sort !== 'price_desc'"  :to="{query:
-                { search: search, sort: 'price_desc' } }" class="fas fa-arrow-down"></router-link>
-                <router-link v-else-if="this.$route.query.sort === 'price_desc'" :to="{query:
-                { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
-              </th>
-              <th>Date</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            <tr>
-            <tr v-for="tour in filteredTours" v-bind:key="tour.id">
-              <td>{{ tour.name }}</td>
-              <td>{{ tour.category}}</td>
-              <td>{{ tour.description}}</td>
-              <td>{{ tour.price}}$</td>
-              <td>{{ tour.date}}</td>
-              <td>
-                <div @click="Update">
-                  <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
-                </div>
-              </td>
-              <td>
-                <div @click="Delete">
-                  <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </transition>
-      </div>
+      <input v-model="search" placeholder='Enter name of tour'>
       <transition name="tours">
-        <div class="pages" v-if="tours.length">
-          <div v-for="(index) in Math.ceil(tours.length/perPage)" v-bind:key='index.id'>
-            <div class="page">{{ index }}</div>
-          </div>
-        </div>
+        <table v-if="tours.length">
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          <tr>
+          <tr v-for="tour in filteredTours" v-bind:key="tour.id">
+            <td>{{ tour.name }}</td>
+            <td>{{ tour.category}}</td>
+            <td>{{ tour.description}}</td>
+            <td>{{ tour.price}}$</td>
+            <td>{{ tour.date}}</td>
+            <td>
+              <div @click="Update">
+                <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
+              </div>
+            </td>
+            <td>
+              <div @click="Delete">
+                <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
+              </div>
+            </td>
+          </tr>
+        </table>
       </transition>
     </div>
   </div>
@@ -105,7 +87,7 @@
 import TourService from '../services/TourService';
 
 export default {
-  name: 'Tours',
+  name: 'Category',
   data() {
     return {
       tours: [],
@@ -115,31 +97,31 @@ export default {
       buttonDelete: false,
       clickId: '',
       NotTours: false,
-      search: this.$route.query.search || '',
-      firstPage: 1,
-      perPage: 4,
+      search: '',
+      sort: false,
     };
   },
   methods: {
-    async getTours() {
-      const response = await TourService.fetchTours();
+    async getCategoryTours() {
+      const response = await TourService.getToursCategory({
+        category: this.$route.params.category,
+      });
       this.tours = response.data;
     },
 
-    async Sort() {
-      if (this.$route.query.sort === 'price_desc') {
-        const response = await TourService.getTourSortDesc();
-        this.tours = response.data;
-      } else if (this.$route.query.sort === 'price_asc') {
-        const response = await TourService.getTourSortAsc();
+    async getTourSort() {
+      this.sort = !this.sort;
+      if (this.sort) {
+        const response = await TourService.getTourSort({
+          category: this.$route.params.category,
+        });
         this.tours = response.data;
       } else {
-        this.getTours();
+        const response = await TourService.getToursCategory({
+          category: this.$route.params.category,
+        });
+        this.tours = response.data;
       }
-    },
-
-    async cleanSearch() {
-      this.search = '';
     },
 
     async Update(event) {
@@ -171,8 +153,9 @@ export default {
   computed: {
     filteredTours() {
       return this.tours.filter((tour) => tour.name.toLowerCase().match(this.search.toLowerCase())
-          || tour.category.toLowerCase().match(this.search.toLowerCase()));
+                    || tour.category.toLowerCase().match(this.search.toLowerCase()));
     },
+
   },
   filters: {
     lowercase(value) {
@@ -180,19 +163,8 @@ export default {
     },
   },
   mounted() {
-    this.Sort();
+    this.getCategoryTours();
     this.Loading();
-  },
-  watch: {
-    search(newVal) {
-      this.$router.push({ query: { ...this.$route.query, search: newVal } });
-    },
-    '$route.query.search': function (val) {
-      this.search = val;
-    },
-    '$route.query.sort': function () {
-      this.Sort();
-    },
   },
 };
 </script>

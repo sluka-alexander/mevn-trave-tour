@@ -12,6 +12,7 @@ const Dashboard = import('../views/Dashboard.vue');
 const Logout = import('../views/Logout.vue');
 const NotFound = import('../views/NotFound.vue');
 const Error = import('../views/Error.vue');
+const Category = import('../views/Category.vue');
 
 Vue.use(VueRouter);
 
@@ -22,14 +23,19 @@ const routes = [
     component: () => Home,
   },
   {
-    path: '/register',
+    path: '/user/register',
     name: 'Register',
     component: () => Register,
   },
   {
-    path: '/login',
+    path: '/user/login',
     name: 'Login',
     component: () => Login,
+  },
+  {
+    path: '/user/dashboard',
+    name: 'Dashboard',
+    component: () => Dashboard,
   },
   {
     path: '/users',
@@ -42,9 +48,24 @@ const routes = [
     component: () => Tours,
   },
   {
+    path: '/tours?sort=price_desc',
+    name: 'Tours',
+    component: () => Tours,
+  },
+  {
+    path: '/tours?sort=price_sc',
+    name: 'Tours',
+    component: () => Tours,
+  },
+  {
     path: '/tours/new',
     name: 'NewTour',
     component: () => NewTour,
+  },
+  {
+    path: '/tours/:category',
+    name: 'CategoryTour',
+    component: () => Category,
   },
   {
     path: '/tours/:id',
@@ -52,17 +73,12 @@ const routes = [
     component: () => EditTour,
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => Dashboard,
-  },
-  {
     path: '/error',
     name: 'Error',
     component: () => Error,
   },
   {
-    path: '/logout',
+    path: '/user/logout',
     name: 'Logout',
     component: () => Logout,
   },

@@ -4,6 +4,44 @@
 @import "../common/functions";
 @import "../common/config";
 
+.table-tours {
+  button {
+    cursor: pointer;
+    outline: 0;
+  }
+
+  &__search-item {
+    @include color-and-weight($black,$bold);
+
+    padding: 5px 15px;
+    margin: 10px 0;
+    background-color: $white;
+    border-radius: 50px;
+    border: none;
+    -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+  }
+  &__tour {
+    @include color-and-weight($black,$bold);
+
+    padding: 10px 25px;
+    background-color: $white;
+    border-radius: 50px;
+    -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    margin: 5px;
+    transition: .4s;
+
+    &:hover {
+      @include color-and-weight($white,$bold);
+
+      background-color: $purple;
+    }
+  }
+}
+
 table {
   margin: 0 auto;
   background: white;
@@ -13,7 +51,6 @@ table {
   -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
   -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
   box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-
 }
 
 .tours {
@@ -67,4 +104,29 @@ th:nth-last-child(2), td:nth-last-child(2){
 
 hr {
   width: 100%;
+}
+.pages {
+  @extend %flex-center;
+
+  width: 100%;
+  margin-top: 15px;
+}
+.page {
+  @extend %flex-center;
+
+  @include size(35px);
+  @include color-and-weight($gray,$medium);
+
+  padding: 5px;
+  border-radius: 5px;
+  margin: 4px;
+  cursor: pointer;
+  border: 1px solid $gray;
+  transition: .2s;
+
+  &:hover {
+    @include color-and-weight($white,$medium);
+    background-color: $purple;
+    border: 1px solid $purple;
+  }
 }

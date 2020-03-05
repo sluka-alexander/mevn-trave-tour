@@ -145,12 +145,12 @@ export default {
           desc: this.tour.desc,
           price: this.tour.price,
         });
-        await this.$router.push({ name: 'Tours' });
+        await this.$router.go(-1);
       }
     },
 
     async Back() {
-      await this.$router.push({ name: 'Tours' });
+      await this.$router.go(-1);
     },
   },
   mounted() {

@@ -2,15 +2,15 @@ import Api from './Api';
 
 export default {
   addNewUser(params) {
-    return Api().post('/register', params);
+    return Api().post('/user/register', params);
   },
   Login(params) {
-    return Api().post('/login', params);
+    return Api().post('/user/login', params);
   },
   Dashboard() {
-    return Api().get('/dashboard');
+    return Api().get('/user/dashboard');
   },
   LogOut() {
-    return Api().get('/logout');
+    return Api().get('/user/logout');
   },
 };

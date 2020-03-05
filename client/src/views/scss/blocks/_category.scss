@@ -8,10 +8,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-
-  @include media(large-desktop) {
-    background-image: url('#{$img}choose-category.jpg');
-  }
 }
 
 

@@ -81,7 +81,7 @@ export default {
             email: this.email,
             password: this.password,
           });
-          await this.$router.push({ name: 'Dashboard' });
+          await this.$router.go(-1);
         }
       } catch (error) {
         console.log(error);

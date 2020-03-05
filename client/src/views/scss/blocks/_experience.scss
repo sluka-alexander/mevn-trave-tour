@@ -68,10 +68,16 @@
   @extend %flex;
   @include size(100%, 400px);
 
+  transition: .3s;
   justify-content: flex-end;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  border: 0 solid $purple;
+
+  &:hover {
+    border: 20px solid $purple;
+  }
 
   @include media(tablet) {
     flex-direction: row;

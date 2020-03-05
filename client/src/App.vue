@@ -6,14 +6,15 @@
         <div class="navbar">
           <div class="navbar__left">
             <router-link to="/" class="navbar__item">Home</router-link>
-            <router-link to="/tours" class="navbar__item">Tours</router-link>
+            <router-link :to="{ path: '/tours/', query: { search: ''} }"
+                         class="navbar__item">Tours</router-link>
             <router-link to="/tours/new" class="navbar__item">New tour</router-link>
           </div>
         </div>
         <div class="navbar">
           <div class="navbar__right">
-            <router-link to="/login" class="navbar__item">Login</router-link>
-            <router-link to="/register" class="navbar__item
+            <router-link to="/user/login" class="navbar__item">Login</router-link>
+            <router-link to="/user/register" class="navbar__item
             navbar__right__item">Register</router-link>
           </div>
         </div>
