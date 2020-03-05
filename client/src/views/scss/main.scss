@@ -161,10 +161,6 @@ a {
   background-repeat: no-repeat;
   transition: .5s;
 
-  &:hover {
-    transform: rotate(360deg);
-  }
-
   &__tours {
     background-image: url('https://image.flaticon.com/icons/svg/2569/2569869.svg');
   }

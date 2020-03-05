@@ -43,7 +43,7 @@
 }
 
 table {
-  margin: 0 auto;
+  margin-bottom: 50px;
   background: white;
   max-width: 100%;
   width: 100%;
@@ -124,9 +124,35 @@ hr {
   border: 1px solid $gray;
   transition: .2s;
 
+  a {
+    &.router-link-exact-active {
+      transition: .5s;
+      background-color: $pink;
+    }
+  }
+
   &:hover {
     @include color-and-weight($white,$medium);
     background-color: $purple;
     border: 1px solid $purple;
+  }
+}
+.button-load-tours {
+  @extend %flex-center;
+
+  @include color-and-weight($white, $bold);
+
+  font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+  background-color: $purple;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 20px auto;
+  transition: .2s;
+  outline: 0;
+
+  &:hover {
+    background-color: $pink;
   }
 }

@@ -51,9 +51,10 @@
         <transition name="tours">
           <input v-if="tours.length" v-model="search" placeholder='Enter name of tour'>
         </transition>
-        <button v-if="search" class="table-tours__search-item" @click="cleanSearch">{{ search }}
-          <i class="fas fa-times"></i>
-        </button>
+          <button v-if="search " class="table-tours__search-item"
+                  @click="cleanSearch">{{ search }}
+            <i class="fas fa-times"></i>
+          </button>
         <transition name="tours">
           <table v-if="tours.length">
             <tr>
@@ -70,7 +71,7 @@
               <th>Edit</th>
               <th>Delete</th>
             <tr>
-            <tr v-for="tour in filteredTours" v-bind:key="tour.id">
+            <tr v-for="tour in filteredTours.slice(0, numberTours)" v-bind:key="tour.id">
               <td>{{ tour.name }}</td>
               <td>{{ tour.category}}</td>
               <td>{{ tour.description}}</td>
@@ -91,12 +92,22 @@
         </transition>
       </div>
       <transition name="tours">
-        <div class="pages" v-if="tours.length">
-          <div v-for="(index) in Math.ceil(tours.length/perPage)" v-bind:key='index.id'>
-            <div class="page">{{ index }}</div>
-          </div>
-        </div>
+        <button v-if="filteredTours.length &&
+         filteredTours.length > numberTours" class="button-load-tours"
+                @click="LoadTours">
+          Load more tours
+        </button>
       </transition>
+<!--      <transition name="tours">-->
+<!--        <div class="pages" v-if="filteredTours.length">-->
+<!--          <div v-for="(index) in Math.ceil(filteredTours.length/perPage)"
+v-bind:key='index.id'>-->
+<!--            <router-link :to="{ query: { search: search, sort: $route.query.sort,-->
+<!--            page: index }}" class="page">{{ index }}</router-link>-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--      </transition>-->
     </div>
   </div>
 </template>
@@ -116,8 +127,10 @@ export default {
       clickId: '',
       NotTours: false,
       search: this.$route.query.search || '',
-      firstPage: 1,
-      perPage: 4,
+      sort: this.$route.query.sort || '',
+      numberTours: 4,
+      // firstPage: 1,
+      // perPage: 4,
     };
   },
   methods: {
@@ -167,16 +180,14 @@ export default {
         this.NotTours = !this.NotTours;
       }, 2000);
     },
+    async LoadTours() {
+      this.numberTours += 4;
+    },
   },
   computed: {
     filteredTours() {
       return this.tours.filter((tour) => tour.name.toLowerCase().match(this.search.toLowerCase())
           || tour.category.toLowerCase().match(this.search.toLowerCase()));
-    },
-  },
-  filters: {
-    lowercase(value) {
-      return value.toLowerCase();
     },
   },
   mounted() {
@@ -189,6 +200,7 @@ export default {
     },
     '$route.query.search': function (val) {
       this.search = val;
+      this.numberTours = 4;
     },
     '$route.query.sort': function () {
       this.Sort();
