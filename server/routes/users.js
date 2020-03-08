@@ -68,17 +68,45 @@ router.get('/users', async (req, res) => {
     }
 });
 
-router.get('/users/:page', async (req, res) => {
+router.get('/:id', async (req, res)=>{
     try {
-        let perPage = 2;
-        let page = req.params.page || 1;
-        const tours = await User.find()
-            .skip((perPage * page) - perPage)
-            .limit(perPage);
-        await res.json(tours);
+        const tour = await User.findById(req.params.id);
+        await res.json(tour);
     } catch (err) {
         res.sendStatus(500);
     }
 });
+
+router.put('/:id', (req, res) => {
+    User.findById(req.params.id, (err, user) => {
+        if (err) {
+            console.log(err)
+        } else {
+            user.name = req.body.name;
+            user.email = req.body.email;
+            user.role = req.body.role;
+            user.save(err => {
+                if (err) {
+                    res.sendStatus(500)
+                } else {
+                    res.sendStatus(200)
+                }
+            })
+        }
+    })
+});
+
+// router.get('/users/:page', async (req, res) => {
+//     try {
+//         let perPage = 2;
+//         let page = req.params.page || 1;
+//         const tours = await User.find()
+//             .skip((perPage * page) - perPage)
+//             .limit(perPage);
+//         await res.json(tours);
+//     } catch (err) {
+//         res.sendStatus(500);
+//     }
+// });
 
 module.exports = router;

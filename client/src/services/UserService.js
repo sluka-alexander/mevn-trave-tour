@@ -13,9 +13,6 @@ export default {
   LogOut() {
     return Api().get('/user/logout');
   },
-  getUserspage(params) {
-    return Api().get(`user/users/${params.page}`);
-  },
   getUsers() {
     return Api().get('user/users');
   },

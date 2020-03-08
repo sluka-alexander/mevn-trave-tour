@@ -14,6 +14,24 @@
   }
 }
 
+iframe {
+  background-size: cover;
+  width: 100%;
+  position: relative;
+  height: 200px;
+  border:  none;
+
+  @include media(small-tablet) {
+    height: 300px;
+  }
+  @include media(tablet) {
+    height: 480px;
+  }
+  @include media(desktop) {
+    height: 720px;
+  }
+}
+
 .video-block {
   background-image: url('#{$img}island.jpg');
   background-size: cover;

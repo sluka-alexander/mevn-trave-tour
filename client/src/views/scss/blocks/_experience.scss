@@ -75,10 +75,6 @@
   background-repeat: no-repeat;
   border: 0 solid $purple;
 
-  &:hover {
-    border: 20px solid $purple;
-  }
-
   @include media(tablet) {
     flex-direction: row;
     flex-wrap: wrap;
@@ -95,9 +91,7 @@
     @include size(120px, 30px);
 
     font-size: calcFluidFontSize(15, $font-M, 320, 1920);
-    opacity: .9;
     background-color: $purple;
-
   }
 }
 

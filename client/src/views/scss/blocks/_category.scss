@@ -8,6 +8,13 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  
+  .box {
+    &:hover {
+      border: 20px solid $purple;
+    }
+  }
+
 }
 
 
