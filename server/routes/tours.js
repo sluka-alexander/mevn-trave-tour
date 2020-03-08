@@ -29,19 +29,6 @@ router.get('/asc', async (req, res) => {
     }
 });
 
-router.get('/pages/:page', async (req, res) => {
-    try {
-        let perPage = 4;
-        let page = req.params.page || 1;
-        const tours = await Tour.find()
-            .skip((perPage * page) - perPage)
-            .limit(perPage);
-        await res.json(tours);
-    } catch (err) {
-        res.sendStatus(500);
-    }
-});
-
 router.post('/new', async (req, res) => {
     let tour = new Tour({
         name: req.body.name,

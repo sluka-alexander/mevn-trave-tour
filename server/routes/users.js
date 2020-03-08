@@ -68,4 +68,17 @@ router.get('/users', async (req, res) => {
     }
 });
 
+router.get('/users/:page', async (req, res) => {
+    try {
+        let perPage = 2;
+        let page = req.params.page || 1;
+        const tours = await User.find()
+            .skip((perPage * page) - perPage)
+            .limit(perPage);
+        await res.json(tours);
+    } catch (err) {
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;

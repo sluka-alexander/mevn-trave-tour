@@ -12,6 +12,7 @@
 @import "blocks/footer";
 @import "blocks/newTour";
 @import "blocks/tours";
+@import "blocks/users";
 
 
 *, *:after, *:before {
@@ -205,6 +206,10 @@ a {
     @include size(150px);
 
     background-image: url('https://image.flaticon.com/icons/svg/2037/2037885.svg');
+  }
+
+  &__users {
+    background-image: url('https://image.flaticon.com/icons/svg/2154/2154866.svg');
   }
 }
 

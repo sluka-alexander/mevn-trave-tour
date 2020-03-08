@@ -5,10 +5,11 @@
         <router-link to="/" class="logo">advento</router-link>
         <div class="navbar">
           <div class="navbar__left">
-            <router-link to="/" class="navbar__item">Home</router-link>
             <router-link :to="{ path: '/tours/', query: { search: ''} }"
                          class="navbar__item">Tours</router-link>
             <router-link to="/tours/new" class="navbar__item">New tour</router-link>
+            <router-link :to="{ path: '/users/', query: { page: '1'} }"
+                         class="navbar__item">Users</router-link>
           </div>
         </div>
         <div class="navbar">

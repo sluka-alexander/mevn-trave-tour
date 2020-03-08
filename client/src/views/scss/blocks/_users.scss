@@ -1,0 +1,97 @@
+@import "../common/mixins";
+@import "../common/placeholders";
+@import "../common/variables";
+@import "../common/functions";
+@import "../common/config";
+
+.users {
+  width: 100%;
+
+  &__item {
+    @extend %flex-center;
+
+    font-size: calcFluidFontSize(18, $font-M, 320, 1920);
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: $white;
+    padding: 10px;
+    width: 50%;
+    margin: 15px auto;
+    -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+
+    .bold {
+      @include color-and-weight($black, $bold);
+    }
+
+    &__photo {
+      @extend %flex-center;
+
+      @include size(80px);
+
+      background-image: url("https://image.flaticon.com/icons/svg/149/149452.svg");
+      background-size: cover;
+      margin-bottom: 15px;
+
+      &__index {
+        @include color-and-weight($pink, $extra-bold);
+
+        font-size: calcFluidFontSize(18, $font-S, 320, 1920);
+      }
+    }
+
+    &__edit {
+      @include color-and-weight($white, $medium);
+      @include size(120px, 50px);
+
+      @extend %flex-center;
+
+      font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+      border: none;
+      background-color: $purple;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: .3s;
+      border-radius: 5px;
+      outline: 0;
+
+      &:hover {
+        background-color: $pink;
+      }
+    }
+  }
+
+  .pages {
+    @extend %flex-center;
+
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .page {
+    @extend %flex-center;
+
+    @include size(35px);
+    @include color-and-weight($gray,$medium);
+
+    padding: 5px;
+    border-radius: 5px;
+    margin: 4px;
+    cursor: pointer;
+    border: 1px solid $gray;
+    transition: .2s;
+
+    &:hover {
+      @include color-and-weight($white,$medium);
+      background-color: $purple;
+      border: 1px solid $purple;
+    }
+
+    &__active {
+      @include color-and-weight($pink,$bold);
+
+      border: 1px solid $pink;
+    }
+  }
+};

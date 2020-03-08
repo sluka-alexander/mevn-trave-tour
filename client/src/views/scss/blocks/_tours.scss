@@ -105,38 +105,7 @@ th:nth-last-child(2), td:nth-last-child(2){
 hr {
   width: 100%;
 }
-.pages {
-  @extend %flex-center;
 
-  width: 100%;
-  margin-top: 15px;
-}
-.page {
-  @extend %flex-center;
-
-  @include size(35px);
-  @include color-and-weight($gray,$medium);
-
-  padding: 5px;
-  border-radius: 5px;
-  margin: 4px;
-  cursor: pointer;
-  border: 1px solid $gray;
-  transition: .2s;
-
-  a {
-    &.router-link-exact-active {
-      transition: .5s;
-      background-color: $pink;
-    }
-  }
-
-  &:hover {
-    @include color-and-weight($white,$medium);
-    background-color: $purple;
-    border: 1px solid $purple;
-  }
-}
 .button-load-tours {
   @extend %flex-center;
 

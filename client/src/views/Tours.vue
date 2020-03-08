@@ -44,8 +44,8 @@
         <div class="loading" v-if="!tours.length && !NotTours"></div>
       </transition>
       <transition name="loading">
-        <div style="text-align: center" v-if="!tours.length && NotTours">
-          Please, add your first tour</div>
+        <div style="text-align: center" v-if="!filteredTours.length && NotTours">
+          Found Nothing We Have</div>
       </transition>
       <div class="table-tours">
         <transition name="tours">
@@ -56,7 +56,7 @@
             <i class="fas fa-times"></i>
           </button>
         <transition name="tours">
-          <table v-if="tours.length">
+          <table v-if="filteredTours.length">
             <tr>
               <th>Name</th>
               <th>Category</th>
@@ -98,16 +98,6 @@
           Load more tours
         </button>
       </transition>
-<!--      <transition name="tours">-->
-<!--        <div class="pages" v-if="filteredTours.length">-->
-<!--          <div v-for="(index) in Math.ceil(filteredTours.length/perPage)"
-v-bind:key='index.id'>-->
-<!--            <router-link :to="{ query: { search: search, sort: $route.query.sort,-->
-<!--            page: index }}" class="page">{{ index }}</router-link>-->
-
-<!--          </div>-->
-<!--        </div>-->
-<!--      </transition>-->
     </div>
   </div>
 </template>
@@ -128,9 +118,7 @@ export default {
       NotTours: false,
       search: this.$route.query.search || '',
       sort: this.$route.query.sort || '',
-      numberTours: 4,
-      // firstPage: 1,
-      // perPage: 4,
+      numberTours: 5,
     };
   },
   methods: {
@@ -181,7 +169,7 @@ export default {
       }, 2000);
     },
     async LoadTours() {
-      this.numberTours += 4;
+      this.numberTours += 3;
     },
   },
   computed: {
@@ -200,7 +188,7 @@ export default {
     },
     '$route.query.search': function (val) {
       this.search = val;
-      this.numberTours = 4;
+      this.numberTours = 5;
     },
     '$route.query.sort': function () {
       this.Sort();
