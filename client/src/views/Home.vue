@@ -71,25 +71,21 @@
       <div class="container">
         <div class="title">Choose <br> your category</div>
         <div class="up-content">
-          <div class="subtitle">Lorem ipsum dolor sit amet, c
-            onsectetur adipisicing elit. Ad aliquam dicta
-            doloremque
-            est,
-            excepturi fugit, labore mollitia natus obcaecati
-            officiis perspiciatis quod sed tempore tenetur ullam
-            vel
-            voluptatibus. Ab architecto asperiores autem commodi
-            corporis cupiditate debitis doloremque dolorum
-            eaque
-            earum
-            in incidunt, iure labore libero magnam maiores
-            maxime molestias neque
+          <div class="subtitle">
+            <div class='slider js-slider'>
+              <div class="slider__body" v-bind:style='{left: sliderOffsetLeft + "px"}'>
+                <div class="slider__slide js-slide" v-for='slide in sliderList'
+                     v-bind:key="slide.id" >
+                  {{ slide.message }}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="up-content__arrows">
-            <div class="up-content__arrows__arrow">
+            <div class="up-content__arrows__arrow" @click='prevSlide'>
               <i class="fas fa-arrow-left"></i>
             </div>
-            <div class="up-content__arrows__arrow">
+            <div class="up-content__arrows__arrow" @click="nextSlide">
               <i class="fas fa-arrow-right"></i>
             </div>
           </div>
@@ -288,7 +284,6 @@
             </div>
           </div>
         </div>
-
         <div class="made"> © All Rights Reserved by ADVENTO | Made with ♥ | 2019</div>
       </div>
     </div>
@@ -303,8 +298,111 @@ export default {
     return {
       video: true,
       search: '',
+      // Всего слайдов
+      sliderAllCount: 0,
+      // Номер активного слайда
+      sliderActive: 1,
+      // Отступ тела со слайдами в контейнере
+      sliderOffsetLeft: 0,
+      // Шаг одного слайда = его длина
+      sliderOffsetStep: 0,
+      // Список изображений
+      sliderList: [
+        {
+          message: 'Waterfall her extensive perceived may any sincerity extremity. '
+                + 'Indeed add rather may pretty see. Old propriety delighted '
+                + 'explained perceived otherwise objection saw ten her',
+        },
+        {
+          message: 'Mountain her extensive perceived may any sincerity extremity. '
+                + 'Indeed add rather may pretty see. Old propriety delighted '
+                + 'explained perceived otherwise objection saw ten her',
+        },
+        {
+          message: 'Snow her extensive perceived may any sincerity extremity. '
+                + 'Indeed add rather may pretty see. Old propriety delighted '
+                + 'explained perceived otherwise objection saw ten her',
+        },
+        {
+          message: 'Nature her extensive perceived may any sincerity extremity. '
+                + 'Indeed add rather may pretty see. Old propriety delighted '
+                + 'explained perceived otherwise objection saw ten her',
+        },
+      ],
     };
   },
-  components: {},
+  methods: {
+    // Иницилизация слайдера
+    initSlider() {
+      // Получаем элементы сладера и его слайдов
+      const sliderBody = this.$el.querySelector('.js-slider');
+      const sliderSlidies = sliderBody.querySelectorAll('.js-slide');
+      // Записываем длину одного слайда для перелистывания
+      this.sliderOffsetStep = sliderBody.clientWidth;
+      // Общее количество слайдов для стопов
+      this.sliderAllCount = sliderSlidies.length;
+    },
+
+    openSlide(id) {
+      if (id > 0 && id <= this.sliderAllCount) {
+        this.sliderActive = id;
+        // Сдвигаем элемент со слайдами
+        this.sliderOffsetLeft = -(this.sliderActive
+            * this.sliderOffsetStep - this.sliderOffsetStep);
+      }
+    },
+
+    nextSlide() {
+      if (this.sliderActive < this.sliderAllCount) {
+        this.sliderActive += 1;
+        this.openSlide(this.sliderActive);
+      }
+    },
+
+    prevSlide() {
+      if (this.sliderActive > 1) {
+        this.sliderActive -= 1;
+        this.openSlide(this.sliderActive);
+      }
+    },
+  },
+
+  mounted() {
+    this.initSlider();
+
+    // Перенастройка слайдера при ресайзе окна
+    window.addEventListener('resize', () => {
+      this.initSlider();
+      this.openSlide(this.sliderActive);
+    });
+  },
 };
 </script>
+<style lang="scss">
+  $slider-height: 100%;
+  $slide-width: 100%;
+
+  .slider {
+    width: 100%;
+    height: $slider-height;
+    position: relative;
+    overflow: hidden;
+
+  &__body {
+     min-width: auto;
+     height: $slider-height;
+     display: flex;
+     position: relative;
+     align-items: stretch;
+     transition: all .5s ease;
+   }
+
+  &__slide {
+     min-width: $slide-width;
+     height: $slider-height;
+     background-size: cover;
+     background-position: center;
+     flex: 1 100%;
+   }
+  }
+</style>
