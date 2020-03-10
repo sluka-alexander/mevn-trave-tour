@@ -74,18 +74,38 @@
           <div class="subtitle">
             <div class='slider js-slider'>
               <div class="slider__body" v-bind:style='{left: sliderOffsetLeft + "px"}'>
-                <div class="slider__slide js-slide" v-for='slide in sliderList'
-                     v-bind:key="slide.id" >
-                  {{ slide.message }}
+                <div class="slider__slide js-slide">
+                  As absolute is by amounted repeated entirely ye returned.
+                  These ready timed enjoy might sir yet one since
+                  As am hastily invited settled at limited civilly fortune me.
+                </div>
+                <div class="slider__slide js-slide">
+                  Years drift never if could forty being no. On estimable dependent as
+                  suffering on my. Rank it long have sure in room what as he
+                  As am hastily invited settled at limited civilly fortune me.
+                </div>
+                <div class="slider__slide js-slide">
+                  Possession travelling sufficient yet our. Talked vanity looked in to.
+                  Gay perceive led believed endeavor.
+                  As am hastily invited settled at limited civilly fortune me.
+                </div>
+                <div class="slider__slide js-slide">
+                  Taken no great widow spoke of it small.
+                  Genius use except son esteem merely her limits. Sons park by do make on.
+                  As am hastily invited settled at limited civilly fortune me.
                 </div>
               </div>
             </div>
           </div>
           <div class="up-content__arrows">
-            <div class="up-content__arrows__arrow" @click='prevSlide'>
+            <div class="up-content__arrows__arrow" @click='prevSlide'
+                 :class="{'up-content__arrows__arrow__inactive' :
+               sliderActive === 1}">
               <i class="fas fa-arrow-left"></i>
             </div>
-            <div class="up-content__arrows__arrow" @click="nextSlide">
+            <div class="up-content__arrows__arrow" @click="nextSlide"
+                 :class="{'up-content__arrows__arrow__inactive' :
+               sliderActive === sliderAllCount}">
               <i class="fas fa-arrow-right"></i>
             </div>
           </div>
@@ -169,26 +189,37 @@
           repellendus. Animi
           aspernatur, aut blanditiis dignissimos
         </div>
-        <div class="awesome-clients__slider">
-          <div class="awesome-clients__slider__arrow">
+        <div  class="awesome-clients__slider">
+          <div class="awesome-clients__slider__arrow" @click="prevSl"
+               :class="{'awesome-clients__slider__arrow__inactive' :
+               activeSlide === 1}">
             <i class="fas fa-angle-left" style="color: white"></i>
           </div>
-          <div class="awesome-clients__slider__client
-        awesome-clients__slider__client__small img-clients-1"></div>
-          <div class="awesome-clients__slider__client
-        awesome-clients__slider__client__medium img-clients-2"></div>
-          <div class="awesome-clients__slider__client
-        awesome-clients__slider__client__large img-clients-3"></div>
-          <div class="awesome-clients__slider__client
-        awesome-clients__slider__client__medium img-clients-4 "></div>
-          <div class="awesome-clients__slider__client
-        awesome-clients__slider__client__small img-clients-5 "></div>
-          <div class="awesome-clients__slider__arrow">
+          <div class="slider js-slider-client">
+            <div class="slider__body" v-bind:style='{left: sliderOffsetClients + "px"}'>
+              <div v-for="index in 5" v-bind:key="index.id" class="slider__slide js-slide">
+                <div class="awesome-clients__slider__client awesome-clients__slider__client__small"
+                     @click="activeSlide = index"
+                     v-bind:class=" ['img-clients-' + index,
+                     { 'awesome-clients__slider__client__large': activeSlide === index,
+                     'awesome-clients__slider__client__medium ': activeSlide === index + 1 ||
+                     activeSlide === index - 1}]">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="awesome-clients__slider__arrow"
+               :class="{'awesome-clients__slider__arrow__inactive' :
+               activeSlide === sliderAllClients}" @click="nextSl">
             <i class="fas fa-angle-right" style="color: white"></i>
           </div>
         </div>
         <div class="awesome-clients__info">
-          <div class="awesome-clients__info__name">Alex Smith</div>
+          <div v-if="activeSlide === 1" class="awesome-clients__info__name">Milana Searle</div>
+          <div v-else-if="activeSlide === 2" class="awesome-clients__info__name">Josh Dolan</div>
+          <div v-else-if="activeSlide === 3" class="awesome-clients__info__name">Alex Smith</div>
+          <div v-else-if="activeSlide === 4" class="awesome-clients__info__name">Chyna Hunter</div>
+          <div v-else-if="activeSlide === 5" class="awesome-clients__info__name">Kiya Lennon</div>
           <div class="awesome-clients__info__review">Lorem ipsum
             dolor sit amet, consectetur adipisicing elit.
             Consectetur, delectus dicta
@@ -306,47 +337,24 @@ export default {
       sliderOffsetLeft: 0,
       // Шаг одного слайда = его длина
       sliderOffsetStep: 0,
-      // Список изображений
-      sliderList: [
-        {
-          message: 'Waterfall her extensive perceived may any sincerity extremity. '
-                + 'Indeed add rather may pretty see. Old propriety delighted '
-                + 'explained perceived otherwise objection saw ten her',
-        },
-        {
-          message: 'Mountain her extensive perceived may any sincerity extremity. '
-                + 'Indeed add rather may pretty see. Old propriety delighted '
-                + 'explained perceived otherwise objection saw ten her',
-        },
-        {
-          message: 'Snow her extensive perceived may any sincerity extremity. '
-                + 'Indeed add rather may pretty see. Old propriety delighted '
-                + 'explained perceived otherwise objection saw ten her',
-        },
-        {
-          message: 'Nature her extensive perceived may any sincerity extremity. '
-                + 'Indeed add rather may pretty see. Old propriety delighted '
-                + 'explained perceived otherwise objection saw ten her',
-        },
-      ],
+      sliderAllClients: 0,
+      activeSlide: 1,
+      sliderOffsetStepClients: 0,
+      sliderOffsetClients: 0,
     };
   },
   methods: {
     // Иницилизация слайдера
     initSlider() {
-      // Получаем элементы сладера и его слайдов
       const sliderBody = this.$el.querySelector('.js-slider');
       const sliderSlidies = sliderBody.querySelectorAll('.js-slide');
-      // Записываем длину одного слайда для перелистывания
       this.sliderOffsetStep = sliderBody.clientWidth;
-      // Общее количество слайдов для стопов
       this.sliderAllCount = sliderSlidies.length;
     },
 
     openSlide(id) {
       if (id > 0 && id <= this.sliderAllCount) {
         this.sliderActive = id;
-        // Сдвигаем элемент со слайдами
         this.sliderOffsetLeft = -(this.sliderActive
             * this.sliderOffsetStep - this.sliderOffsetStep);
       }
@@ -365,44 +373,73 @@ export default {
         this.openSlide(this.sliderActive);
       }
     },
+
+    initSliderClients() {
+      const sliderBody = this.$el.querySelector('.js-slider-client');
+      const sliderSlidies = this.$el.querySelectorAll('.awesome-clients__slider__client');
+      this.sliderOffsetStepClients = sliderBody.clientWidth;
+      this.sliderAllClients = sliderSlidies.length;
+    },
+
+    openSlideClients(id) {
+      if (id > 0 && id <= this.sliderAllClients) {
+        this.activeSlide = id;
+        this.sliderOffsetClients = -(this.activeSlide
+            * this.sliderOffsetStepClients - this.sliderOffsetStepClients);
+      }
+    },
+
+    nextSl() {
+      if (this.activeSlide < this.sliderAllClients) {
+        this.activeSlide += 1;
+        this.openSlideClients(this.activeSlide);
+      }
+    },
+
+    prevSl() {
+      if (this.activeSlide > 1) {
+        this.activeSlide -= 1;
+        this.openSlideClients(this.activeSlide);
+      }
+    },
   },
 
   mounted() {
     this.initSlider();
+    this.initSliderClients();
 
-    // Перенастройка слайдера при ресайзе окна
     window.addEventListener('resize', () => {
       this.initSlider();
+      this.initSliderClients();
       this.openSlide(this.sliderActive);
+      this.openSlideClients(this.activeSlide);
     });
   },
 };
 </script>
 <style lang="scss">
-  $slider-height: 100%;
-  $slide-width: 100%;
-
   .slider {
-    width: 100%;
-    height: $slider-height;
+    width: 80%;
+    height: 100%;
     position: relative;
     overflow: hidden;
 
-  &__body {
-     min-width: auto;
-     height: $slider-height;
-     display: flex;
-     position: relative;
-     align-items: stretch;
-     transition: all .5s ease;
-   }
-
-  &__slide {
-     min-width: $slide-width;
-     height: $slider-height;
-     background-size: cover;
-     background-position: center;
-     flex: 1 100%;
-   }
+    &__slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+    &__body {
+       min-width: auto;
+       height: 100%;
+       display: flex;
+       position: relative;
+       align-items: stretch;
+       transition: all .5s ease;
+     }
   }
 </style>

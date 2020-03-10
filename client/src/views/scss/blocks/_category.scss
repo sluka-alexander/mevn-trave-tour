@@ -63,6 +63,16 @@
         background-color: $purple;
         color: $white;
       }
+      &__inactive {
+        opacity: .3;
+
+        &:hover {
+          border: 3px solid $gray;
+          color: $gray;
+          cursor: auto;
+          background-color: $background;
+        }
+      }
     }
   }
 }

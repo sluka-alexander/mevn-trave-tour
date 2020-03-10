@@ -24,16 +24,26 @@
     &__arrow {
       @extend %flex-center;
 
-      @include size(40px);
+      @include size(30px);
 
       transition: .3s;
       cursor: pointer;
       font-size: #{$font-M}px;
       border-radius: 50%;
       background-color: $purple;
+      z-index: 1;
 
       &:hover {
-        @include size(50px);
+        background-color: $pink;
+      }
+
+      &__inactive {
+        opacity: .6;
+        cursor: auto;
+      }
+
+      &:hover {
+        background-color: $purple;
       }
     }
 
@@ -46,25 +56,15 @@
       transition: .6s;
 
       &__small {
-        @include size(50px);
-        display: none;
-
-        @include media(tablet) {
-          display: block;
-        }
+        @include size(150px);
       }
 
       &__medium {
-        display: none;
-
-        @include media(small-tablet) {
-          display: block;
-        }
-        @include size(100px);
+        @include size(150px);
       }
 
       &__large {
-        @include size(200px);
+        @include size(150px);
       }
     }
 
