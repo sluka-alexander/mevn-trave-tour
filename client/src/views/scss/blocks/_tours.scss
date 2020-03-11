@@ -5,11 +5,17 @@
 @import "../common/config";
 
 .table-tours {
+  overflow-x: scroll;
+
   button {
     cursor: pointer;
     outline: 0;
   }
 
+  @include media(tablet) {
+    overflow-x: hidden;
+  }
+  
   &__search-item {
     @include color-and-weight($black,$bold);
 
@@ -18,9 +24,6 @@
     background-color: $white;
     border-radius: 50px;
     border: none;
-    -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-    -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-    box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
   }
   &__tour {
     @include color-and-weight($black,$bold);
@@ -28,9 +31,6 @@
     padding: 10px 25px;
     background-color: $white;
     border-radius: 50px;
-    -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-    -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-    box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
     margin: 5px;
     transition: .4s;
 
@@ -48,9 +48,6 @@ table {
   max-width: 100%;
   width: 100%;
   border-collapse: collapse;
-  -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-  -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-  box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
 }
 
 .tours {

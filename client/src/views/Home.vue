@@ -72,7 +72,7 @@
         <div class="title">Choose <br> your category</div>
         <div class="up-content">
           <div class="subtitle">
-            <div class='slider js-slider'>
+            <div class='slider__category js-slider'>
               <div class="slider__body" v-bind:style='{left: sliderOffsetLeft + "px"}'>
                 <div class="slider__slide js-slide">
                   As absolute is by amounted repeated entirely ye returned.
@@ -195,7 +195,7 @@
                activeSlide === 1}">
             <i class="fas fa-angle-left" style="color: white"></i>
           </div>
-          <div class="slider js-slider-client">
+          <div class="slider__clients js-slider-client">
             <div class="slider__body" v-bind:style='{left: sliderOffsetClients + "px"}'>
               <div v-for="index in 5" v-bind:key="index.id" class="slider__slide js-slide">
                 <div class="awesome-clients__slider__client awesome-clients__slider__client__small"
@@ -417,29 +417,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-  .slider {
-    width: 80%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-
-    &__slide {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-    }
-    &__body {
-       min-width: auto;
-       height: 100%;
-       display: flex;
-       position: relative;
-       align-items: stretch;
-       transition: all .5s ease;
-     }
-  }
-</style>

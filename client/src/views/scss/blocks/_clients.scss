@@ -24,7 +24,7 @@
     &__arrow {
       @extend %flex-center;
 
-      @include size(30px);
+      @include size(40px);
 
       transition: .3s;
       cursor: pointer;

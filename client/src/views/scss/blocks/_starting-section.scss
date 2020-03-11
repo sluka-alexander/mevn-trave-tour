@@ -12,12 +12,10 @@ header {
 
   font-size: calcFluidFontSize(14, $font-M, 320, 1920);
   margin-top: 60px;
-  flex-wrap: wrap;
-  flex-direction: column;
+  align-items: center;
 
   @include media(tablet) {
     flex-wrap: nowrap;
-    flex-direction: column;
   }
   @include media(large-desktop) {
     flex-wrap: nowrap;
@@ -28,77 +26,46 @@ header {
 .logo {
   @include color-and-weight($purple, $extra-bold);
 
-  @extend %flex-center;
-
   cursor: pointer;
   font-size: calcFluidFontSize($font-logo, $font-logo, 320, 1920);
   text-transform: uppercase;
+  z-index: 1;
 
   @include media(mobile) {
     justify-content: flex-start;
   }
 }
 
-.navbar {
-  @extend %flex-center;
-
-  flex-direction: column;
+.navbar-desktop {
   margin: 20px 0;
-  z-index: 1;
+  z-index: 7;
   width: 100%;
+  display: none;
 
-  a{
+  a {
     &.router-link-exact-active {
       transition: .5s;
       color: $pink;
     }
   }
 
-  @include media(mobile) {
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    flex-direction: row;
-  }
-  @include media(small-tablet) {
+  @include media(desktop) {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
   }
 
   &__left {
     @extend %flex-between;
-
-    width: 100%;
-
-    @include media(small-tablet) {
-      width: 50%;
-    }
-    @include media(desktop) {
-      width: 30%;
-    }
-    @include media(large-desktop) {
-      width: 70%;
-    }
+    width: 60%;
   }
 
   &__right {
     @extend %flex;
     justify-content: space-between;
-    width: 40%;
+    width: 30%;
 
-    @include media(small-tablet) {
-      width: 30%;
-    }
-    @include media(tablet) {
-      width: 20%;
-    }
-    @include media(desktop) {
-      width: 15%;
-    }
-    @include media(large-desktop) {
-      width: 100%;
-      justify-content: flex-end;
-    }
-
-    &__item{
+    &__item {
       @include media(large-desktop) {
         margin-left: 20px;
       }
@@ -189,6 +156,122 @@ header {
     &:hover {
       transition: .3s;
       background-color: $pink;
+    }
+  }
+}
+.burger-bnt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include size(37px);
+
+  cursor: pointer;
+  z-index: 7;
+
+  @include media(desktop) {
+    display: none;
+  }
+
+  &__bars {
+    width: 37px;
+    height: 5px;
+    position: absolute;
+    background-color: $gray;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &::before {
+      display: block;
+      position: absolute;
+      content: '';
+      width: 37px;
+      height: 5px;
+      background-color: $gray;
+      top: 10px;
+      border-radius: 5px;
+    }
+
+    &::after {
+      display: block;
+      position: absolute;
+      content: '';
+      width: 37px;
+      height: 5px;
+      background-color: $gray;
+      top: -10px;
+      border-radius: 5px;
+    }
+  }
+
+  &__cross {
+    @extend %flex-center;
+    background-color: $white;
+    transition: 0.3s;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 7;
+
+    &::before {
+      position: absolute;
+      content: '';
+      width: 40px;
+      height: 5px;
+      background-color: $white;
+      transform: rotate(-45deg);
+      border-radius: 5px;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 40px;
+      height: 5px;
+      background-color: $white;
+      transform: rotate(45deg);
+      border-radius: 5px;
+    }
+  }
+}
+.navbar-mobile {
+  @include size(100%);
+  position: fixed;
+  background-color: $purple;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+
+  a {
+    &.router-link-exact-active {
+      transition: .2s;
+      color: $pink;
+    }
+  }
+
+  @include media(desktop) {
+    display: none;
+  }
+}
+
+.navbar-burger {
+  margin-top: 100px;
+  width: 100%;
+
+  &__item {
+    @extend %flex-center;
+
+    @include color-and-weight($white, $medium);
+
+    width: 100%;
+    border-bottom: 2px solid $white;
+    font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
+    padding: 20px;
+    transition: .3s;
+    &:hover {
+      background-color: $pink;
+      border-bottom: 2px solid $pink;
     }
   }
 }
