@@ -33,7 +33,7 @@
           <div class="navbar-desktop__left">
             <router-link :to="{ path: '/tours/', query: { search: ''} }"
                          class="navbar-desktop__item">Tours</router-link>
-            <router-link to="/tours/new" class="navbar__item">New tour</router-link>
+            <router-link to="/tours/new" class="navbar-desktop__item">New tour</router-link>
             <router-link :to="{ path: '/users/', query: { page: '1'} }"
                          class="navbar-desktop__item">Users</router-link>
           </div>
