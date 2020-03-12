@@ -11,7 +11,7 @@ header {
   @include color-and-weight($gray, $medium);
 
   font-size: calcFluidFontSize(14, $font-M, 320, 1920);
-  margin-top: 60px;
+  margin-top: 15px;
   align-items: center;
 
   @include media(tablet) {
@@ -20,6 +20,7 @@ header {
   @include media(large-desktop) {
     flex-wrap: nowrap;
     flex-direction: row;
+    margin-top: 60px;
   }
 }
 
@@ -93,72 +94,7 @@ header {
   }
 }
 
-.main-info {
-  margin-top: 50px;
 
-  @include media(tablet) {
-    margin-top: 200px;
-  }
-  @include media(large-desktop) {
-    margin-top: 360px;
-  }
-
-  &__title {
-    @include color-and-weight($black, $extra-bold);
-
-    font-size: calcFluidFontSize(25, $font-XL, 320, 1920);
-  }
-
-  &__subtitle {
-    @include color-and-weight($gray, bold);
-    font-size: calcFluidFontSize(15, $font-L, 320, 1920);
-  }
-}
-
-.search {
-  margin: 50px 0;
-  width: 100%;
-  max-width: 650px;
-
-  @include media(small-tablet) {
-    display: flex;
-  }
-  @include media(tablet) {
-    margin: 150px 0;
-  }
-
-  &__input {
-    @extend %flex-center;
-
-    @include size(100%,70px);
-    @include color-and-weight($black, $regular);
-
-    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
-    background-color: $white;
-    transition: .3s;
-    padding-left: 20px;
-    margin-bottom: 20px;
-  }
-
-  &__button {
-    @extend %flex-center;
-
-    @include color-and-weight($white, $medium);
-    @include size(200px, 70px);
-
-    cursor: pointer;
-    transition: .3s;
-    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
-    margin: 0 auto;
-    background-color: $purple;
-    color: $white;
-
-    &:hover {
-      transition: .3s;
-      background-color: $pink;
-    }
-  }
-}
 .burger-bnt {
   display: flex;
   justify-content: center;
@@ -233,7 +169,7 @@ header {
     }
   }
 }
-.navbar-mobile {
+.navbar-mobile-bgc {
   @include size(100%);
   position: fixed;
   background-color: $purple;
@@ -246,7 +182,7 @@ header {
   a {
     &.router-link-exact-active {
       transition: .2s;
-      color: $pink;
+      color: $black;
     }
   }
 
@@ -255,8 +191,8 @@ header {
   }
 }
 
-.navbar-burger {
-  margin-top: 100px;
+.navbar-mobile {
+  margin-top: 70px;
   width: 100%;
 
   &__item {
@@ -269,9 +205,77 @@ header {
     font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
     padding: 20px;
     transition: .3s;
+
     &:hover {
       background-color: $pink;
       border-bottom: 2px solid $pink;
+    }
+  }
+}
+
+.main-info {
+  margin-top: 50px;
+
+  @include media(tablet) {
+    margin-top: 200px;
+  }
+  @include media(large-desktop) {
+    margin-top: 360px;
+  }
+
+  &__title {
+    @include color-and-weight($black, $extra-bold);
+
+    font-size: calcFluidFontSize(25, $font-XL, 320, 1920);
+  }
+
+  &__subtitle {
+    @include color-and-weight($gray, bold);
+    font-size: calcFluidFontSize(15, $font-L, 320, 1920);
+  }
+}
+
+.search {
+  margin: 50px 0;
+  width: 100%;
+  max-width: 650px;
+
+  @include media(small-tablet) {
+    display: flex;
+  }
+  @include media(tablet) {
+    margin: 150px 0;
+  }
+
+  &__input {
+    @extend %flex-center;
+
+    @include size(100%,70px);
+    @include color-and-weight($black, $regular);
+
+    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
+    background-color: $white;
+    transition: .3s;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    @extend %flex-center;
+
+    @include color-and-weight($white, $medium);
+    @include size(200px, 70px);
+
+    cursor: pointer;
+    transition: .3s;
+    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
+    margin: 0 auto;
+    background-color: $purple;
+    color: $white;
+
+    &:hover {
+      transition: .3s;
+      background-color: $pink;
     }
   }
 }

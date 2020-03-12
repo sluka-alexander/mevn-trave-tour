@@ -1,5 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 
@@ -33,6 +34,7 @@ module.exports = function(passport) {
 
     passport.deserializeUser((id, done) => {
         User.findById(id, (err, user) => {
+            res.send(jwt.sign({user: user}, 'secretkey'));
             done(err, user);
         });
     });

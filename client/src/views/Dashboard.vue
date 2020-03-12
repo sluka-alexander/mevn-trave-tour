@@ -33,6 +33,7 @@ export default {
     },
   },
   mounted() {
+    console.log(document.cookie);
     this.Dashboard();
   },
 };

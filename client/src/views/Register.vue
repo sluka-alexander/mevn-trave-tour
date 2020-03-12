@@ -22,7 +22,8 @@
               you can now log in
             </div>
             <div class="confirm-form__buttons">
-              <button type="submit" class="confirm-form__button confirm-form__button__positive">
+              <button type="submit" class="confirm-form__button confirm-form__button__positive"
+                      @click="Redirect">
                 OK</button>
             </div>
           </div>
@@ -68,9 +69,10 @@
           <div class="error" v-if="!$v.password.required">Fill in the field</div>
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
+          <div class="error-login" v-if="message">{{ message }}</div>
         </div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
-        <div v-else @click="confirmForm = !confirmForm" class="button">Sign up</div>
+        <div v-else @click="addUser" class="button">Sign up</div>
       </form>
     </div>
   </div>
@@ -91,6 +93,7 @@ export default {
       email: '',
       password: '',
       confirmForm: false,
+      message: '',
     };
   },
   validations: {
@@ -116,17 +119,24 @@ export default {
         if (this.$v.$invalid) {
           console.log('error');
         } else {
-          await this.$router.push({ name: 'Login' });
           await UserService.addNewUser({
             name: this.name,
             email: this.email,
             password: this.password,
+          }).then((res) => {
+            this.message = res.data.message;
           });
+          if (!this.message) {
+            this.confirmForm = !this.confirmForm;
+          }
         }
       } catch (error) {
         console.log(error);
         await this.$router.push({ name: 'Register' });
       }
+    },
+    async Redirect() {
+      await this.$router.push({ name: 'Login' });
     },
   },
 };

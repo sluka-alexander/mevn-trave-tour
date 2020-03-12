@@ -27,7 +27,8 @@ router.post('/register', async (req, res) => {
                 });
             });
         } else {
-            console.log('есть такой уже');
+            res.json({ message: 'this email is already there' });
+            console.log('this email is already there');
         }
     }).catch(err => console.log(err));
 });
@@ -48,7 +49,7 @@ router.post('/login', async (req, res, next) => {
 router.get('/dashboard', async (req, res) => {
     console.log('Cookies: dash ', req.cookies);
     try {
-        res.json({ name: req.user.name });
+        res.json({ name: req.user.name});
     } catch (err) {
         res.sendStatus(500);
     }

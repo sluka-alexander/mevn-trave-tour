@@ -8,23 +8,23 @@
           <div v-if="burgerBtn" class="burger-bnt__cross"></div>
         </div>
         <transition name="burger-btn">
-          <div v-if="burgerBtn" class="navbar-mobile">
+          <div v-if="burgerBtn" class="navbar-mobile-bgc">
             <div class="container">
-              <div class="navbar-burger" @click="openBars">
+              <div class="navbar-mobile" @click="openBars">
                 <router-link :to="{ path: '/'}"
-                             class="navbar-burger__item">Home
+                             class="navbar-mobile__item">Home
                 </router-link>
                 <router-link :to="{ path: '/tours/', query: { search: ''} }"
-                             class="navbar-burger__item">Tours
+                             class="navbar-mobile__item">Tours
                 </router-link>
-                <router-link to="/tours/new" class="navbar-burger__item"
+                <router-link to="/tours/new" class="navbar-mobile__item"
                              @click="burgerBtn = !burgerBtn">New tour
                 </router-link>
                 <router-link :to="{ path: '/users/', query: { page: '1'} }"
-                             class="navbar-burger__item">Users
+                             class="navbar-mobile__item">Users
                 </router-link>
-                <router-link to="/user/login" class="navbar-burger__item">Login</router-link>
-                <router-link to="/user/register" class="navbar-burger__item">Register</router-link>
+                <router-link to="/user/login" class="navbar-mobile__item">Login</router-link>
+                <router-link to="/user/register" class="navbar-mobile__item">Register</router-link>
               </div>
             </div>
           </div>
