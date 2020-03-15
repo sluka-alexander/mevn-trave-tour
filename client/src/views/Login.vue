@@ -32,7 +32,7 @@
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
           <div class="error-login" v-if="validateLogin">
-            Incorrect login or password
+            {{ message }}
           </div>
         </div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
@@ -57,6 +57,7 @@ export default {
       email: '',
       password: '',
       validateLogin: false,
+      message: '',
     };
   },
   validations: {
@@ -80,14 +81,15 @@ export default {
           await UserService.Login({
             email: this.email,
             password: this.password,
+          }).then((res) => {
+            if (res.status === 200) {
+              localStorage.setItem('token', res.data.token);
+              this.$router.go(-1);
+            }
           });
-          await this.$router.go(-1);
         }
       } catch (error) {
         console.log(error);
-        if (this.validateLogin === false) {
-          this.validateLogin = !this.validateLogin;
-        }
       }
     },
   },

@@ -1,11 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const passport = require('passport');
-const flash =require('flash');
-const session = require('express-session');
-
 const key = require('../keys/key');
 const tourRouter = require('../routes/tours');
 const userRouter = require('../routes/users');
@@ -25,21 +20,9 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token');
 next();
 });
-
-app.use(require('cookie-parser')());
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(flash());
 
 app.use('/tours', tourRouter);
 app.use('/user', userRouter);

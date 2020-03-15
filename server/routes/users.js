@@ -2,8 +2,7 @@ const express =require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const passport = require('passport');
-require('../config/passport')(passport);
+const jwt = require('jsonwebtoken');
 
 router.post('/register', async (req, res) => {
     let newUser = new User({
@@ -27,32 +26,61 @@ router.post('/register', async (req, res) => {
                 });
             });
         } else {
-            res.json({ message: 'this email is already there' });
-            console.log('this email is already there');
+            res.json({ message: 'This email is already there' });
+            console.log('This email is already there');
         }
     }).catch(err => console.log(err));
 });
 
-router.post('/login', async (req, res, next) => {
-    console.log('Cookies: login ', req.cookies);
-    try {
-        passport.authenticate('local', {
-            successRedirect: '/user/dashboard',
-            failureRedirect: '/user/login',
-            failureFlash: true
-        })(req, res, next);
-    } catch (err) {
-        console.log(err);
-    }
+router.post('/login', async (req, res) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
+        console.log(user);
+        if(err) {
+            return res.status(500).json({
+                title: 'server error',
+                error: err,
+            })
+        }
+        if(!user) {
+            return res.status(401).json({
+                title: 'user not found',
+                error: 'invalid credentials'
+            })
+        }
+        if(!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(401).json({
+                title: 'login failed',
+                error: 'invalid credentials'
+            })
+        }
+        else {
+            let token = jwt.sign({ userID: user._id }, 'secretkey');
+            return res.status(200).json({
+                title: 'login',
+                token: token,
+            })
+        }
+    })
 });
 
 router.get('/dashboard', async (req, res) => {
-    console.log('Cookies: dash ', req.cookies);
-    try {
-        res.json({ name: req.user.name});
-    } catch (err) {
-        res.sendStatus(500);
-    }
+    let token = req.headers.token;
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+        if(err) return res.status(401).json({
+            title: 'unauthorized'
+        });
+
+        User.findOne({ _id: decoded.userID }, (err, user) => {
+            if (err) return console.log(err);
+            return res.status(200).json({
+                title: 'user grabbed',
+                user: {
+                    name: user.name || 'Guest',
+                    email: user.email,
+                }
+            });
+        });
+    })
 });
 
 router.get('/logout', function(req, res){

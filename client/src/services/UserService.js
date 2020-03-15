@@ -8,7 +8,8 @@ export default {
     return Api().post('/user/login', params);
   },
   Dashboard() {
-    return Api().get('/user/dashboard');
+    return Api().get('/user/dashboard',
+      { headers: { token: localStorage.getItem('token') } });
   },
   LogOut() {
     return Api().get('/user/logout');

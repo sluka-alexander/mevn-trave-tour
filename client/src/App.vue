@@ -40,9 +40,19 @@
         </div>
         <div class="navbar-desktop">
           <div class="navbar-desktop__right">
-            <router-link to="/user/login" class="navbar-desktop__item">Login</router-link>
-            <router-link to="/user/register" class="navbar-desktop__item
-            navbar-desktop__right__item">Register</router-link>
+            <router-link v-if="token !== null" to="/user/dashboard" class="navbar-desktop__item">
+              Profile
+            </router-link>
+            <router-link v-if="token !== null" to="/user/dashboard" class="navbar-desktop__item">
+              Logout
+            </router-link>
+            <router-link v-if="token === null" to="/user/login" class="navbar-desktop__item">
+              Login
+            </router-link>
+            <router-link v-if="token === null" to="/user/register" class="navbar-desktop__item
+            navbar-desktop__right__item">
+              Register
+            </router-link>
           </div>
         </div>
       </header>
@@ -56,6 +66,7 @@ export default {
   data() {
     return {
       burgerBtn: false,
+      token: localStorage.getItem('token'),
     };
   },
   methods: {
@@ -66,6 +77,10 @@ export default {
       } else {
         document.body.style.overflow = 'auto';
       }
+    },
+    Logout() {
+      localStorage.clear();
+      this.$router.push('/');
     },
   },
 };
