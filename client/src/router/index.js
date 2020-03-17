@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import UserService from '../services/UserService';
+
 const Home = import('../views/Home.vue');
 const Register = import('../views/Register.vue');
 const Login = import('../views/Login.vue');
@@ -9,10 +11,21 @@ const Tours = import('../views/Tours.vue');
 const NewTour = import('../views/NewTour.vue');
 const EditTour = import('../views/EditTour.vue');
 const Dashboard = import('../views/Dashboard.vue');
-const Logout = import('../views/Logout.vue');
 const NotFound = import('../views/NotFound.vue');
 const Error = import('../views/Error.vue');
-const Category = import('../views/Category.vue');
+
+const Authenticated = localStorage.getItem('token');
+
+let role = '';
+
+function roleUser() {
+  role = '';
+  UserService.Dashboard()
+    .then((res) => {
+      role = res.data.user.role;
+    });
+}
+roleUser();
 
 Vue.use(VueRouter);
 
@@ -26,21 +39,37 @@ const routes = [
     path: '/user/register',
     name: 'Register',
     component: () => Register,
+    beforeEnter: ((to, from, next) => {
+      if (Authenticated !== null) next({ name: 'Home' });
+      else next();
+    }),
   },
   {
     path: '/user/login',
     name: 'Login',
     component: () => Login,
+    beforeEnter: ((to, from, next) => {
+      if (Authenticated !== null) next({ name: 'Home' });
+      else next();
+    }),
   },
   {
     path: '/user/dashboard',
     name: 'Dashboard',
     component: () => Dashboard,
+    beforeEnter: ((to, from, next) => {
+      if (Authenticated === null) next({ name: 'Login' });
+      else next();
+    }),
   },
   {
     path: '/users',
     name: 'User',
     component: () => Users,
+    beforeEnter: ((to, from, next) => {
+      if (role !== 'admin') next({ name: 'Home' });
+      else next();
+    }),
   },
   {
     path: '/tours',
@@ -48,39 +77,27 @@ const routes = [
     component: () => Tours,
   },
   {
-    path: '/tours?sort=price_desc',
-    name: 'Tours',
-    component: () => Tours,
-  },
-  {
-    path: '/tours?sort=price_sc',
-    name: 'Tours',
-    component: () => Tours,
-  },
-  {
     path: '/tours/new',
     name: 'NewTour',
     component: () => NewTour,
-  },
-  {
-    path: '/tours/:category',
-    name: 'CategoryTour',
-    component: () => Category,
+    beforeEnter: ((to, from, next) => {
+      if (role !== 'admin') next({ name: 'Login' });
+      else next();
+    }),
   },
   {
     path: '/tours/:id',
     name: 'EditTour',
     component: () => EditTour,
+    beforeEnter: ((to, from, next) => {
+      if (role !== 'admin') next({ name: 'Login' });
+      else next();
+    }),
   },
   {
     path: '/error',
     name: 'Error',
     component: () => Error,
-  },
-  {
-    path: '/user/logout',
-    name: 'Logout',
-    component: () => Logout,
   },
   {
     path: '/*',

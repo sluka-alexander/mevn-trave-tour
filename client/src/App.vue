@@ -17,34 +17,41 @@
                 <router-link :to="{ path: '/tours/', query: { search: ''} }"
                              class="navbar-mobile__item">Tours
                 </router-link>
-                <router-link to="/tours/new" class="navbar-mobile__item"
+                <router-link v-if="role === 'admin'" to="/tours/new" class="navbar-mobile__item"
                              @click="burgerBtn = !burgerBtn">New tour
                 </router-link>
-                <router-link :to="{ path: '/users/', query: { page: '1'} }"
+                <router-link v-if="role === 'admin'" :to="{ path: '/users/', query: { page: '1'} }"
                              class="navbar-mobile__item">Users
                 </router-link>
-                <router-link to="/user/login" class="navbar-mobile__item">Login</router-link>
-                <router-link to="/user/register" class="navbar-mobile__item">Register</router-link>
+                <router-link v-if="token === null"
+                             to="/user/login" class="navbar-mobile__item">Login</router-link>
+                <router-link v-if="token === null"
+                             to="/user/register" class="navbar-mobile__item">Register</router-link>
+                <router-link v-if="token !== null"
+                             to="/user/dashboard" class="navbar-mobile__item">Profile</router-link>
               </div>
             </div>
           </div>
         </transition>
         <div class="navbar-desktop">
           <div class="navbar-desktop__left">
+            <router-link to="/"
+                         class="navbar-desktop__item">Home</router-link>
             <router-link :to="{ path: '/tours/', query: { search: ''} }"
                          class="navbar-desktop__item">Tours</router-link>
-            <router-link to="/tours/new" class="navbar-desktop__item">New tour</router-link>
-            <router-link :to="{ path: '/users/', query: { page: '1'} }"
+            <router-link v-if="role === 'admin'" to="/tours/new"
+                         class="navbar-desktop__item">New tour</router-link>
+            <router-link v-if="role === 'admin'" :to="{ path: '/users/', query: { page: '1'} }"
                          class="navbar-desktop__item">Users</router-link>
           </div>
         </div>
         <div class="navbar-desktop">
           <div class="navbar-desktop__right">
-            <router-link v-if="token !== null" to="/user/dashboard" class="navbar-desktop__item">
-              Profile
-            </router-link>
-            <router-link v-if="token !== null" to="/user/dashboard" class="navbar-desktop__item">
-              Logout
+            <div v-if="token !== null" to="/user/dashboard">
+              hi, {{ name }}
+            </div>
+            <router-link v-if="token !== null" to="/user/dashboard"
+                         class="fas fa-home">
             </router-link>
             <router-link v-if="token === null" to="/user/login" class="navbar-desktop__item">
               Login
@@ -62,11 +69,15 @@
 </template>
 
 <script>
+import UserService from './services/UserService';
+
 export default {
   data() {
     return {
       burgerBtn: false,
       token: localStorage.getItem('token'),
+      role: '',
+      name: '',
     };
   },
   methods: {
@@ -78,10 +89,15 @@ export default {
         document.body.style.overflow = 'auto';
       }
     },
-    Logout() {
-      localStorage.clear();
-      this.$router.push('/');
-    },
+  },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      UserService.Dashboard()
+        .then((res) => {
+          this.name = res.data.user.name;
+          this.role = res.data.user.role;
+        });
+    }
   },
 };
 

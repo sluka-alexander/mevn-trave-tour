@@ -68,8 +68,8 @@
                 { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
               </th>
               <th>Date</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th v-if="role === 'admin'">Edit</th>
+              <th v-if="role === 'admin'">Delete</th>
             <tr>
             <tr v-for="tour in filteredTours.slice(0, numberTours)" v-bind:key="tour.id">
               <td>{{ tour.name }}</td>
@@ -77,12 +77,12 @@
               <td>{{ tour.description}}</td>
               <td>{{ tour.price}}$</td>
               <td>{{ tour.date}}</td>
-              <td>
+              <td v-if="role === 'admin'">
                 <div @click="Update">
                   <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
                 </div>
               </td>
-              <td>
+              <td v-if="role === 'admin'">
                 <div @click="Delete">
                   <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
                 </div>
@@ -104,12 +104,14 @@
 
 <script>
 import TourService from '../services/TourService';
+import UserService from '../services/UserService';
 
 export default {
   name: 'Tours',
   data() {
     return {
       tours: [],
+      role: '',
       confirmFormEdit: false,
       confirmFormDelete: false,
       buttonEdit: false,
@@ -179,6 +181,12 @@ export default {
     },
   },
   mounted() {
+    if (localStorage.getItem('token')) {
+      UserService.Dashboard()
+        .then((res) => {
+          this.role = res.data.user.role;
+        });
+    }
     this.Sort();
     this.Loading();
   },

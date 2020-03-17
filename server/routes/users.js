@@ -77,6 +77,7 @@ router.get('/dashboard', async (req, res) => {
                 user: {
                     name: user.name || 'Guest',
                     email: user.email,
+                    role: user.role,
                 }
             });
         });

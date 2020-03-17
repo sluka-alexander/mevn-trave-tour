@@ -53,7 +53,7 @@
             placeholder="Enter email"
             @blur="$v.email.$touch()"
           >
-          <div class="error" v-if="!$v.email.required">Fill in the field</div>
+          <div class="error " v-if="!$v.email.required">Fill in the field</div>
           <div class="error" v-if="!$v.email.email">This is incorrect email</div>
         </div>
         <div class="form-item"
@@ -67,10 +67,11 @@
             @blur="$v.password.$touch()"
           >
           <div class="error" v-if="!$v.password.required">Fill in the field</div>
-          <div class="error" v-if="!$v.password.minLength">Password is too short</div>
+          <div class="error"
+               v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
-          <div class="error-login" v-if="message">{{ message }}</div>
         </div>
+        <div class="error" v-if="error">{{ error }}</div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
         <div v-else @click="addUser" class="button">Sign up</div>
       </form>
@@ -93,7 +94,7 @@ export default {
       email: '',
       password: '',
       confirmForm: false,
-      message: '',
+      error: '',
     };
   },
   validations: {
@@ -124,9 +125,9 @@ export default {
             email: this.email,
             password: this.password,
           }).then((res) => {
-            this.message = res.data.message;
+            this.error = res.data.message;
           });
-          if (!this.message) {
+          if (!this.error) {
             this.confirmForm = !this.confirmForm;
           }
         }

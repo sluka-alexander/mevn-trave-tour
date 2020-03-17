@@ -2,7 +2,8 @@
     <div>
       <div class="title-item">
         Hello, {{ name}} <br>
-        Your email : {{ email }}
+        Your email : {{ email }} <br>
+        Your role : {{ role }}
         <div class="icon icon__welcome"></div>
       </div>
       <div class="logOut" @click="Logout">LogOut</div>
@@ -10,7 +11,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import UserService from '../services/UserService';
 
 export default {
   name: 'Dashboard',
@@ -18,6 +19,7 @@ export default {
     return {
       name: '',
       email: '',
+      role: '',
       token: localStorage.getItem('token'),
     };
   },
@@ -25,13 +27,15 @@ export default {
     async Logout() {
       localStorage.clear();
       await this.$router.push('/');
+      await window.location.reload();
     },
   },
   mounted() {
-    axios.get('http://localhost:8081/user/dashboard', { headers: { token: this.token } })
+    UserService.Dashboard()
       .then((res) => {
         this.name = res.data.user.name;
         this.email = res.data.user.email;
+        this.role = res.data.user.role;
       });
   },
 };

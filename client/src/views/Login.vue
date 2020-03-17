@@ -31,10 +31,8 @@
           <div class="error" v-if="!$v.password.required">Fill in the field</div>
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
-          <div class="error-login" v-if="validateLogin">
-            {{ message }}
-          </div>
         </div>
+        <div class="error" v-if="error">{{ error }} </div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
         <div v-else @click="SignIn" class="button">Sign up</div>
       </form>
@@ -57,7 +55,7 @@ export default {
       email: '',
       password: '',
       validateLogin: false,
-      message: '',
+      error: '',
     };
   },
   validations: {
@@ -73,24 +71,18 @@ export default {
   },
   methods: {
     async SignIn() {
-      try {
-        this.$v.$touch();
-        if (this.$v.$invalid) {
-          console.log('error');
-        } else {
-          await UserService.Login({
-            email: this.email,
-            password: this.password,
-          }).then((res) => {
-            if (res.status === 200) {
-              localStorage.setItem('token', res.data.token);
-              this.$router.go(-1);
-            }
-          });
+      await UserService.Login({
+        email: this.email,
+        password: this.password,
+      }).then(async (res) => {
+        if (res.data.title === 'login') {
+          localStorage.setItem('token', res.data.token);
+          await this.$router.push('/');
+          window.location.reload();
         }
-      } catch (error) {
-        console.log(error);
-      }
+      }).catch((err) => {
+        this.error = err.response.data.title;
+      });
     },
   },
 };

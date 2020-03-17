@@ -58,7 +58,6 @@ header {
 
   &__left {
     @extend %flex-between;
-    width: 60%;
   }
 
   &__right {
@@ -76,6 +75,7 @@ header {
   &__item {
     cursor: pointer;
     transition: .3s;
+    margin-left: 40px;
 
     &::after {
       @include size(20px, 3px);
