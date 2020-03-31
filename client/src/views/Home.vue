@@ -1,23 +1,26 @@
 <template>
   <div>
-    <div class="starting-section">
-      <div class="main-img"></div>
-      <div class="layer line-back"></div>
-
-      <div class="container">
-        <div class="main-info">
-          <div class="main-info__subtitle">Choose the best destination</div>
-          <div class="main-info__title">Adventure<br>Without BOUNDARIES...</div>
-        </div>
-        <div class="search">
-          <input type="text" class="search__input" placeholder="Find out the best place..."
-                 v-model="search">
-          <router-link :to="{ name: 'Tours', query: { search: search } }"
-                       class="search__button">Search
-          </router-link>
+    <transition name="tours">
+      <div class="starting-section" @mousemove="Move">
+        <div class=" layer-line line-back"></div>
+        <div class="container">
+          <div class="info-and-img">
+            <div class="main-info">
+              <div class="main-info__subtitle">Choose the best destination</div>
+              <div class="main-info__title">Adventure<br>Without BOUNDARIES...</div>
+              <div class="search">
+                <input type="text" class="search__input" placeholder="Find out the best place..."
+                       v-model="search" @keyup.enter="SearchTour">
+                <div class="search__button" @click="SearchTour">
+                  Search
+                </div>
+              </div>
+            </div>
+            <div class="layer main-img"></div>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
 
     <div class="experience">
       <div class="container">
@@ -344,7 +347,17 @@ export default {
     };
   },
   methods: {
-    // Иницилизация слайдера
+    SearchTour() {
+      this.$router.push({ name: 'Tours', query: { search: this.search } });
+    },
+
+    Move(event) {
+      document.querySelector('.layer').style.transform = `translateX(-${event.pageX / 20}px)
+        translateY(-${event.pageY / 20}px)`;
+      document.querySelector('.layer-line').style.transform = `translateX(${event.pageX / 50}px)
+        translateY(${event.pageY / 50}px)`;
+    },
+
     initSlider() {
       const sliderBody = this.$el.querySelector('.js-slider');
       const sliderSlidies = sliderBody.querySelectorAll('.js-slide');
@@ -403,7 +416,6 @@ export default {
       }
     },
   },
-
   mounted() {
     this.initSlider();
     this.initSliderClients();

@@ -62,13 +62,17 @@ header {
 
   &__right {
     @extend %flex;
+
     justify-content: space-between;
-    width: 30%;
 
     &__item {
       @include media(large-desktop) {
         margin-left: 20px;
       }
+    }
+
+    .fa-home {
+      margin-left: 20px;
     }
   }
 
@@ -212,15 +216,22 @@ header {
     }
   }
 }
+.info-and-img {
+  @extend %flex-between;
+
+  @include size(100%);
+
+  overflow:hidden;
+}
 
 .main-info {
   margin-top: 50px;
 
-  @include media(tablet) {
-    margin-top: 200px;
+  @include media(desktop) {
+    margin-top: 120px;
   }
   @include media(large-desktop) {
-    margin-top: 360px;
+    margin-top: 200px;
   }
 
   &__title {
@@ -231,20 +242,18 @@ header {
 
   &__subtitle {
     @include color-and-weight($gray, bold);
+
     font-size: calcFluidFontSize(15, $font-L, 320, 1920);
   }
 }
 
 .search {
-  margin: 50px 0;
   width: 100%;
   max-width: 650px;
+  margin-top: 100px;
 
   @include media(small-tablet) {
     display: flex;
-  }
-  @include media(tablet) {
-    margin: 150px 0;
   }
 
   &__input {

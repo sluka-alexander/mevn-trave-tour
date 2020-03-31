@@ -72,9 +72,9 @@
             tour.category === oldTour.category &&
             tour.desc === oldTour.desc &&
             Number(tour.price)=== oldTour.price "
-            class="button button__no-active">Add tour
+            class="button button__no-active">Edit tour
           </div>
-          <button type="submit" v-else class="button">Add tour</button>
+          <button type="submit" v-else class="button">Edit tour</button>
           <span class="button-back" @click="Back">Cancel</span>
         </span>
       </form>

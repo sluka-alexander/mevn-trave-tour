@@ -33,7 +33,7 @@ html {
   transition: opacity .3s;
 }
 
-.smooth-enter{
+.smooth-enter {
   opacity: 0;
 }
 
@@ -124,22 +124,22 @@ a {
 }
 
 .main-img {
-  @include size(44vw, 1000px);
 
-  position: absolute;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
-  right: 0;
-  top: 0;
-  z-index: -1;
 
-  @include media(large-desktop) {
-    background-image: url("https://i.ibb.co/zby7Kps/main.jpg");
+  @include media(desktop) {
+    @include size(400px);
+
+    background-image: url('#{$img}main.png');
+  }
+  @include media(desktop) {
+    @include size(600px);
   }
 }
 
 .line-back {
-  @include size(100%, 957px);
+  @include size(50%, 957px);
 
   z-index: -7;
   left: 0;
@@ -205,7 +205,7 @@ a {
   &__welcome {
     @include size(150px);
 
-    background-image: url('https://image.flaticon.com/icons/svg/2037/2037885.svg');
+    background-image: url('https://image.flaticon.com/icons/svg/366/366330.svg');
   }
 
   &__users {
@@ -368,15 +368,24 @@ a {
 }
 
 .logOut {
+  @include size(200px, 50px);
+  @include color-and-weight($white,$medium);
+
   @extend %flex-center;
 
-  @include color-and-weight($white, $medium);
-
-  margin: 0 auto;
-  padding: 5px 10px;
-  width: 150px;
+  margin: 20px auto;
+  font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+  border: none;
   background-color: $purple;
+  opacity: 1;
+  transition: .3s;
+  border-radius: 5px;
+  outline: 0;
   cursor: pointer;
+
+  &:hover {
+    background-color: $pink;
+  }
 }
 
 .slider {
@@ -416,4 +425,13 @@ a {
     align-items: stretch;
     transition: all .5s ease;
   }
+}
+
+.info-user {
+  @extend %flex-center;
+
+  text-align: center;
+}
+.starting-section {
+  @include size(100%);
 }

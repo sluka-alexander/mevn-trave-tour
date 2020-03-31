@@ -4,8 +4,19 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+function verifyToken(req, res, next) {
+    const bearerHeader = req.headers['authorization'];
+    if(bearerHeader) {
+        const bearerToken = bearerHeader.split(' ')[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+}
+
 router.post('/register', async (req, res) => {
-    let newUser = new User({
+    const newUser = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
@@ -16,12 +27,8 @@ router.post('/register', async (req, res) => {
                 bcrypt.hash(newUser.password, salt,async (err, hash) => {
                     if (err) throw err;
                     newUser.password = hash;
-                    newUser.save((err, doc) => {
-                        if (err) {
-                            console.log(err)
-                        } else {
-                            res.send(doc);
-                        }
+                    newUser.save((doc) => {
+                        res.send(doc);
                     });
                 });
             });
@@ -32,9 +39,54 @@ router.post('/register', async (req, res) => {
     }).catch(err => console.log(err));
 });
 
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
+router.get('/users',verifyToken, async (req, res) => {
+    try {
+        jwt.verify(req.token, 'secretKey', async (err, authData) => {
+            if(err) {
+                res.sendStatus(403);
+            }
+            if(authData.role === 'admin') {
+                let users = await User.find();
+                await res.json(users.map(user => {
+                    return {
+                        'name': user.name,
+                        'email': user.email,
+                        'role': user.role,
+                    };
+                }));
+            }
+            else {
+                res.json('This is protected page')
+            }
+        });
+    } catch (err) {
+        res.sendStatus(500);
+    }
+});
+
+router.get('/dashboard', verifyToken, (req, res) => {
+    try {
+        jwt.verify(req.token, 'secretKey', (err, authData) => {
+            if(err) {
+                res.sendStatus(403);
+            } else {
+                res.json({
+                    authData
+                });
+            }
+        });
+    } catch (err) {
+        res.sendStatus(500);
+    }
+});
+
 router.post('/login', async (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
-        console.log(user);
         if(err) {
             return res.status(500).json({
                 title: 'server error',
@@ -54,89 +106,20 @@ router.post('/login', async (req, res) => {
             })
         }
         else {
-            let token = jwt.sign({ userID: user._id }, 'secretkey');
-            return res.status(200).json({
-                title: 'login',
-                token: token,
-            })
-        }
-    })
-});
-
-router.get('/dashboard', async (req, res) => {
-    let token = req.headers.token;
-    jwt.verify(token, 'secretkey', (err, decoded) => {
-        if(err) return res.status(401).json({
-            title: 'unauthorized'
-        });
-
-        User.findOne({ _id: decoded.userID }, (err, user) => {
-            if (err) return console.log(err);
-            return res.status(200).json({
-                title: 'user grabbed',
-                user: {
-                    name: user.name || 'Guest',
-                    email: user.email,
-                    role: user.role,
-                }
+            jwt.sign({'name': user.name, 'email': user.email, 'role': user.role}, 'secretKey',
+                { expiresIn: '3600s' }, (err, token) => {
+                res.json({
+                    token
+                });
             });
-        });
-    })
-});
-
-router.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-});
-
-router.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        await res.json(users);
-    } catch (err) {
-        res.sendStatus(500);
-    }
-});
-
-router.get('/:id', async (req, res)=>{
-    try {
-        const tour = await User.findById(req.params.id);
-        await res.json(tour);
-    } catch (err) {
-        res.sendStatus(500);
-    }
-});
-
-router.put('/:id', (req, res) => {
-    User.findById(req.params.id, (err, user) => {
-        if (err) {
-            console.log(err)
-        } else {
-            user.name = req.body.name;
-            user.email = req.body.email;
-            user.role = req.body.role;
-            user.save(err => {
-                if (err) {
-                    res.sendStatus(500)
-                } else {
-                    res.sendStatus(200)
-                }
-            })
         }
-    })
+    });
+
 });
 
-// router.get('/users/:page', async (req, res) => {
-//     try {
-//         let perPage = 2;
-//         let page = req.params.page || 1;
-//         const tours = await User.find()
-//             .skip((perPage * page) - perPage)
-//             .limit(perPage);
-//         await res.json(tours);
-//     } catch (err) {
-//         res.sendStatus(500);
-//     }
-// });
+// FORMAT OF TOKEN
+// Authorization: Bearer <access_token>
+
+// Verify Token
 
 module.exports = router;

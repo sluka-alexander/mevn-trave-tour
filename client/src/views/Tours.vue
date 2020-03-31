@@ -171,7 +171,7 @@ export default {
       }, 2000);
     },
     async LoadTours() {
-      this.numberTours += 3;
+      this.numberTours += 10;
     },
   },
   computed: {

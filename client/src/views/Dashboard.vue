@@ -1,10 +1,12 @@
 <template>
     <div>
       <div class="title-item">
-        Hello, {{ name}} <br>
-        Your email : {{ email }} <br>
-        Your role : {{ role }}
         <div class="icon icon__welcome"></div>
+        Hello, {{ name}} !<br>
+      </div>
+      <div class="info-user">
+        Your email : {{ email }}<br>
+        Your role : {{ role }}
       </div>
       <div class="logOut" @click="Logout">LogOut</div>
     </div>

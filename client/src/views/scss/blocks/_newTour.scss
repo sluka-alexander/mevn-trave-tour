@@ -4,10 +4,10 @@
 @import "../common/config";
 @import "../common/variables";
 
-form{
+form {
   width: 100%;
 
-  .error{
+  .error {
     @include color-and-weight($black,$medium);
 
     text-align: start;
@@ -16,7 +16,7 @@ form{
     color: red;
   }
 
-  .form-item{
+  .form-item {
     @extend %flex;
 
     flex-direction: column;
