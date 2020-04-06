@@ -36,17 +36,17 @@
           </select>
         </div>
         <div class="form-item"
-             :class="{'form-item-err' : $v.tour.desc.$error}">
+             :class="{'form-item-err' : $v.tour.description.$error}">
           <label for="desc">Description</label>
           <input
             id="desc"
-            v-model.trim="tour.desc"
+            v-model.trim="tour.description"
             placeholder="Enter description"
-            @blur="$v.tour.desc.$touch()"
+            @blur="$v.tour.description.$touch()"
           >
-          <div class="error" v-if="!$v.tour.desc.required">Fill in the field</div>
-          <div class="error" v-if="!$v.tour.desc.minLength">Name must have at least
-            {{ $v.tour.desc.$params.minLength.min }}
+          <div class="error" v-if="!$v.tour.description.required">Fill in the field</div>
+          <div class="error" v-if="!$v.tour.description.minLength">Name must have at least
+            {{ $v.tour.description.$params.minLength.min }}
           </div>
         </div>
         <div class="form-item"
@@ -67,11 +67,7 @@
           </div>
         </div>
         <span style="display: flex">
-          <div v-if="$v.$invalid ||
-            tour.name === oldTour.name &&
-            tour.category === oldTour.category &&
-            tour.desc === oldTour.desc &&
-            Number(tour.price)=== oldTour.price "
+          <div v-if="$v.$invalid"
             class="button button__no-active">Edit tour
           </div>
           <button type="submit" v-else class="button">Edit tour</button>
@@ -84,26 +80,14 @@
 
 <script>
 import { required, minLength, numeric } from 'vuelidate/lib/validators';
-import TourService from '../services/TourService';
-
 
 export default {
   name: 'EditTour',
 
   data() {
     return {
-      oldTour: {
-        name: '',
-        category: '',
-        desc: '',
-        price: '',
-      },
-      tour: {
-        name: '',
-        category: '',
-        desc: '',
-        price: '',
-      },
+      oldTour: [],
+      tour: [],
       comparison: false,
     };
   },
@@ -112,43 +96,34 @@ export default {
     tour: {
       name: { required, minLength: minLength(3) },
       category: { required },
-      desc: { required, minLength: minLength(10) },
+      description: { required, minLength: minLength(10) },
       price: { required, numeric },
     },
   },
-
   methods: {
     async getTour() {
-      const tour = await TourService.getTour({
-        id: this.$route.params.id,
-      });
-      this.tour.name = tour.data.name;
-      this.tour.category = tour.data.category;
-      this.tour.desc = tour.data.description;
-      this.tour.price = tour.data.price;
-
-      this.oldTour.name = tour.data.name;
-      this.oldTour.category = tour.data.category;
-      this.oldTour.desc = tour.data.description;
-      this.oldTour.price = tour.data.price;
+      const tourId = { id: this.$route.params.id };
+      await this.$store.dispatch('getEditTour', tourId);
+      setTimeout(() => {
+        this.tour = this.$store.state.editTour;
+      }, 350);
     },
+
     async UpdateTour() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log('error');
-      } else {
-        await TourService.updateTour({
-          id: this.$route.params.id,
-          date: this.tour.date,
-          name: this.tour.name,
-          category: this.tour.category,
-          desc: this.tour.desc,
-          price: this.tour.price,
-        });
-        await this.$router.go(-1);
-      }
+      const data = {
+        id: this.$route.params.id,
+        date: this.tour.date,
+        name: this.tour.name,
+        category: this.tour.category,
+        description: this.tour.description,
+        price: this.tour.price,
+      };
+      await this.$store.dispatch('updateTour', data).then(() => {
+        setTimeout(() => {
+          this.$router.go(-1);
+        }, 300);
+      });
     },
-
     async Back() {
       await this.$router.go(-1);
     },

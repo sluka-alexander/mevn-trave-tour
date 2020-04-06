@@ -40,16 +40,16 @@
         Tours
         <div class="icon icon__tours"></div>
       </div>
-      <transition name="loading">
-        <div class="loading" v-if="!tours.length && !NotTours"></div>
-      </transition>
+<!--      <transition name="loading">-->
+<!--        <div class="loading" v-if="!tours.length && !NotTours"></div>-->
+<!--      </transition>-->
       <transition name="loading">
         <div style="text-align: center" v-if="!filteredTours.length && NotTours">
           Found Nothing We Have</div>
       </transition>
       <div class="table-tours">
         <transition name="tours">
-          <input v-if="tours.length" v-model="search" placeholder='Enter name of tour'>
+          <input v-if="allTours.length" v-model="search" placeholder='Enter name of tour'>
         </transition>
           <button v-if="search " class="table-tours__search-item"
                   @click="cleanSearch">{{ search }}
@@ -68,8 +68,8 @@
                 { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
               </th>
               <th>Date</th>
-              <th v-if="role === 'admin'">Edit</th>
-              <th v-if="role === 'admin'">Delete</th>
+              <th v-if="isAdmin">Edit</th>
+              <th v-if="isAdmin">Delete</th>
             <tr>
             <tr v-for="tour in filteredTours.slice(0, numberTours)" v-bind:key="tour.id">
               <td>{{ tour.name }}</td>
@@ -77,13 +77,13 @@
               <td>{{ tour.description}}</td>
               <td>{{ tour.price}}$</td>
               <td>{{ tour.date}}</td>
-              <td v-if="role === 'admin'">
+              <td v-if="isAdmin">
                 <div @click="Update">
                   <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
                 </div>
               </td>
-              <td v-if="role === 'admin'">
-                <div @click="Delete">
+              <td v-if="isAdmin">
+                <div @click="DeleteForm">
                   <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
                 </div>
               </td>
@@ -103,15 +103,11 @@
 </template>
 
 <script>
-import TourService from '../services/TourService';
-import UserService from '../services/UserService';
-
 export default {
   name: 'Tours',
   data() {
     return {
       tours: [],
-      role: '',
       confirmFormEdit: false,
       confirmFormDelete: false,
       buttonEdit: false,
@@ -124,25 +120,36 @@ export default {
     };
   },
   methods: {
-    async getTours() {
-      const response = await TourService.fetchTours();
-      this.tours = response.data;
+    async fetchTours() {
+      await this.$store.dispatch('fetchTours');
     },
 
     async Sort() {
       if (this.$route.query.sort === 'price_desc') {
-        const response = await TourService.getTourSortDesc();
-        this.tours = response.data;
+        await this.$store.dispatch('getTourSortDesc');
       } else if (this.$route.query.sort === 'price_asc') {
-        const response = await TourService.getTourSortAsc();
-        this.tours = response.data;
+        await this.$store.dispatch('getTourSortAsc');
       } else {
-        this.getTours();
+        this.fetchTours();
       }
     },
 
     async cleanSearch() {
       this.search = '';
+    },
+
+    async DeleteForm(event) {
+      this.confirmFormDelete = !this.confirmFormDelete;
+      if (event) {
+        this.clickId = event.target.id;
+      }
+    },
+
+    async DeleteTour(value) {
+      await this.$store.dispatch('deleteTour', value).then(() => {
+        this.confirmFormDelete = !this.confirmFormDelete;
+        this.Sort();
+      });
     },
 
     async Update(event) {
@@ -152,41 +159,28 @@ export default {
       }
     },
 
-    async Delete(event) {
-      this.confirmFormDelete = !this.confirmFormDelete;
-      if (event) {
-        this.clickId = event.target.id;
-      }
-    },
-
-    async DeleteTour(value) {
-      await TourService.deleteTour(value);
-      this.confirmFormDelete = !this.confirmFormDelete;
-      this.getTours();
-    },
-
     async Loading() {
       setTimeout(() => {
         this.NotTours = !this.NotTours;
-      }, 2000);
+      }, 200);
     },
     async LoadTours() {
       this.numberTours += 10;
     },
   },
   computed: {
+    allTours() {
+      return this.$store.getters.allTours;
+    },
     filteredTours() {
-      return this.tours.filter((tour) => tour.name.toLowerCase().match(this.search.toLowerCase())
+      return this.allTours.filter((tour) => tour.name.toLowerCase().match(this.search.toLowerCase())
           || tour.category.toLowerCase().match(this.search.toLowerCase()));
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
     },
   },
   mounted() {
-    if (localStorage.getItem('token')) {
-      UserService.Dashboard()
-        .then((res) => {
-          this.role = res.data.user.role;
-        });
-    }
     this.Sort();
     this.Loading();
   },

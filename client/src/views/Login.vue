@@ -32,9 +32,9 @@
           <div class="error" v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
         </div>
-        <div class="error" v-if="error">{{ error }} </div>
+        <div class="error">{{ Error }} </div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
-        <div v-else @click="SignIn" class="button">Sign up</div>
+        <div v-else @click="login" class="button">Sign up</div>
       </form>
     </div>
   </div>
@@ -44,7 +44,6 @@
 import {
   required, minLength, maxLength, email,
 } from 'vuelidate/lib/validators';
-import UserService from '../services/UserService';
 
 export default {
   name: 'Login',
@@ -69,20 +68,18 @@ export default {
       maxLength: maxLength(16),
     },
   },
+  computed: {
+    Error() { return this.$store.getters.Error; },
+  },
   methods: {
-    async SignIn() {
-      await UserService.Login({
+    login() {
+      const data = {
         email: this.email,
         password: this.password,
-      }).then(async (res) => {
-        if (res.data.title === 'login') {
-          localStorage.setItem('token', res.data.token);
-          await this.$router.push('/');
-          window.location.reload();
-        }
-      }).catch((err) => {
-        this.error = err.response.data.title;
-      });
+      };
+      this.$store.dispatch('login', data)
+        .then(() => this.$router.go(-1))
+        .catch((err) => console.log(err));
     },
   },
 };

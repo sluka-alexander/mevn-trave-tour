@@ -17,17 +17,17 @@
                 <router-link :to="{ path: '/tours/', query: { search: ''} }"
                              class="navbar-mobile__item">Tours
                 </router-link>
-                <router-link v-if="role === 'admin'" to="/tours/new" class="navbar-mobile__item"
+                <router-link v-if="isAdmin" to="/tours/new" class="navbar-mobile__item"
                              @click="burgerBtn = !burgerBtn">New tour
                 </router-link>
-                <router-link v-if="role === 'admin'" :to="{ path: '/users/', query: { page: '1'} }"
+                <router-link v-if="isAdmin" :to="{ path: '/users/', query: { page: '1'} }"
                              class="navbar-mobile__item">Users
                 </router-link>
-                <router-link v-if="token === null"
+                <router-link v-if="!isLoggedIn"
                              to="/user/login" class="navbar-mobile__item">Login</router-link>
-                <router-link v-if="token === null"
+                <router-link v-if="!isLoggedIn"
                              to="/user/register" class="navbar-mobile__item">Register</router-link>
-                <router-link v-if="token !== null"
+                <router-link v-if="isLoggedIn"
                              to="/user/dashboard" class="navbar-mobile__item">Profile</router-link>
               </div>
             </div>
@@ -39,24 +39,24 @@
                          class="navbar-desktop__item">Home</router-link>
             <router-link :to="{ path: '/tours/', query: { search: ''} }"
                          class="navbar-desktop__item">Tours</router-link>
-            <router-link v-if="role === 'admin'" to="/tours/new"
+            <router-link v-if="isAdmin" to="/tours/new"
                          class="navbar-desktop__item">New tour</router-link>
-            <router-link v-if="role === 'admin'" :to="{ path: '/users/', query: { page: '1'} }"
+            <router-link v-if="isAdmin" :to="{ path: '/users/', query: { page: '1'} }"
                          class="navbar-desktop__item">Users</router-link>
           </div>
         </div>
         <div class="navbar-desktop">
           <div class="navbar-desktop__right">
-            <div v-if="token !== null" to="/user/dashboard">
-              hi, {{ name }}
+            <div v-if="isLoggedIn" to="/user/dashboard">
+              hi, {{ DataUser.name }}
             </div>
-            <router-link v-if="token !== null" to="/user/dashboard"
+            <router-link v-if="isLoggedIn" to="/user/dashboard"
                          class="fas fa-home">
             </router-link>
-            <router-link v-if="token === null" to="/user/login" class="navbar-desktop__item">
+            <router-link v-if="!isLoggedIn" to="/user/login" class="navbar-desktop__item">
               Login
             </router-link>
-            <router-link v-if="token === null" to="/user/register" class="navbar-desktop__item
+            <router-link v-if="!isLoggedIn" to="/user/register" class="navbar-desktop__item
             navbar-desktop__right__item">
               Register
             </router-link>
@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import UserService from './services/UserService';
 
 export default {
   data() {
@@ -91,13 +90,14 @@ export default {
     },
   },
   mounted() {
-    if (localStorage.getItem('token')) {
-      UserService.Dashboard()
-        .then((res) => {
-          this.name = res.data.user.name;
-          this.role = res.data.user.role;
-        });
+    if (this.$store.getters.isLoggedIn) {
+      this.$store.dispatch('dashboard');
     }
+  },
+  computed: {
+    isLoggedIn() { return this.$store.getters.isLoggedIn; },
+    DataUser() { return this.$store.getters.DataUser; },
+    isAdmin() { return this.$store.getters.isAdmin; },
   },
 };
 

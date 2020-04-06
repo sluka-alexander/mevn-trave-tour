@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <transition name="smooth">
-        <div v-if="confirmForm" class="page-form"></div>
+        <div v-if="isConfirmForm" class="page-form"></div>
       </transition>
       <div class="title-item">
         Register
@@ -14,7 +14,7 @@
 
       <form @submit.prevent="addUser" >
         <transition name="smooth">
-          <div v-if="confirmForm" class="confirm-form">
+          <div v-if="isConfirmForm" class="confirm-form">
             <div class="confirm-form__icon confirm-form__icon__register">
             </div>
             <div class="confirm-form__title">
@@ -73,7 +73,7 @@
         </div>
         <div class="error" v-if="error">{{ error }}</div>
         <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
-        <div v-else @click="addUser" class="button">Sign up</div>
+        <div v-else @click="register" class="button">Sign up</div>
       </form>
     </div>
   </div>
@@ -83,7 +83,7 @@
 import {
   required, minLength, maxLength, email,
 } from 'vuelidate/lib/validators';
-import UserService from '../services/UserService';
+// import UserService from '../services/UserService';
 
 
 export default {
@@ -93,7 +93,7 @@ export default {
       name: '',
       email: '',
       password: '',
-      confirmForm: false,
+      isConfirmForm: false,
       error: '',
     };
   },
@@ -114,31 +114,47 @@ export default {
     },
   },
   methods: {
-    async addUser() {
-      try {
-        this.$v.$touch();
-        if (this.$v.$invalid) {
-          console.log('error');
-        } else {
-          await UserService.addNewUser({
-            name: this.name,
-            email: this.email,
-            password: this.password,
-          }).then((res) => {
-            this.error = res.data.message;
-          });
-          if (!this.error) {
-            this.confirmForm = !this.confirmForm;
-          }
-        }
-      } catch (error) {
-        console.log(error);
-        await this.$router.push({ name: 'Register' });
-      }
+    Redirect() {
+      this.$router.push({ name: 'Login' });
     },
-    async Redirect() {
-      await this.$router.push({ name: 'Login' });
+    register() {
+      const data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        is_admin: this.is_admin,
+      };
+      this.$store.dispatch('register', data)
+        .then(() => { this.isConfirmForm = !this.isConfirmForm; });
     },
+
   },
+  // methods: {
+  //   async addUser() {
+  //     try {
+  //       this.$v.$touch();
+  //       if (this.$v.$invalid) {
+  //         console.log('error');
+  //       } else {
+  //         await UserService.addNewUser({
+  //           name: this.name,
+  //           email: this.email,
+  //           password: this.password,
+  //         }).then((res) => {
+  //           this.error = res.data.message;
+  //         });
+  //         if (!this.error) {
+  //           this.confirmForm = !this.confirmForm;
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //       await this.$router.push({ name: 'Register' });
+  //     }
+  //   },
+  //   async Redirect() {
+  //     await this.$router.push({ name: 'Login' });
+  //   },
+  // },
 };
 </script>

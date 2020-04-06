@@ -2,17 +2,7 @@ const express =require('express');
 const router = express.Router();
 const Tour = require('../models/Tour');
 const jwt = require('jsonwebtoken');
-
-function verifyToken(req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-    if(bearerHeader) {
-        const bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
-        next();
-    } else {
-        res.sendStatus(403);
-    }
-}
+const verifyToken = require('./verifyToken');
 
 router.get('/', async (req, res) => {
     try {
@@ -64,7 +54,7 @@ router.post('/new', verifyToken, async (req, res) => {
                 });
             }
             else {
-                res.json('This is protected page')
+                await res.json('This is protected page')
             }
         });
     } catch (err) {
@@ -72,7 +62,7 @@ router.post('/new', verifyToken, async (req, res) => {
     }
 });
 
-router.get('/:id', verifyToken, async (req, res)=>{
+router.post('/:id', verifyToken, async (req, res)=>{
     try {
         jwt.verify(req.token, 'secretKey', async (err, authData) => {
             if(err) {
@@ -104,11 +94,11 @@ router.put('/:id', verifyToken, (req, res) => {
                     } else {
                         tour.name = req.body.name;
                         tour.category = req.body.category;
-                        tour.description = req.body.desc;
+                        tour.description = req.body.description;
                         tour.price = req.body.price;
                         tour.save(err => {
                             if (err) {
-                                res.sendStatus(500)
+                                res.sendStatus(500);
                             } else {
                                 res.sendStatus(200)
                             }

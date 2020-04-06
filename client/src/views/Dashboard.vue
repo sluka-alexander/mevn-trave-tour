@@ -2,44 +2,47 @@
     <div>
       <div class="title-item">
         <div class="icon icon__welcome"></div>
-        Hello, {{ name}} !<br>
+        Hello, {{ DataUser.name }} !<br>
       </div>
       <div class="info-user">
-        Your email : {{ email }}<br>
-        Your role : {{ role }}
+        Your email : {{ DataUser.email }}<br>
+        Your role : {{ DataUser.role }}<br>
       </div>
-      <div class="logOut" @click="Logout">LogOut</div>
+      <div class="logOut" @click="logout">LogOut</div>
     </div>
 </template>
 
 <script>
-import UserService from '../services/UserService';
 
 export default {
   name: 'Dashboard',
   data() {
     return {
-      name: '',
-      email: '',
-      role: '',
       token: localStorage.getItem('token'),
     };
   },
   methods: {
-    async Logout() {
-      localStorage.clear();
-      await this.$router.push('/');
-      await window.location.reload();
+    logout() {
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push({ name: 'Login' });
+        });
     },
   },
-  mounted() {
-    UserService.Dashboard()
-      .then((res) => {
-        this.name = res.data.user.name;
-        this.email = res.data.user.email;
-        this.role = res.data.user.role;
-      });
+  created() {
+    this.$http.interceptors.response.use(undefined, (err) => new Promise(() => {
+      if (err.status === 401 && err.config) {
+        this.$store.dispatch('logout');
+      }
+      throw err;
+    }));
   },
+  computed: {
+    DataUser() { return this.$store.getters.DataUser; },
+  },
+  // mounted() {
+  //   this.$store.dispatch('dashboard');
+  // },
 };
 </script>
 

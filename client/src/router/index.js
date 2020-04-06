@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
-import UserService from '../services/UserService';
+import store from '../views/store';
 
 const Home = import('../views/Home.vue');
 const Register = import('../views/Register.vue');
@@ -13,19 +12,6 @@ const EditTour = import('../views/EditTour.vue');
 const Dashboard = import('../views/Dashboard.vue');
 const NotFound = import('../views/NotFound.vue');
 const Error = import('../views/Error.vue');
-
-const Authenticated = localStorage.getItem('token');
-
-let role = '';
-
-function roleUser() {
-  role = '';
-  UserService.Dashboard()
-    .then((res) => {
-      role = res.data.user.role;
-    });
-}
-roleUser();
 
 Vue.use(VueRouter);
 
@@ -39,37 +25,27 @@ const routes = [
     path: '/user/register',
     name: 'Register',
     component: () => Register,
-    beforeEnter: ((to, from, next) => {
-      if (Authenticated !== null) next({ name: 'Home' });
-      else next();
-    }),
+    meta: {
+      notRequiresAuth: true,
+    },
   },
   {
     path: '/user/login',
     name: 'Login',
     component: () => Login,
-    beforeEnter: ((to, from, next) => {
-      if (Authenticated !== null) next({ name: 'Home' });
-      else next();
-    }),
   },
   {
     path: '/user/dashboard',
     name: 'Dashboard',
     component: () => Dashboard,
-    beforeEnter: ((to, from, next) => {
-      if (Authenticated === null) next({ name: 'Login' });
-      else next();
-    }),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/users',
     name: 'User',
     component: () => Users,
-    beforeEnter: ((to, from, next) => {
-      if (role !== 'admin') next({ name: 'Home' });
-      else next();
-    }),
   },
   {
     path: '/tours',
@@ -80,19 +56,17 @@ const routes = [
     path: '/tours/new',
     name: 'NewTour',
     component: () => NewTour,
-    beforeEnter: ((to, from, next) => {
-      if (role !== 'admin') next({ name: 'Login' });
-      else next();
-    }),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/tours/:id',
     name: 'EditTour',
     component: () => EditTour,
-    beforeEnter: ((to, from, next) => {
-      if (role !== 'admin') next({ name: 'Login' });
-      else next();
-    }),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/error',
@@ -115,6 +89,25 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    next({ name: 'Login' });
+  }
+  if (to.matched.some((record) => record.meta.notRequiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next({ name: 'Home' });
+      return;
+    }
+    next();
+  } else {
+    next();
+  }
 });
 
 export default router;

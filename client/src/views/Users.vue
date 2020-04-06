@@ -5,7 +5,7 @@
         Users
         <div class="icon icon__users"></div>
       </div>
-      <div v-for="(user, index) in users.slice((perPage * $route.query.page) - 2,
+      <div v-for="(user, index) in Users.slice((perPage * $route.query.page) - 2,
       (perPage * $route.query.page) - 2 + perPage)"
            class="users__item" v-bind:key="user.id">
         <div class="users__item__photo">
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="pages">
-      <div v-for="(index) in Math.ceil(users.length/perPage)" v-bind:key='index.id'>
+      <div v-for="(index) in Math.ceil(Users.length/perPage)" v-bind:key='index.id'>
         <router-link :to="{ query: { page: index }}" class="page">{{ index }}
         </router-link>
       </div>
@@ -35,30 +35,26 @@
 </template>
 
 <script>
-import UserService from '../services/UserService';
-
 export default {
   name: 'Users',
   data() {
     return {
-      users: [],
       firstPage: 1,
       perPage: 2,
     };
-  },
-  methods: {
-    async GetUsers() {
-      const response = await UserService.getUsers();
-      this.users = response.data;
-    },
   },
   watch: {
     '$route.query.page': function () {
 
     },
   },
+  computed: {
+    Users() {
+      return this.$store.getters.Users;
+    },
+  },
   mounted() {
-    this.GetUsers();
+    this.$store.dispatch('users');
   },
 };
 </script>

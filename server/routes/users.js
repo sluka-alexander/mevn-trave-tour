@@ -3,17 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-function verifyToken(req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-    if(bearerHeader) {
-        const bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
-        next();
-    } else {
-        res.sendStatus(403);
-    }
-}
+const verifyToken = require('./verifyToken');
 
 router.post('/register', async (req, res) => {
     const newUser = new User({
@@ -25,11 +15,8 @@ router.post('/register', async (req, res) => {
         if(!user) {
             bcrypt.genSalt(10,  (err, salt) => {
                 bcrypt.hash(newUser.password, salt,async (err, hash) => {
-                    if (err) throw err;
                     newUser.password = hash;
-                    newUser.save((doc) => {
-                        res.send(doc);
-                    });
+                    newUser.save();
                 });
             });
         } else {
@@ -44,7 +31,7 @@ router.get('/logout', function(req, res){
     res.redirect('/');
 });
 
-router.get('/users',verifyToken, async (req, res) => {
+router.post('/users',verifyToken, async (req, res) => {
     try {
         jwt.verify(req.token, 'secretKey', async (err, authData) => {
             if(err) {
@@ -69,15 +56,13 @@ router.get('/users',verifyToken, async (req, res) => {
     }
 });
 
-router.get('/dashboard', verifyToken, (req, res) => {
+router.post('/dashboard', verifyToken, (req, res) => {
     try {
         jwt.verify(req.token, 'secretKey', (err, authData) => {
             if(err) {
                 res.sendStatus(403);
             } else {
-                res.json({
-                    authData
-                });
+                res.json({ user: authData, token: req.token });
             }
         });
     } catch (err) {
@@ -106,20 +91,12 @@ router.post('/login', async (req, res) => {
             })
         }
         else {
-            jwt.sign({'name': user.name, 'email': user.email, 'role': user.role}, 'secretKey',
-                { expiresIn: '3600s' }, (err, token) => {
-                res.json({
-                    token
-                });
-            });
+            let token = jwt.sign({ id: user.id, name: user.name, role: user.role, email: user.email },
+                'secretKey', { expiresIn: 86400 });
+            res.status(200).header('auth-token', token).send({ auth: true, token: token, user: user });
         }
     });
 
 });
-
-// FORMAT OF TOKEN
-// Authorization: Bearer <access_token>
-
-// Verify Token
 
 module.exports = router;
