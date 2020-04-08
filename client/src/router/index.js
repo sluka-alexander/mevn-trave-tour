@@ -26,26 +26,32 @@ const routes = [
     name: 'Register',
     component: () => Register,
     meta: {
-      notRequiresAuth: true,
+      notAuth: true,
     },
   },
   {
     path: '/user/login',
     name: 'Login',
     component: () => Login,
+    meta: {
+      notAuth: true,
+    },
   },
   {
     path: '/user/dashboard',
     name: 'Dashboard',
     component: () => Dashboard,
     meta: {
-      requiresAuth: true,
+      auth: true,
     },
   },
   {
     path: '/users',
     name: 'User',
     component: () => Users,
+    meta: {
+      Admin: true,
+    },
   },
   {
     path: '/tours',
@@ -57,7 +63,7 @@ const routes = [
     name: 'NewTour',
     component: () => NewTour,
     meta: {
-      requiresAuth: true,
+      Admin: true,
     },
   },
   {
@@ -65,7 +71,7 @@ const routes = [
     name: 'EditTour',
     component: () => EditTour,
     meta: {
-      requiresAuth: true,
+      Admin: true,
     },
   },
   {
@@ -92,14 +98,23 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.auth)) {
     if (store.getters.isLoggedIn) {
       next();
       return;
     }
     next({ name: 'Login' });
   }
-  if (to.matched.some((record) => record.meta.notRequiresAuth)) {
+  if (to.matched.some((record) => record.meta.Admin)) {
+    setTimeout(() => {
+      if (store.getters.isAdmin) {
+        next();
+      } else {
+        next({ name: 'Home' });
+      }
+    }, 0);
+  }
+  if (to.matched.some((record) => record.meta.notAuth)) {
     if (store.getters.isLoggedIn) {
       next({ name: 'Home' });
       return;

@@ -17,12 +17,17 @@ export default new Vuex.Store({
   },
   actions: {
     register({ commit }, user) {
-      try {
+      this.state.error = '';
+      return new Promise((resolve, reject) => {
         commit('auth_request');
-        axios({ url: 'http://localhost:8081/user/register', data: user, method: 'POST' });
-      } catch (error) {
-        console.log(error);
-      }
+        axios({ url: 'http://localhost:8081/user/register', data: user, method: 'POST' })
+          .then((res) => {
+            this.state.error = res.data.message;
+            resolve(res);
+          }).catch((err) => {
+            reject(err);
+          });
+      });
     },
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
@@ -52,6 +57,9 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common.Authorization;
         resolve();
       });
+    },
+    clearError() {
+      this.state.error = '';
     },
     dashboard({ commit }) {
       return new Promise((resolve, reject) => {

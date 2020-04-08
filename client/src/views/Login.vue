@@ -82,5 +82,8 @@ export default {
         .catch((err) => console.log(err));
     },
   },
+  mounted() {
+    this.$store.dispatch('clearError');
+  },
 };
 </script>

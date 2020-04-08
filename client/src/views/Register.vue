@@ -71,7 +71,7 @@
                v-if="!$v.password.minLength">Password is too short</div>
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
         </div>
-        <div class="error" v-if="error">{{ error }}</div>
+        <div class="error">{{ Error }}</div>
         <div v-if="$v.$invalid" class="button button_no-active" >Sign up</div>
         <div v-else @click="register" class="button">Sign up</div>
       </form>
@@ -111,6 +111,9 @@ export default {
       maxLength: maxLength(16),
     },
   },
+  computed: {
+    Error() { return this.$store.getters.Error; },
+  },
   methods: {
     Redirect() {
       this.$router.push({ name: 'Login' });
@@ -122,37 +125,16 @@ export default {
         password: this.password,
         is_admin: this.is_admin,
       };
-      this.$store.dispatch('register', data)
-        .then(() => { this.isConfirmForm = !this.isConfirmForm; });
+      this.$store.dispatch('register', data);
+      setTimeout(() => {
+        if (!this.Error) {
+          this.isConfirmForm = !this.isConfirmForm;
+        }
+      }, 500);
     },
-
   },
-  // methods: {
-  //   async addUser() {
-  //     try {
-  //       this.$v.$touch();
-  //       if (this.$v.$invalid) {
-  //         console.log('error');
-  //       } else {
-  //         await UserService.addNewUser({
-  //           name: this.name,
-  //           email: this.email,
-  //           password: this.password,
-  //         }).then((res) => {
-  //           this.error = res.data.message;
-  //         });
-  //         if (!this.error) {
-  //           this.confirmForm = !this.confirmForm;
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       await this.$router.push({ name: 'Register' });
-  //     }
-  //   },
-  //   async Redirect() {
-  //     await this.$router.push({ name: 'Login' });
-  //   },
-  // },
+  mounted() {
+    this.$store.dispatch('clearError');
+  },
 };
 </script>

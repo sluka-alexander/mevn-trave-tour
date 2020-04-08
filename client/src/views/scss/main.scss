@@ -284,6 +284,8 @@ a {
     transition: 0.2s;
 
     &_positive {
+      padding: 10px 45px;
+
       &:hover {
         @include color-and-weight($white, $medium);
 
