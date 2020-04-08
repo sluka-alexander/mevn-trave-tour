@@ -3,7 +3,7 @@
     <div class="container">
       <div class="title-item">
         Users
-        <div class="icon icon__users"></div>
+        <div class="icon icon_users"></div>
       </div>
       <div v-for="(user, index) in Users.slice((perPage * $route.query.page) - 2,
       (perPage * $route.query.page) - 2 + perPage)"

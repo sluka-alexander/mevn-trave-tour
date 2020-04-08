@@ -33,6 +33,7 @@
             </div>
           </div>
         </transition>
+
         <div class="navbar-desktop">
           <div class="navbar-desktop__left">
             <router-link to="/"

@@ -10,12 +10,11 @@
 @import "blocks/clients";
 @import "blocks/feedback";
 @import "blocks/footer";
-@import "blocks/newTour";
 @import "blocks/tours";
 @import "blocks/users";
+@import "blocks/forms";
 
-
-*, *:after, *:before {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -27,10 +26,11 @@ html {
 }
 
 .smooth-enter-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
+
 .smooth-leave-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
 .smooth-enter {
@@ -41,7 +41,8 @@ html {
   opacity: 0;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: 'Nunito', sans-serif;
   border: none;
   outline: 0;
@@ -66,23 +67,22 @@ a {
   color: black;
 }
 
-
 .container {
-  transition: .3s;
+  transition: 0.3s;
   margin: 0 auto;
   max-width: 300px;
   min-width: 300px;
   text-align: center;
 
-  @include media(mobile) {
+  @include media(wide-mobile) {
     max-width: 360px;
     text-align: start;
-
   }
+
   @include media(small-tablet) {
     max-width: 560px;
-
   }
+
   @include media(tablet) {
     max-width: 700px;
   }
@@ -90,10 +90,10 @@ a {
   @include media(desktop) {
     max-width: 960px;
   }
+
   @include media(large-desktop) {
     max-width: 1170px;
   }
-;
 }
 
 .title {
@@ -110,6 +110,7 @@ a {
   margin: 30px 0;
   text-align: center;
 }
+
 .subtitle {
   @include color-and-weight($gray, $regular);
 
@@ -118,13 +119,12 @@ a {
   margin-bottom: 30px;
   max-width: 600px;
 
-  @include media(mobile) {
+  @include media(wide-mobile) {
     text-align: start;
   }
 }
 
 .main-img {
-
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -133,6 +133,7 @@ a {
 
     background-image: url('#{$img}main.png');
   }
+
   @include media(desktop) {
     @include size(600px);
   }
@@ -160,71 +161,71 @@ a {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  transition: .5s;
+  transition: 0.5s;
 
-  &__tours {
+  &_tours {
     background-image: url('https://image.flaticon.com/icons/svg/2569/2569869.svg');
   }
 
-  &__edit {
+  &_edit {
     background-image: url('https://image.flaticon.com/icons/svg/1508/1508034.svg');
   }
 
-  &__new {
+  &_new {
     background-image: url('https://image.flaticon.com/icons/svg/2569/2569865.svg');
   }
 
-  &__user {
+  &_user {
     background-image: url('https://image.flaticon.com/icons/svg/2154/2154798.svg');
   }
 
-  &__user-correct {
+  &_user-correct {
     background-image: url('https://image.flaticon.com/icons/svg/2154/2154494.svg');
   }
 
-  &__user-incorrect {
+  &_user-incorrect {
     background-image: url('https://image.flaticon.com/icons/svg/2154/2154516.svg');
   }
 
-  &__login {
+  &_login {
     background-image: url('https://image.flaticon.com/icons/svg/1651/1651104.svg');
   }
 
-  &__404 {
+  &_404 {
     @include size(150px);
 
     background-image: url('https://image.flaticon.com/icons/svg/1794/1794725.svg');
   }
 
-  &__error {
+  &_error {
     @include size(150px);
 
     background-image: url('https://image.flaticon.com/icons/svg/2210/2210217.svg');
   }
 
-  &__welcome {
+  &_welcome {
     @include size(150px);
 
     background-image: url('https://image.flaticon.com/icons/svg/366/366330.svg');
   }
 
-  &__users {
+  &_users {
     background-image: url('https://image.flaticon.com/icons/svg/2154/2154866.svg');
   }
 }
 
 .button-back {
+  @extend %flex-center;
+
   @include color-and-weight($white, $medium);
   @include size(120px, 50px);
-
-  @extend %flex-center;
 
   font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
   border: none;
   background-color: $red;
   cursor: pointer;
   margin: 20px;
-  transition: .3s;
+  transition: 0.3s;
   border-radius: 5px;
   outline: 0;
 
@@ -233,16 +234,17 @@ a {
   }
 }
 
-.page-form{
+.page-form {
+  @include size(100%);
+
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
   z-index: 1;
-  opacity: .4;
+  opacity: 0.4;
   background-color: black;
 }
+
 .confirm-form {
   @extend %flex-center;
 
@@ -250,13 +252,15 @@ a {
 
   margin: auto;
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   flex-direction: column;
   padding: 50px;
   background-color: $white;
   border: 2px solid $black;
-  z-index: 2;
+  z-index: 10;
 
   &__buttons {
     @extend %flex;
@@ -269,6 +273,7 @@ a {
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
     padding: 10px;
   }
+
   &__button {
     @include color-and-weight($white, $medium);
 
@@ -276,20 +281,21 @@ a {
     background-color: $purple;
     padding: 10px 20px;
     cursor: pointer;
-    transition: .2s;
+    transition: 0.2s;
 
-    &__positive {
-      &:hover{
+    &_positive {
+      &:hover {
         @include color-and-weight($white, $medium);
 
         background-color: $green;
         border-color: $green;
       }
     }
-    &__negative {
+
+    &_negative {
       margin-left: 5px;
 
-      &:hover{
+      &:hover {
         @include color-and-weight($white, $medium);
 
         background-color: $red;
@@ -303,25 +309,26 @@ a {
 
     background-size: cover;
 
-    &__warning {
+    &_warning {
       background-image: url('https://image.flaticon.com/icons/svg/1209/1209961.svg');
     }
 
-    &__register {
+    &_register {
       background-image: url('https://image.flaticon.com/icons/svg/1474/1474713.svg');
     }
   }
 }
 
 .tours-enter-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
   transition-delay: 300ms;
 }
+
 .tours-leave-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
-.tours-enter{
+.tours-enter {
   opacity: 0;
 }
 
@@ -330,13 +337,14 @@ a {
 }
 
 .burger-btn-enter-active {
-  transition: opacity .3s;
-}
-.burger-btn-leave-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
-.burger-btn-enter{
+.burger-btn-leave-active {
+  transition: opacity 0.3s;
+}
+
+.burger-btn-enter {
   opacity: 0;
 }
 
@@ -353,13 +361,14 @@ a {
 }
 
 .loading-enter-active {
-  transition: opacity .3s;
-}
-.loading-leave-active {
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
-.loading-enter{
+.loading-leave-active {
+  transition: opacity 0.3s;
+}
+
+.loading-enter {
   opacity: 0;
 }
 
@@ -368,17 +377,17 @@ a {
 }
 
 .logOut {
+  @extend %flex-center;
+
   @include size(200px, 50px);
   @include color-and-weight($white,$medium);
-
-  @extend %flex-center;
 
   margin: 20px auto;
   font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
   border: none;
   background-color: $purple;
   opacity: 1;
-  transition: .3s;
+  transition: 0.3s;
   border-radius: 5px;
   outline: 0;
   cursor: pointer;
@@ -389,41 +398,27 @@ a {
 }
 
 .slider {
-  &__clients {
-    width: 65%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-  }
+  @include size(70%,100%);
 
-  &__category {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  width: 100%;
-  height: 100%;
   position: relative;
   overflow: hidden;
 
   &__slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @extend %flex-center;
+
     min-width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
   }
+
   &__body {
     min-width: auto;
     height: 100%;
     display: flex;
     position: relative;
     align-items: stretch;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
   }
 }
 
@@ -431,7 +426,4 @@ a {
   @extend %flex-center;
 
   text-align: center;
-}
-.starting-section {
-  @include size(100%);
 }

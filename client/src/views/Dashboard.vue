@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="title-item">
-        <div class="icon icon__welcome"></div>
+        <div class="icon icon_welcome"></div>
         Hello, {{ DataUser.name }} !<br>
       </div>
       <div class="info-user">

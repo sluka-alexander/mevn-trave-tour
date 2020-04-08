@@ -4,8 +4,7 @@
 @import "../common/functions";
 @import "../common/config";
 
-.awesome-clients {
-
+.clients {
   width: 100%;
 
   @include media(large-desktop) {
@@ -15,86 +14,78 @@
     background-position: center center;
   }
 
-  &__slider {
+  &__slider-and-info {
     @extend %flex-between;
 
     width: 100%;
     align-items: center;
+  }
 
-    &__arrow {
-      @extend %flex-center;
+  &__slider {
+    position: relative;
+    overflow: hidden;
+  }
 
-      @include size(40px);
+  &__arrow {
+    @extend %flex-center;
 
-      transition: .3s;
-      cursor: pointer;
-      font-size: #{$font-M}px;
-      border-radius: 50%;
-      background-color: $purple;
-      z-index: 1;
+    @include size(40px);
 
-      &:hover {
-        background-color: $pink;
-      }
+    transition: 0.3s;
+    cursor: pointer;
+    font-size: #{$font-M}px;
+    border-radius: 50%;
+    background-color: $purple;
+    z-index: 1;
 
-      &__inactive {
-        opacity: .6;
-        cursor: auto;
-      }
+    &:hover {
+      background-color: $pink;
+    }
+
+    &_inactive {
+      opacity: 0.6;
+      cursor: auto;
 
       &:hover {
         background-color: $purple;
       }
     }
+  }
 
-    &__client {
-      cursor: pointer;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: .6s;
+  &__photo {
+    @include size(150px);
 
-      &__small {
-        @include size(150px);
-      }
+    cursor: pointer;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: 0.6s;
+  }
 
-      &__medium {
-        @include size(150px);
-      }
+  &__name {
+    @extend %flex-center;
 
-      &__large {
-        @include size(150px);
-      }
-    }
+    @include color-and-weight($black, $bold);
 
+    font-size: calcFluidFontSize($font-M, $font-L, 320, 1920);
+    margin: 30px 0;
   }
 
   &__info {
     margin-bottom: 100px;
     width: 100%;
-
-    &__name {
-      @extend %flex-center;
-
-      @include color-and-weight($black, $bold);
-
-      font-size: calcFluidFontSize($font-M, $font-L, 320, 1920);
-      margin: 30px 0;
-
-    }
-
-    &__review {
-      @include color-and-weight($gray, $regular);
-
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-      font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
-      margin: 0 auto;
-    }
   }
 
+  &__review {
+    @include color-and-weight($gray, $regular);
+
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
+    margin: 0 auto;
+  }
 }
 
 @for $i from 1 through 5 {

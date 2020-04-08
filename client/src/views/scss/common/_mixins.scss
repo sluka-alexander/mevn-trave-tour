@@ -10,8 +10,8 @@
   color: $color;
 }
 
-@mixin media($device){
-  @media screen and (min-width: map_get($breakpoints, $device)){
+@mixin media($device) {
+  @media screen and (min-width: map_get($breakpoints, $device)) {
     @content;
   }
 }

@@ -7,10 +7,10 @@ const Register = import('../views/Register.vue');
 const Login = import('../views/Login.vue');
 const Users = import('../views/Users.vue');
 const Tours = import('../views/Tours.vue');
-const NewTour = import('../views/NewTour.vue');
-const EditTour = import('../views/EditTour.vue');
+const NewTour = import('../views/New-tour.vue');
+const EditTour = import('../views/Edit-tour.vue');
 const Dashboard = import('../views/Dashboard.vue');
-const NotFound = import('../views/NotFound.vue');
+const NotFound = import('../views/Not-found.vue');
 const Error = import('../views/Error.vue');
 
 Vue.use(VueRouter);

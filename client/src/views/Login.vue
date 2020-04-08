@@ -2,11 +2,11 @@
   <div class="container">
     <div class="title-item">
       Login
-      <div class="icon icon__login">
+      <div class="icon icon_login">
       </div>
-      <form>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.email.$error}">
+      <form class="form">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.email.$error}">
           <label for="email">Email</label>
           <input
             type="email"
@@ -18,8 +18,8 @@
           <div class="error" v-if="!$v.email.required">Fill in the field</div>
           <div class="error" v-if="!$v.email.email">This is incorrect email</div>
         </div>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.password.$error}">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.password.$error}">
           <label for="password">Password</label>
           <input
             type="password"
@@ -33,7 +33,7 @@
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
         </div>
         <div class="error">{{ Error }} </div>
-        <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
+        <div v-if="$v.$invalid" class="button button_no-active" >Sign up</div>
         <div v-else @click="login" class="button">Sign up</div>
       </form>
     </div>

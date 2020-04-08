@@ -5,4 +5,4 @@
   $b: $b * 1px;
 
   @return calc( #{$k} * 100vw + #{$b} );
-};
+}

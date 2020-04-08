@@ -1,0 +1,11 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["include", "mixin", "extend", "function", "return", "for"]
+    }],
+    "function-name-case": [true, {
+      "ignoreAtRules": ["calcfluidfontsize"]
+    }]
+  }
+}

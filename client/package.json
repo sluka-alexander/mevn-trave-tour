@@ -5,12 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint:css": "stylelint src/views/scss"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
-    "vue": "^2.6.11",c
+    "stylelint-config-standard": "^20.0.0",
+    "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.12",
@@ -26,8 +28,13 @@
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-vue": "^6.1.2",
+    "gulp-postcss": "^8.0.0",
     "node-sass": "^4.12.0",
+    "postcss-reporter": "^6.0.1",
+    "postcss-scss": "^2.0.0",
     "sass-loader": "^8.0.2",
+    "stylelint": "^13.3.0",
+    "stylelint-webpack-plugin": "^1.2.3",
     "vue-template-compiler": "^2.6.11"
   }
 }

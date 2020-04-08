@@ -6,13 +6,14 @@
 
 .users {
   width: 100%;
+
   a {
     &.router-link-exact-active {
       @include color-and-weight($white, $bold);
 
       background-color: $pink;
       border-color: $pink;
-      transition: .5s;
+      transition: 0.5s;
     }
   }
 
@@ -26,9 +27,7 @@
     padding: 20px;
     width: 50%;
     margin: 15px auto;
-    -webkit-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-    -moz-box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
-    box-shadow: 0px 4px 58px -2px rgba(220, 213, 222, 1);
+    box-shadow: 0 4px 58px -2px rgba(220, 213, 222, 1);
 
     .bold {
       @include color-and-weight($black, $bold);
@@ -61,7 +60,7 @@
       background-color: $purple;
       cursor: pointer;
       margin-top: 15px;
-      transition: .3s;
+      transition: 0.3s;
       border-radius: 5px;
       outline: 0;
 
@@ -89,10 +88,11 @@
     margin: 4px;
     cursor: pointer;
     border: 2px solid $gray;
-    transition: .2s;
+    transition: 0.2s;
 
     &:hover {
       @include color-and-weight($white,$medium);
+
       background-color: $purple;
       border: 1px solid $purple;
     }
@@ -104,4 +104,4 @@
       border: 1px solid $pink;
     }
   }
-};
+}

@@ -3,11 +3,11 @@
     <div class="container">
       <div class="title-item">
         Edit tour
-        <div class="icon icon__edit"></div>
+        <div class="icon icon_edit"></div>
       </div>
-      <form @submit.prevent="UpdateTour">
-        <div class="form-item"
-             :class="{'form-item-err' : $v.tour.name.$error}">
+      <form @submit.prevent="UpdateTour" class="form">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.tour.name.$error}">
           <label for="name">Name of tour</label>
           <input
             type="text"
@@ -21,7 +21,7 @@
             {{ $v.tour.name.$params.minLength.min }}
           </div>
         </div>
-        <div class="form-item">
+        <div class="form__item">
           <label for="category">Category</label>
           <select type="text"
                   id="category"
@@ -35,8 +35,8 @@
             <option>Mountain</option>
           </select>
         </div>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.tour.description.$error}">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.tour.description.$error}">
           <label for="desc">Description</label>
           <input
             id="desc"
@@ -49,8 +49,8 @@
             {{ $v.tour.description.$params.minLength.min }}
           </div>
         </div>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.tour.price.$error}">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.tour.price.$error}">
           <label for="price">Price</label>
           <input
             type="number"
@@ -68,7 +68,7 @@
         </div>
         <span style="display: flex">
           <div v-if="$v.$invalid"
-            class="button button__no-active">Edit tour
+            class="button button_no-active">Edit tour
           </div>
           <button type="submit" v-else class="button">Edit tour</button>
           <span class="button-back" @click="Back">Cancel</span>

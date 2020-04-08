@@ -2,16 +2,16 @@
   <div class="tours">
     <transition name="smooth">
       <div v-if="confirmFormEdit" class="confirm-form">
-        <div class="confirm-form__icon confirm-form__icon__warning"></div>
+        <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
           do you really <br> want to do this?
         </div>
         <div class="confirm-form__buttons">
           <router-link v-bind:to="{ name: 'EditTour', params:
                   { id: clickId } }">
-            <div class="confirm-form__button confirm-form__button__positive">Edit</div>
+            <div class="confirm-form__button confirm-form__button_positive">Edit</div>
           </router-link>
-          <div class="confirm-form__button confirm-form__button__negative"
+          <div class="confirm-form__button confirm-form__button_negative"
                @click="confirmFormEdit = !confirmFormEdit">
             Cancel
           </div>
@@ -20,14 +20,14 @@
     </transition>
     <transition name="smooth">
       <div v-if="confirmFormDelete" class="confirm-form">
-        <div class="confirm-form__icon confirm-form__icon__warning"></div>
+        <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
           do you really <br> want to do this?
         </div>
         <div class="confirm-form__buttons">
-          <div class="confirm-form__button confirm-form__button__positive"
+          <div class="confirm-form__button confirm-form__button_positive"
                  @click="DeleteTour(clickId)">Delete</div>
-          <div class="confirm-form__button confirm-form__button__negative"
+          <div class="confirm-form__button confirm-form__button_negative"
                @click="confirmFormDelete = !confirmFormDelete">
             Cancel
           </div>
@@ -38,7 +38,7 @@
     <div class="container">
       <div class="title-item">
         Tours
-        <div class="icon icon__tours"></div>
+        <div class="icon icon_tours"></div>
       </div>
 <!--      <transition name="loading">-->
 <!--        <div class="loading" v-if="!tours.length && !NotTours"></div>-->

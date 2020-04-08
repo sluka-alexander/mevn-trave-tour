@@ -4,7 +4,6 @@
 @import "../common/functions";
 @import "../common/config";
 
-
 header {
   @extend %flex-between;
 
@@ -17,8 +16,8 @@ header {
   @include media(tablet) {
     flex-wrap: nowrap;
   }
+
   @include media(large-desktop) {
-    flex-wrap: nowrap;
     flex-direction: row;
     margin-top: 60px;
   }
@@ -32,7 +31,7 @@ header {
   text-transform: uppercase;
   z-index: 1;
 
-  @include media(mobile) {
+  @include media(wide-mobile) {
     justify-content: flex-start;
   }
 }
@@ -45,7 +44,7 @@ header {
 
   a {
     &.router-link-exact-active {
-      transition: .5s;
+      transition: 0.5s;
       color: $pink;
     }
   }
@@ -61,9 +60,7 @@ header {
   }
 
   &__right {
-    @extend %flex;
-
-    justify-content: space-between;
+    @extend %flex-between;
 
     &__item {
       @include media(large-desktop) {
@@ -78,7 +75,7 @@ header {
 
   &__item {
     cursor: pointer;
-    transition: .3s;
+    transition: 0.3s;
     margin-left: 40px;
 
     &::after {
@@ -87,22 +84,19 @@ header {
       content: '';
       display: block;
       border-radius: 50px;
-      transition: .5s;
+      transition: 0.5s;
       background-color: $purple;
     }
 
     &:hover::after {
-      transition: .5s;
+      transition: 0.5s;
       width: 100%;
     }
   }
 }
 
-
 .burger-bnt {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex-center;
 
   @include size(37px);
 
@@ -110,34 +104,32 @@ header {
   z-index: 7;
 
   @include media(desktop) {
-    display: none;
+    opacity: 0;
   }
 
   &__bars {
-    width: 37px;
-    height: 5px;
+    @include size(37px, 5px);
+
     position: absolute;
     background-color: $gray;
     cursor: pointer;
     border-radius: 5px;
 
     &::before {
-      display: block;
+      @include size(37px, 5px);
+
       position: absolute;
       content: '';
-      width: 37px;
-      height: 5px;
       background-color: $gray;
       top: 10px;
       border-radius: 5px;
     }
 
     &::after {
-      display: block;
+      @include size(37px, 5px);
+
       position: absolute;
       content: '';
-      width: 37px;
-      height: 5px;
       background-color: $gray;
       top: -10px;
       border-radius: 5px;
@@ -146,6 +138,7 @@ header {
 
   &__cross {
     @extend %flex-center;
+
     background-color: $white;
     transition: 0.3s;
     cursor: pointer;
@@ -153,28 +146,30 @@ header {
     z-index: 7;
 
     &::before {
+      @include size(40px, 5px);
+
       position: absolute;
       content: '';
-      width: 40px;
-      height: 5px;
       background-color: $white;
       transform: rotate(-45deg);
       border-radius: 5px;
     }
 
     &::after {
+      @include size(40px, 5px);
+
       position: absolute;
       content: '';
-      width: 40px;
-      height: 5px;
       background-color: $white;
       transform: rotate(45deg);
       border-radius: 5px;
     }
   }
 }
+
 .navbar-mobile-bgc {
   @include size(100%);
+
   position: fixed;
   background-color: $purple;
   top: 0;
@@ -185,7 +180,7 @@ header {
 
   a {
     &.router-link-exact-active {
-      transition: .2s;
+      transition: 0.2s;
       color: $black;
     }
   }
@@ -208,7 +203,7 @@ header {
     border-bottom: 2px solid $white;
     font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
     padding: 20px;
-    transition: .3s;
+    transition: 0.3s;
 
     &:hover {
       background-color: $pink;
@@ -216,12 +211,13 @@ header {
     }
   }
 }
+
 .info-and-img {
   @extend %flex-between;
 
   @include size(100%);
 
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .main-info {
@@ -230,6 +226,7 @@ header {
   @include media(desktop) {
     margin-top: 120px;
   }
+
   @include media(large-desktop) {
     margin-top: 200px;
   }
@@ -264,7 +261,7 @@ header {
 
     font-size: calcFluidFontSize(14, $font-M, 320, 1920);
     background-color: $white;
-    transition: .3s;
+    transition: 0.3s;
     padding-left: 20px;
     margin-bottom: 20px;
   }
@@ -276,14 +273,14 @@ header {
     @include size(200px, 70px);
 
     cursor: pointer;
-    transition: .3s;
+    transition: 0.3s;
     font-size: calcFluidFontSize(14, $font-M, 320, 1920);
     margin: 0 auto;
     background-color: $purple;
     color: $white;
 
     &:hover {
-      transition: .3s;
+      transition: 0.3s;
       background-color: $pink;
     }
   }

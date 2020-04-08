@@ -14,15 +14,15 @@
   @include media(large-desktop) {
     background-image: url('#{$img}footer-back.png');
   }
-}
 
-.content {
-  @extend %flex-between;
+  &__content {
+    @extend %flex-between;
 
-  flex-direction: column;
+    flex-direction: column;
 
-  @include media(desktop) {
-    flex-direction: row;
+    @include media(desktop) {
+      flex-direction: row;
+    }
   }
 
   &__left {
@@ -32,39 +32,41 @@
     @include media(desktop) {
       width: 40%;
     }
-    &__logo {
-      @extend %flex;
+  }
 
-      @include color-and-weight($purple, $extra-bold);
+  &__logo {
+    @extend %flex;
 
-      justify-content: center;
-      cursor: pointer;
-      font-size: calcFluidFontSize($font-logo, $font-logo, 320, 1920);
-      text-transform: uppercase;
+    @include color-and-weight($purple, $extra-bold);
 
-      @include media(mobile) {
-        justify-content: flex-start;
-      }
+    justify-content: center;
+    cursor: pointer;
+    font-size: calcFluidFontSize($font-logo, $font-logo, 320, 1920);
+    text-transform: uppercase;
+
+    @include media(wide-mobile) {
+      justify-content: flex-start;
     }
+  }
 
-    &__icons {
-      @include color-and-weight($purple, $regular);
+  &__icons {
+    @include color-and-weight($purple, $regular);
 
-      text-align: center ;
-      font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    text-align: center;
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
 
-      @include media(mobile){
-        text-align: start ;
-      }
+    @include media(wide-mobile) {
+      text-align: start;
+    }
+  }
 
-      &__icon {
-        margin-right: 10px;
-        transition: .3s;
-        cursor: pointer;
-        &:hover {
-          @include color-and-weight($pink, $regular);
-        }
-      }
+  &__icon {
+    margin-right: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      @include color-and-weight($pink, $regular);
     }
   }
 
@@ -74,53 +76,53 @@
     flex-direction: column;
     width: 100%;
 
-    @include media(mobile) {
+    @include media(wide-mobile) {
       flex-direction: row;
     }
+
     @include media(desktop) {
       width: 40%;
     }
+  }
 
-    &__column {
-      text-align: center;
+  &__column {
+    text-align: center;
 
-      @include media(mobile) {
-        text-align: start;
-      }
-
-      &__title {
-        @include color-and-weight($black, $medium);
-
-        margin-bottom: 10px;
-        font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
-      }
-
-      &__items {
-        @include color-and-weight($gray, $regular);
-
-        font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
-
-        &__item {
-          transition: .3s;
-          cursor: pointer;
-
-          &:hover {
-            @include color-and-weight($purple, $regular);
-          }
-        }
-      }
+    @include media(wide-mobile) {
+      text-align: start;
     }
   }
-}
 
-.made {
-  @extend %flex-center;
+  &__title {
+    @include color-and-weight($black, $medium);
 
-  @include color-and-weight($black, $bold);
+    margin-bottom: 10px;
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+  }
 
-  font-size: calcFluidFontSize(14, $font-M, 320, 1920);
-  text-align: center;
-  width: 100%;
-  height: 95px;
-  border-top: 1px solid #E3E3E3;
+  &__items {
+    @include color-and-weight($gray, $regular);
+
+    font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
+  }
+
+  &__item {
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      @include color-and-weight($purple, $regular);
+    }
+  }
+
+  &__made {
+    @extend %flex-center;
+
+    @include color-and-weight($black, $bold);
+    @include size(100%, 95px);
+
+    font-size: calcFluidFontSize(14, $font-M, 320, 1920);
+    text-align: center;
+    border-top: 1px solid #e3e3e3;
+  }
 }

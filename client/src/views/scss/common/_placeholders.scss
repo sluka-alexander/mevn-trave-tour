@@ -4,16 +4,18 @@
 
 %flex-center {
   @extend %flex;
+
   justify-content: center;
   align-items: center;
 }
 
 %flex-between {
   @extend %flex;
+
   justify-content: space-between;
 }
 %flex-around {
   @extend %flex;
-  justify-content: space-around;
 
+  justify-content: space-around;
 }

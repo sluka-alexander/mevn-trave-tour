@@ -6,30 +6,30 @@
       </transition>
       <div class="title-item">
         Register
-        <div class="icon icon__user"
-             :class="{'icon__user-correct' : !$v.$invalid,
-              'icon__user-incorrect' : $v.name.$error || $v.email.$error || $v.password.$error}"
+        <div class="icon icon_user"
+             :class="{'icon_user-correct' : !$v.$invalid,
+              'icon_user-incorrect' : $v.name.$error || $v.email.$error || $v.password.$error}"
         ></div>
       </div>
 
-      <form @submit.prevent="addUser" >
+      <form @submit.prevent="addUser" class="form">
         <transition name="smooth">
           <div v-if="isConfirmForm" class="confirm-form">
-            <div class="confirm-form__icon confirm-form__icon__register">
+            <div class="confirm-form__icon confirm-form__icon_register">
             </div>
             <div class="confirm-form__title">
               Congratulations,<br>
               you can now log in
             </div>
             <div class="confirm-form__buttons">
-              <button type="submit" class="confirm-form__button confirm-form__button__positive"
+              <button type="submit" class="confirm-form__button confirm-form__button_positive"
                       @click="Redirect">
                 OK</button>
             </div>
           </div>
         </transition>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.name.$error}">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.name.$error}">
           <label for="name">Name</label>
           <input
             type="text"
@@ -43,8 +43,8 @@
           {{$v.name.$params.minLength.min}}
         </div>
         </div>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.email.$error}">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.email.$error}">
           <label for="email">Email</label>
           <input
             type="email"
@@ -56,8 +56,8 @@
           <div class="error " v-if="!$v.email.required">Fill in the field</div>
           <div class="error" v-if="!$v.email.email">This is incorrect email</div>
         </div>
-        <div class="form-item"
-             :class="{'form-item-err' : $v.password.$error}">
+        <div class="form__item"
+             :class="{'form__item_err' : $v.password.$error}">
           <label for="password">Password</label>
           <input
             type="password"
@@ -72,7 +72,7 @@
           <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
         </div>
         <div class="error" v-if="error">{{ error }}</div>
-        <div v-if="$v.$invalid" class="button button__no-active" >Sign up</div>
+        <div v-if="$v.$invalid" class="button button_no-active" >Sign up</div>
         <div v-else @click="register" class="button">Sign up</div>
       </form>
     </div>
@@ -83,8 +83,6 @@
 import {
   required, minLength, maxLength, email,
 } from 'vuelidate/lib/validators';
-// import UserService from '../services/UserService';
-
 
 export default {
   name: 'Register',

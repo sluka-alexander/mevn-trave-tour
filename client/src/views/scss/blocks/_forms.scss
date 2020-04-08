@@ -1,0 +1,100 @@
+@import "../common/mixins";
+@import "../common/placeholders";
+@import "../common/functions";
+@import "../common/config";
+@import "../common/variables";
+
+.form {
+  width: 100%;
+
+  input,
+  textarea,
+  select {
+    @include color-and-weight($black,$regular);
+
+    font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
+    border-bottom: 1px solid $gray;
+    background-color: $background;
+    outline: 0;
+    width: 100%;
+    resize: none;
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  label {
+    @include color-and-weight($black,$bold);
+
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    margin: 20px 0 10px 0;
+    text-align: start;
+  }
+
+  .error {
+    @include color-and-weight($black,$medium);
+
+    text-align: start;
+    font-size: #{$font-S}px;
+    display: block;
+    color: red;
+  }
+
+  &__item {
+    @extend %flex;
+
+    flex-direction: column;
+    width: 100%;
+
+    .error {
+      display: none;
+    }
+
+    &_err {
+      .error {
+        @include color-and-weight($black,$medium);
+
+        text-align: start;
+        font-size: #{$font-S}px;
+        display: block;
+        color: red;
+      }
+
+      input {
+        transition: 0.4s;
+        color: $red;
+        margin: 10px 0;
+        border-color: $red;
+      }
+    }
+  }
+
+  .button {
+    @extend %flex-center;
+
+    @include color-and-weight($white,$medium);
+    @include size(200px, 50px);
+
+    margin: 20px 0;
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    border: none;
+    background-color: $purple;
+    opacity: 1;
+    transition: 0.3s;
+    border-radius: 5px;
+    outline: 0;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $pink;
+    }
+
+    &_no-active {
+      opacity: 0.5;
+      cursor: auto;
+
+      &:hover {
+        background-color: $purple;
+      }
+    }
+  }
+}
