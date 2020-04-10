@@ -2,7 +2,7 @@
     <div>
       <div class="icon icon_error"></div>
       <div class="title-item">
-        Error
+        {{ $t('errorAndNotFound.error') }}
       </div>
     </div>
 </template>

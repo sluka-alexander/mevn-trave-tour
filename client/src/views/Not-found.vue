@@ -2,7 +2,7 @@
   <div>
     <div class="icon icon_404"></div>
     <div class="title-item">
-     Page not found
+      {{ $t('errorAndNotFound.notFound') }}
     </div>
   </div>
 </template>

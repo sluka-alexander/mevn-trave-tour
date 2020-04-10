@@ -129,12 +129,14 @@ a {
   background-repeat: no-repeat;
 
   @include media(desktop) {
-    @include size(400px);
-
     background-image: url('#{$img}main.png');
   }
 
   @include media(desktop) {
+    @include size(450px);
+  }
+
+  @include media(large-desktop) {
     @include size(600px);
   }
 }
@@ -151,6 +153,79 @@ a {
 
   @include media(large-desktop) {
     background-image: url('#{$img}line-back.png');
+  }
+}
+
+.icons-lang-mobile {
+  @extend %flex-center;
+
+  margin: 0 auto;
+
+  &__icon {
+    @include size(50px);
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.1s;
+
+    &:hover {
+      transform: scale(1.3);
+    }
+
+    &_rus {
+      background-image: url('https://image.flaticon.com/icons/svg/321/321257.svg');
+    }
+
+    &_eng {
+      background-image: url('https://image.flaticon.com/icons/svg/321/321269.svg');
+    }
+  }
+}
+
+.icons-lang-desktop {
+  @extend %flex-center;
+
+  opacity: 0;
+  position: absolute;
+  top: 60px;
+  right: 30px;
+
+  @include media(desktop) {
+    opacity: 1;
+  }
+
+  @include media(large-desktop) {
+    top: 30px;
+  }
+
+  &__icon {
+    @include size(30px);
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.1s;
+
+    &:hover {
+      transform: scale(1.3);
+    }
+
+    &:active {
+      transform: scale(2);
+    }
+
+    &_rus {
+      background-image: url('https://image.flaticon.com/icons/svg/321/321257.svg');
+    }
+
+    &_eng {
+      background-image: url('https://image.flaticon.com/icons/svg/321/321269.svg');
+    }
   }
 }
 
@@ -275,11 +350,13 @@ a {
   }
 
   &__button {
+    @extend %flex-center;
+
     @include color-and-weight($white, $medium);
+    @include size(70px, 40px);
 
     border: 2px solid $black;
     background-color: $purple;
-    padding: 10px 20px;
     cursor: pointer;
     transition: 0.2s;
 

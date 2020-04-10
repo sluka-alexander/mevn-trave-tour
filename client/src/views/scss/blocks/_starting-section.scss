@@ -62,15 +62,7 @@ header {
   &__right {
     @extend %flex-between;
 
-    &__item {
-      @include media(large-desktop) {
-        margin-left: 20px;
-      }
-    }
-
-    .fa-home {
-      margin-left: 20px;
-    }
+    min-width: 150px;
   }
 
   &__item {
@@ -118,6 +110,7 @@ header {
     &::before {
       @include size(37px, 5px);
 
+      display: block;
       position: absolute;
       content: '';
       background-color: $gray;
@@ -128,6 +121,7 @@ header {
     &::after {
       @include size(37px, 5px);
 
+      display: block;
       position: absolute;
       content: '';
       background-color: $gray;
@@ -222,6 +216,7 @@ header {
 
 .main-info {
   margin-top: 50px;
+  width: 600px;
 
   @include media(desktop) {
     margin-top: 120px;

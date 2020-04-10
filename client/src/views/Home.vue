@@ -6,13 +6,19 @@
         <div class="container">
           <div class="info-and-img">
             <div class="main-info">
-              <div class="main-info__subtitle">Choose the best destination</div>
-              <div class="main-info__title">Adventure<br>Without BOUNDARIES...</div>
+              <div class="main-info__subtitle">
+                {{ $t('startingBlock.subtitleMsg') }}
+              </div>
+              <div class="main-info__title">
+                {{ $t('startingBlock.titleMsgOne') }}<br>
+                {{ $t('startingBlock.titleMsgTwo') }}
+              </div>
               <div class="search">
-                <input type="text" class="search__input" placeholder="Find out the best place..."
+                <input type="text" class="search__input"
+                       :placeholder="$t('startingBlock.searchTxt') "
                        v-model="search" @keyup.enter="SearchTour">
                 <div class="search__button" @click="SearchTour">
-                  Search
+                  {{ $t('startingBlock.searchButtonTxt') }}
                 </div>
               </div>
             </div>
@@ -24,45 +30,51 @@
 
     <div class="experience">
       <div class="container">
-        <div class="title">Experience <br> travel with us</div>
+        <div class="title">
+          {{ $t('experienceBlock.titleTxtOne') }} <br>
+          {{ $t('experienceBlock.titleTxtTwo') }}</div>
         <div class="boxes">
           <div class="boxes__column">
             <div class="box img-experience-1"></div>
             <div class="box__text">
-              <div class="box__title">Blue hill trial</div>
-              <div class="box__subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Amet architecto
-                autem commodi esse, eum excepturi iste laudantium
+              <div class="box__title">
+                {{ $t('experienceBlock.titleBoxTxt.one') }}
+              </div>
+              <div class="box__subtitle">
+                {{ $t('experienceBlock.subtitleBoxTxt') }}
               </div>
             </div>
           </div>
           <div class="boxes__column">
             <div class="box img-experience-2"></div>
             <div class="box__text">
-              <div class="box__title">Blue hill trial</div>
-              <div class="box__subtitle">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Amet architecto
-                autem commodi esse, eum excepturi iste laudantium
+              <div class="box__title">
+                {{ $t('experienceBlock.titleBoxTxt.two') }}
+              </div>
+              <div class="box__subtitle">
+                {{ $t('experienceBlock.subtitleBoxTxt') }}
               </div>
             </div>
           </div>
           <div class="boxes__column">
             <div class="box img-experience-3"></div>
             <div class="box__text">
-              <div class="box__title">Blue hill trial</div>
-              <div class="box__subtitle">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Amet architecto
-                autem commodi esse, eum excepturi iste laudantium
+              <div class="box__title">
+                {{ $t('experienceBlock.titleBoxTxt.three') }}
+              </div>
+              <div class="box__subtitle">
+                {{ $t('experienceBlock.subtitleBoxTxt') }}
               </div>
             </div>
           </div>
           <div class="boxes__column">
             <div class="box img-experience-4"></div>
             <div class="box__text">
-              <div class="box__title">Blue hill trial</div>
-              <div class="box__subtitle">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Amet architecto
-                autem commodi esse, eum excepturi iste laudantium
+              <div class="box__title">
+                {{ $t('experienceBlock.titleBoxTxt.four') }}
+              </div>
+              <div class="box__subtitle">
+                {{ $t('experienceBlock.subtitleBoxTxt') }}
               </div>
             </div>
           </div>
@@ -72,30 +84,25 @@
 
     <div class="choose-category">
       <div class="container">
-        <div class="title">Choose <br> your category</div>
+        <div class="title">
+          {{ $t('categoryBlock.titleTxtOne') }} <br>
+          {{ $t('categoryBlock.titleTxtTwo') }}
+        </div>
         <div class="choose-category__up-content">
           <div class="subtitle">
             <div class='choose-category__slider slider js-slider-category'>
               <div class="slider__body" v-bind:style='{left: sliderOffsetLeft + "px"}'>
                 <div class="slider__slide js-slide">
-                  As absolute is by amounted repeated entirely ye returned.
-                  These ready timed enjoy might sir yet one since
-                  As am hastily invited settled at limited civilly fortune me.
+                  {{ $t('categoryBlock.subtitleTxt') }}
                 </div>
                 <div class="slider__slide js-slide-category">
-                  Years drift never if could forty being no. On estimable dependent as
-                  suffering on my. Rank it long have sure in room what as he
-                  As am hastily invited settled at limited civilly fortune me.
+                  {{ $t('categoryBlock.subtitleTxt') }}
                 </div>
                 <div class="slider__slide js-slide-category">
-                  Possession travelling sufficient yet our. Talked vanity looked in to.
-                  Gay perceive led believed endeavor.
-                  As am hastily invited settled at limited civilly fortune me.
+                  {{ $t('categoryBlock.subtitleTxt') }}
                 </div>
                 <div class="slider__slide js-slide-category">
-                  Taken no great widow spoke of it small.
-                  Genius use except son esteem merely her limits. Sons park by do make on.
-                  As am hastily invited settled at limited civilly fortune me.
+                  {{ $t('categoryBlock.subtitleTxt') }}
                 </div>
               </div>
             </div>
@@ -117,28 +124,36 @@
           <div class="boxes__column">
             <router-link :to="{ name: 'Tours', query: { search: 'mountain' } }">
               <div class="choose-category__box box img-category-1">
-                <div class="box__category">Mountain</div>
+                <div class="box__category">
+                  {{ $t('categoryBlock.categoryBoxTxt.mountainTxt') }}
+                </div>
               </div>
             </router-link>
           </div>
           <div class="boxes__column">
             <router-link :to="{ name: 'Tours', query: { search: 'waterfall' } }">
               <div class="choose-category__box box img-category-2">
-                <div class="box__category">Waterfall</div>
+                <div class="box__category">
+                  {{ $t('categoryBlock.categoryBoxTxt.waterfallTxt') }}
+                </div>
               </div>
             </router-link>
           </div>
           <div class="boxes__column">
             <router-link :to="{ name: 'Tours', query: { search: 'snow' } }">
               <div class="choose-category__box box img-category-3">
-                <div class="box__category">Snow</div>
+                <div class="box__category">
+                  {{ $t('categoryBlock.categoryBoxTxt.snowTxt') }}
+                </div>
               </div>
             </router-link>
           </div>
           <div class="boxes__column">
             <router-link :to="{ name: 'Tours', query: { search: 'nature' } }">
               <div class="choose-category__box box img-category-4">
-                <div class="box__category">Nature</div>
+                <div class="box__category">
+                  {{ $t('categoryBlock.categoryBoxTxt.natureTxt') }}
+                </div>
               </div>
             </router-link>
           </div>
@@ -148,26 +163,18 @@
 
     <div class="adventure-trip">
       <div class="container">
-        <div class="title">Our <br> Adventure Trip</div>
-        <div class="subtitle">Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Ad aliquam dicta
-          doloremque
-          est,
-          excepturi fugit, labore mollitia natus obcaecati
-          officiis perspiciatis quod sed tempore tenetur ullam
-          vel
-          voluptatibus. Ab architecto asperiores autem commodi
-          corporis cupiditate debitis doloremque dolorum
-          eaque
-          earum
-          in incidunt, iure labore libero magnam maiores
-          maxime molestias neque
+        <div class="title">
+          {{ $t('tripBlock.titleTxtOne') }}<br>
+          {{ $t('tripBlock.titleTxtTwo') }}
+        </div>
+        <div class="subtitle">
+          {{ $t('tripBlock.subtitleTxt') }}
         </div>
         <div class="video-block" v-if="video">
           <div class="video-block__blackout">
             <div class="video-block__circle" @click="video = !video">
               <div class="video-block__second-circle">
-                <i class="fas fa-play" style="color: #433A8B"></i>
+                <i class="fas fa-play" style="color: #433a8b;"></i>
               </div>
             </div>
           </div>
@@ -180,22 +187,18 @@
 
     <div class="clients">
       <div class="container">
-        <div class="title">Our <br>Awesome Clients</div>
-        <div class="subtitle">Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Adipisci aspernatur
-          deserunt dignissimos ea, earum eos eum ipsam libero
-          nisi, optio pariatur porro quae quam
-          quas qui quibusdam, quos
-          repudiandae vel veniam vitae? Culpa error,
-          laboriosam? Aperiam aut consectetur eum quod
-          repellendus. Animi
-          aspernatur, aut blanditiis dignissimos
+        <div class="title">
+          {{ $t('clientsBlock.titleTxtOne') }}<br>
+          {{ $t('clientsBlock.titleTxtTwo') }}
+        </div>
+        <div class="subtitle">
+          {{ $t('clientsBlock.subtitleTxt') }}
         </div>
         <div  class="clients__slider-and-info">
           <div class="clients__arrow" @click="prevSlideClients"
                :class="{'clients__arrow_inactive' :
                activeSlide === 1}">
-            <i class="fas fa-angle-left" style="color: white"></i>
+            <i class="fas fa-angle-left" style="color: white;"></i>
           </div>
           <div class="clients__slider slider js-slider-client">
             <div class="slider__body" v-bind:style='{left: sliderOffsetClients + "px"}'>
@@ -213,21 +216,39 @@
           <div class="clients__arrow"
                :class="{'clients__arrow_inactive' :
                activeSlide === sliderAllClients}" @click="nextSlideClients">
-            <i class="fas fa-angle-right" style="color: white"></i>
+            <i class="fas fa-angle-right" style="color: white;"></i>
           </div>
         </div>
         <div class="clients__info">
-          <div v-if="activeSlide === 1" class="clients__name">Milana Searle</div>
-          <div v-else-if="activeSlide === 2" class="clients__name">Josh Dolan</div>
-          <div v-else-if="activeSlide === 3" class="clients__name">Alex Smith</div>
-          <div v-else-if="activeSlide === 4" class="clients__name">Chyna Hunter</div>
-          <div v-else-if="activeSlide === 5" class="clients__name">Kiya Lennon</div>
-          <div class="clients__review">Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit.
-            Consectetur, delectus dicta
-            hic
-            ipsum laborum libero magnam ratione veritatis
-            vitae voluptates
+          <div v-if="activeSlide === 1" class="clients__name">
+            {{ $t('clientsBlock.clientsTxt.one') }}
+          </div>
+          <div v-else-if="activeSlide === 2" class="clients__name">
+            {{ $t('clientsBlock.clientsTxt.two') }}
+          </div>
+          <div v-else-if="activeSlide === 3" class="clients__name">
+            {{ $t('clientsBlock.clientsTxt.three') }}
+          </div>
+          <div v-else-if="activeSlide === 4" class="clients__name">
+            {{ $t('clientsBlock.clientsTxt.four') }}
+          </div>
+          <div v-else-if="activeSlide === 5" class="clients__name">
+            {{ $t('clientsBlock.clientsTxt.five') }}
+          </div>
+          <div v-if="activeSlide === 1" class="clients__review">
+            {{ $t('clientsBlock.reviewTxt.one') }}
+          </div>
+          <div v-else-if="activeSlide === 2" class="clients__review">
+            {{ $t('clientsBlock.reviewTxt.two') }}
+          </div>
+          <div v-else-if="activeSlide === 3" class="clients__review">
+            {{ $t('clientsBlock.reviewTxt.three') }}
+          </div>
+          <div v-else-if="activeSlide === 4" class="clients__review">
+            {{ $t('clientsBlock.reviewTxt.four') }}
+          </div>
+          <div v-else-if="activeSlide === 5" class="clients__review">
+            {{ $t('clientsBlock.reviewTxt.five') }}
           </div>
         </div>
       </div>
@@ -237,11 +258,11 @@
       <div class="feedback__color-back">
         <div class="container">
           <div class="email">
-            <input class="email__input" placeholder="Enter your mail address">
-            <div class="email__button">Book Now</div>
+            <input class="email__input" :placeholder="$t('feedbackBlock.inputTxt')">
+            <div class="email__button">{{ $t('feedbackBlock.btnTxt') }}</div>
           </div>
         </div>
-        <div class="text-end">START YOUR ADVENTURE WITH US</div>
+        <div class="text-end">{{ $t('feedbackBlock.endTxt') }}</div>
       </div>
     </div>
 
@@ -250,10 +271,8 @@
         <div class="footer__content">
           <div class="footer__left">
             <div class="footer__logo">advento</div>
-            <div class="subtitle">Lorem ipsum dolor sit amet,
-              consectetur adipisicing elit. Amet aspernatur
-              at
-              dolor earum enim eos esse fugit
+            <div class="subtitle">
+              {{ $t('footerBlock.subtitleTxt') }}
             </div>
             <div class="subtitle">
               +123 456 789<br>
@@ -272,52 +291,76 @@
           <div class="footer__right">
             <div class="footer__column">
               <div class="footer__title">
-                Activities
+                {{ $t('footerBlock.columnTxt.one.title') }}
               </div>
               <div class="footer__items">
-                <div class="footer__item">Mountain Biking</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.one.items.one') }}
+                </div>
                 <br>
-                <div class="footer__item">Hiking</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.one.items.two') }}
+                </div>
                 <br>
-                <div class="footer__item">Destination</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.one.items.three') }}
+                </div>
                 <br>
-                <div class="footer__item">Stories</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.one.items.four') }}
+                </div>
                 <br>
               </div>
             </div>
             <div class="footer__column">
               <div class="footer__title">
-                Booking
+                {{ $t('footerBlock.columnTxt.two.title') }}
               </div>
               <div class="footer__items">
-                <div class="footer__item">Ticket</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.two.items.one') }}
+                </div>
                 <br>
-                <div class="footer__item">Travel Product</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.two.items.two') }}
+                </div>
                 <br>
-                <div class="footer__item">Packages</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.two.items.three') }}
+                </div>
                 <br>
-                <div class="footer__item">Accommodation</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.two.items.four') }}
+                </div>
                 <br>
               </div>
             </div>
             <div class="footer__column">
               <div class="footer__title">
-                Contact
+                {{ $t('footerBlock.columnTxt.three.title') }}
               </div>
               <div class="footer__items">
-                <div class="footer__item">Team</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.three.items.one') }}
+                </div>
                 <br>
-                <div class="footer__item">Jobs</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.three.items.two') }}
+                </div>
                 <br>
-                <div class="footer__item">Tourist Office</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.three.items.three') }}
+                </div>
                 <br>
-                <div class="footer__item">Brochures</div>
+                <div class="footer__item">
+                  {{ $t('footerBlock.columnTxt.three.items.four') }}
+                </div>
                 <br>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer__made"> © All Rights Reserved by ADVENTO | Made with ♥ | 2019</div>
+        <div class="footer__made"> {{ $t('footerBlock.madeTxt') }} </div>
       </div>
     </div>
   </div>

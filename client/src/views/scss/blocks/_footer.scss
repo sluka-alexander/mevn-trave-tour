@@ -76,12 +76,12 @@
     flex-direction: column;
     width: 100%;
 
-    @include media(wide-mobile) {
+    @include media(small-tablet) {
       flex-direction: row;
     }
 
     @include media(desktop) {
-      width: 40%;
+      width: 50%;
     }
   }
 

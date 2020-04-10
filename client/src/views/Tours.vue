@@ -4,16 +4,19 @@
       <div v-if="confirmFormEdit" class="confirm-form">
         <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
-          do you really <br> want to do this?
+          {{ $t('tours.confirmTxt.warning.one') }} <br>
+          {{ $t('tours.confirmTxt.warning.two') }}
         </div>
         <div class="confirm-form__buttons">
           <router-link v-bind:to="{ name: 'EditTour', params:
                   { id: clickId } }">
-            <div class="confirm-form__button confirm-form__button_positive">Edit</div>
+            <div class="confirm-form__button confirm-form__button_positive">
+              {{ $t('tours.confirmTxt.editBtn') }}
+            </div>
           </router-link>
           <div class="confirm-form__button confirm-form__button_negative"
                @click="confirmFormEdit = !confirmFormEdit">
-            Cancel
+            {{ $t('tours.confirmTxt.cancelBtn') }}
           </div>
         </div>
       </div>
@@ -22,14 +25,17 @@
       <div v-if="confirmFormDelete" class="confirm-form">
         <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
-          do you really <br> want to do this?
+          {{ $t('tours.confirmTxt.warning.one') }} <br>
+          {{ $t('tours.confirmTxt.warning.two') }}
         </div>
         <div class="confirm-form__buttons">
           <div class="confirm-form__button confirm-form__button_positive"
-                 @click="DeleteTour(clickId)">Delete</div>
+                 @click="DeleteTour(clickId)">
+            {{ $t('tours.confirmTxt.deleteBtn') }}
+          </div>
           <div class="confirm-form__button confirm-form__button_negative"
                @click="confirmFormDelete = !confirmFormDelete">
-            Cancel
+            {{ $t('tours.confirmTxt.cancelBtn') }}
           </div>
         </div>
       </div>
@@ -37,19 +43,21 @@
     <div v-if="confirmFormEdit || confirmFormDelete" class="page-form"></div>
     <div class="container">
       <div class="title-item">
-        Tours
+        {{ $t('tours.titleTxt') }}
         <div class="icon icon_tours"></div>
       </div>
-<!--      <transition name="loading">-->
-<!--        <div class="loading" v-if="!tours.length && !NotTours"></div>-->
-<!--      </transition>-->
       <transition name="loading">
-        <div style="text-align: center" v-if="!filteredTours.length && NotTours">
-          Found Nothing We Have</div>
+        <div class="loading" v-if="!filteredTours.length && !NotTours"></div>
+      </transition>
+      <transition name="loading">
+        <div style="text-align: center;" v-if="!filteredTours.length && NotTours">
+          {{ $t('tours.warningTxt') }}
+        </div>
       </transition>
       <div class="table-tours">
         <transition name="tours">
-          <input v-if="allTours.length" v-model="search" placeholder='Enter name of tour'>
+          <input v-if="allTours.length" v-model="search"
+                 :placeholder="$t('startingBlock.searchTxt')">
         </transition>
           <button v-if="search " class="table-tours__search-item"
                   @click="cleanSearch">{{ search }}
@@ -58,18 +66,18 @@
         <transition name="tours">
           <table v-if="filteredTours.length">
             <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Price
+              <th>{{ $t('tours.tableTxt.name') }}</th>
+              <th>{{ $t('tours.tableTxt.category') }}</th>
+              <th>{{ $t('tours.tableTxt.desc') }}</th>
+              <th>{{ $t('tours.tableTxt.price') }}
                 <router-link v-if="this.$route.query.sort !== 'price_desc'"  :to="{query:
                 { search: search, sort: 'price_desc' } }" class="fas fa-arrow-down"></router-link>
                 <router-link v-else-if="this.$route.query.sort === 'price_desc'" :to="{query:
                 { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
               </th>
-              <th>Date</th>
-              <th v-if="isAdmin">Edit</th>
-              <th v-if="isAdmin">Delete</th>
+              <th>{{ $t('tours.tableTxt.date') }}</th>
+              <th v-if="isAdmin">{{ $t('tours.confirmTxt.editBtn') }}</th>
+              <th v-if="isAdmin">{{ $t('tours.confirmTxt.deleteBtn') }}</th>
             <tr>
             <tr v-for="tour in filteredTours.slice(0, numberTours)" v-bind:key="tour.id">
               <td>{{ tour.name }}</td>
@@ -95,7 +103,7 @@
         <button v-if="filteredTours.length &&
          filteredTours.length > numberTours" class="button-load-tours"
                 @click="LoadTours">
-          Load more tours
+          {{ $t('tours.btnLoadTxt') }}
         </button>
       </transition>
     </div>

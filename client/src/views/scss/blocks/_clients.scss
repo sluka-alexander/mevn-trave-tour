@@ -79,6 +79,7 @@
 
   &__review {
     @include color-and-weight($gray, $regular);
+    @include size(100%, 10px);
 
     text-align: center;
     max-width: 400px;

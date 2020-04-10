@@ -5,7 +5,7 @@
         <div v-if="isConfirmForm" class="page-form"></div>
       </transition>
       <div class="title-item">
-        Register
+        {{ $t('LoginAndRegister.titleRegisterTxt') }}
         <div class="icon icon_user"
              :class="{'icon_user-correct' : !$v.$invalid,
               'icon_user-incorrect' : $v.name.$error || $v.email.$error || $v.password.$error}"
@@ -30,50 +30,67 @@
         </transition>
         <div class="form__item"
              :class="{'form__item_err' : $v.name.$error}">
-          <label for="name">Name</label>
+          <label for="name">{{ $t('LoginAndRegister.nameTxt') }}</label>
           <input
             type="text"
             id="name"
             v-model.trim="name"
-            placeholder="Enter your name"
+            :placeholder="$t('LoginAndRegister.placeholder')"
             @blur="$v.name.$touch()"
           >
-          <div class="error" v-if="!$v.name.required">Fill in the field</div>
-          <div class="error" v-if="!$v.name.minLength">Name must have at least
+          <div class="error" v-if="!$v.name.required">
+            {{ $t('validates.field') }}
+          </div>
+          <div class="error" v-if="!$v.name.minLength">
+            {{ $t('validates.least') }}
           {{$v.name.$params.minLength.min}}
         </div>
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.email.$error}">
-          <label for="email">Email</label>
+          <label for="email">{{ $t('LoginAndRegister.emailTxt') }}</label>
           <input
             type="email"
             id="email"
             v-model.trim="email"
-            placeholder="Enter email"
+            :placeholder="$t('LoginAndRegister.placeholder')"
             @blur="$v.email.$touch()"
           >
-          <div class="error " v-if="!$v.email.required">Fill in the field</div>
-          <div class="error" v-if="!$v.email.email">This is incorrect email</div>
+          <div class="error " v-if="!$v.email.required">
+            {{ $t('validates.field') }}
+          </div>
+          <div class="error" v-if="!$v.email.email">
+            {{ $t('validates.email') }}
+          </div>
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.password.$error}">
-          <label for="password">Password</label>
+          <label for="password">{{ $t('LoginAndRegister.passwordTxt') }}</label>
           <input
             type="password"
             id="password"
             v-model.trim="password"
-            placeholder="Enter description"
+            :placeholder="$t('LoginAndRegister.placeholder')"
             @blur="$v.password.$touch()"
           >
-          <div class="error" v-if="!$v.password.required">Fill in the field</div>
+          <div class="error" v-if="!$v.password.required">
+            {{ $t('validates.field') }}
+          </div>
           <div class="error"
-               v-if="!$v.password.minLength">Password is too short</div>
-          <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
+               v-if="!$v.password.minLength">
+            {{ $t('validates.short') }}
+          </div>
+          <div class="error" v-if="!$v.password.maxLength">
+            {{ $t('validates.long') }}
+          </div>
         </div>
         <div class="error">{{ Error }}</div>
-        <div v-if="$v.$invalid" class="button button_no-active" >Sign up</div>
-        <div v-else @click="register" class="button">Sign up</div>
+        <div v-if="$v.$invalid" class="button button_no-active" >
+          {{ $t('LoginAndRegister.signUpBtn') }}
+        </div>
+        <div v-else @click="register" class="button">
+          {{ $t('LoginAndRegister.signUpBtn') }}
+        </div>
       </form>
     </div>
   </div>

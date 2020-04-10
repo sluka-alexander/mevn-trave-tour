@@ -2,31 +2,33 @@
   <div>
     <div class="container">
       <div class="title-item">
-        Edit tour
+        {{ $t('Tour.titleEditTxt') }}
         <div class="icon icon_edit"></div>
       </div>
       <form @submit.prevent="UpdateTour" class="form">
         <div class="form__item"
              :class="{'form__item_err' : $v.tour.name.$error}">
-          <label for="name">Name of tour</label>
+          <label for="name">{{ $t('Tour.formTxt.name') }}</label>
           <input
             type="text"
             id="name"
             v-model.trim="tour.name"
-            placeholder="Enter name"
+            :placeholder="$t('Tour.formTxt.enter')"
             @blur="$v.tour.name.$touch()"
           >
-          <div class="error" v-if="!$v.tour.name.required">Fill in the field</div>
-          <div class="error" v-if="!$v.tour.name.minLength">Name must have at least
-            {{ $v.tour.name.$params.minLength.min }}
+          <div class="error" v-if="!$v.tour.name.required">
+            {{ $t('Tour.error.field') }}
+          </div>
+          <div class="error" v-if="!$v.tour.name.minLength">
+            {{ $t('Tour.error.least') }}
+            {{$v.tour.name.$params.minLength.min}}
           </div>
         </div>
         <div class="form__item">
-          <label for="category">Category</label>
+          <label for="category">{{ $t('Tour.formTxt.category') }}</label>
           <select type="text"
                   id="category"
                   v-model.trim="tour.category"
-                  placeholder="Enter category"
                   @blur="$v.tour.category.$touch()"
           >
             <option>Nature</option>
@@ -37,41 +39,41 @@
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.tour.description.$error}">
-          <label for="desc">Description</label>
+          <label for="desc">{{ $t('Tour.formTxt.desc') }}</label>
           <input
             id="desc"
             v-model.trim="tour.description"
-            placeholder="Enter description"
+            :placeholder="$t('Tour.formTxt.enter')"
             @blur="$v.tour.description.$touch()"
           >
-          <div class="error" v-if="!$v.tour.description.required">Fill in the field</div>
-          <div class="error" v-if="!$v.tour.description.minLength">Name must have at least
-            {{ $v.tour.description.$params.minLength.min }}
+          <div class="error" v-if="!$v.tour.name.required">
+            {{ $t('Tour.error.field') }}
+          </div>
+          <div class="error" v-if="!$v.tour.name.minLength">
+            {{ $t('Tour.error.least') }}
+            {{$v.tour.description.$params.minLength.min}}
           </div>
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.tour.price.$error}">
-          <label for="price">Price</label>
+          <label for="price">{{ $t('Tour.formTxt.price') }}</label>
           <input
             type="number"
             id="price"
             v-model.trim="tour.price"
-            placeholder="Enter price"
+            :placeholder="$t('Tour.formTxt.enter')"
             @blur="$v.tour.price.$touch()"
           >
-          <div class="error" v-if="!$v.tour.price.numeric">
-            Insert the number
-          </div>
-          <div class="error" v-if="!$v.tour.price.required">
-            Fill in the field
+          <div class="error" v-if="!$v.tour.name.required">
+            {{ $t('Tour.error.field') }}
           </div>
         </div>
-        <span style="display: flex">
+        <span style="display: flex;">
           <div v-if="$v.$invalid"
-            class="button button_no-active">Edit tour
+            class="button button_no-active">{{ $t('Tour.btnEditTxt') }}
           </div>
-          <button type="submit" v-else class="button">Edit tour</button>
-          <span class="button-back" @click="Back">Cancel</span>
+          <button type="submit" v-else class="button">{{ $t('Tour.btnEditTxt') }}</button>
+          <span class="button-back" @click="Back">{{ $t('Tour.btnCancelTxt') }}</span>
         </span>
       </form>
     </div>
@@ -79,7 +81,7 @@
 </template>
 
 <script>
-import { required, minLength, numeric } from 'vuelidate/lib/validators';
+import { required, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'EditTour',
@@ -97,7 +99,7 @@ export default {
       name: { required, minLength: minLength(3) },
       category: { required },
       description: { required, minLength: minLength(10) },
-      price: { required, numeric },
+      price: { required },
     },
   },
   methods: {
@@ -125,7 +127,7 @@ export default {
       });
     },
     async Back() {
-      await this.$router.go(-1);
+      await this.$router.push({ name: 'Tours' });
     },
   },
   mounted() {

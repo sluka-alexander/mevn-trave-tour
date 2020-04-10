@@ -1,40 +1,54 @@
 <template>
   <div class="container">
     <div class="title-item">
-      Login
+      {{ $t('LoginAndRegister.titleLoginTxt') }}
       <div class="icon icon_login">
       </div>
       <form class="form">
         <div class="form__item"
              :class="{'form__item_err' : $v.email.$error}">
-          <label for="email">Email</label>
+          <label for="email">{{ $t('LoginAndRegister.emailTxt') }}</label>
           <input
             type="email"
             id="email"
             v-model.trim="email"
-            placeholder="Enter email"
+            :placeholder="$t('LoginAndRegister.placeholder')"
             @blur="$v.email.$touch()"
           >
-          <div class="error" v-if="!$v.email.required">Fill in the field</div>
-          <div class="error" v-if="!$v.email.email">This is incorrect email</div>
+          <div class="error" v-if="!$v.email.required">
+            {{ $t('validates.field') }}
+          </div>
+          <div class="error" v-if="!$v.email.email">
+            {{ $t('validates.email') }}
+          </div>
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.password.$error}">
-          <label for="password">Password</label>
+          <label for="password">{{ $t('LoginAndRegister.passwordTxt') }}</label>
           <input
             type="password"
             id="password"
             v-model.trim="password"
-            placeholder="Enter description"
+            :placeholder="$t('LoginAndRegister.placeholder')"
             @blur="$v.password.$touch()"
           >
-          <div class="error" v-if="!$v.password.required">Fill in the field</div>
-          <div class="error" v-if="!$v.password.minLength">Password is too short</div>
-          <div class="error" v-if="!$v.password.maxLength">Password is too long</div>
+          <div class="error" v-if="!$v.password.required">
+            {{ $t('validates.field') }}
+          </div>
+          <div class="error" v-if="!$v.password.minLength">
+            {{ $t('validates.short') }}
+          </div>
+          <div class="error" v-if="!$v.password.maxLength">
+            {{ $t('validates.long') }}
+          </div>
         </div>
         <div class="error">{{ Error }} </div>
-        <div v-if="$v.$invalid" class="button button_no-active" >Sign up</div>
-        <div v-else @click="login" class="button">Sign up</div>
+        <div v-if="$v.$invalid" class="button button_no-active" >
+          {{ $t('LoginAndRegister.signInBtn') }}
+        </div>
+        <div v-else @click="login" class="button">
+          {{ $t('LoginAndRegister.signInBtn') }}
+        </div>
       </form>
     </div>
   </div>

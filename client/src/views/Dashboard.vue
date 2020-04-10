@@ -2,13 +2,13 @@
     <div>
       <div class="title-item">
         <div class="icon icon_welcome"></div>
-        Hello, {{ DataUser.name }} !<br>
+        {{ $t('dashboard.helloTxt') }} {{ DataUser.name }} !<br>
       </div>
       <div class="info-user">
-        Your email : {{ DataUser.email }}<br>
-        Your role : {{ DataUser.role }}<br>
+        {{ $t('dashboard.emailTxt') }} {{ DataUser.email }}<br>
+        {{ $t('dashboard.roleTxt') }} {{ DataUser.role }}<br>
       </div>
-      <div class="logOut" @click="logout">LogOut</div>
+      <div class="logOut" @click="logout">{{ $t('dashboard.logOutBtn') }}</div>
     </div>
 </template>
 

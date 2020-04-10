@@ -2,7 +2,7 @@
   <div class="users">
     <div class="container">
       <div class="title-item">
-        Users
+        {{ $t('users.titleTxt') }}
         <div class="icon icon_users"></div>
       </div>
       <div v-for="(user, index) in Users.slice((perPage * $route.query.page) - 2,
@@ -14,13 +14,13 @@
           </div>
         </div>
         <div class="users__item_name">
-          Name: <span class="bold">{{ user.name }}</span>
+          {{ $t('users.nameTxt') }} <span class="bold">{{ user.name }}</span>
         </div>
         <div class="users__item__email">
-          Email: <span class="bold">{{ user.email }}</span>
+          {{ $t('users.emailTxt') }} <span class="bold">{{ user.email }}</span>
         </div>
         <div class="users__item__role">
-          Role: <span class="bold">{{ user.role }}</span>
+          {{ $t('users.roleTxt') }} <span class="bold">{{ user.role }}</span>
         </div>
       </div>
     </div>

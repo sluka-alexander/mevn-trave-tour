@@ -2,31 +2,33 @@
   <div>
     <div class="container">
       <div class="title-item">
-        Add tour
+        {{ $t('Tour.titleTxt') }}
         <div class="icon icon_new"></div>
       </div>
       <form @submit.prevent="addTour" class="form">
         <div class="form__item"
              :class="{'form__item_err' : $v.tour.name.$error}">
-          <label for="name">Name of tour</label>
+          <label for="name">{{ $t('Tour.formTxt.name') }}</label>
           <input
             type="text"
             id="name"
             v-model.trim="tour.name"
-            placeholder="Enter name"
+            :placeholder="$t('Tour.formTxt.enter')"
             @blur="$v.tour.name.$touch()"
           >
-          <div class="error" v-if="!$v.tour.name.required">Fill in the field</div>
-          <div class="error" v-if="!$v.tour.name.minLength">Name must have at least
+          <div class="error" v-if="!$v.tour.name.required">
+            {{ $t('Tour.error.field') }}
+          </div>
+          <div class="error" v-if="!$v.tour.name.minLength">
+            {{ $t('Tour.error.least') }}
             {{$v.tour.name.$params.minLength.min}}
           </div>
         </div>
         <div class="form__item">
-          <label for="category">Category</label>
+          <label for="category">{{ $t('Tour.formTxt.category') }}</label>
           <select type="text"
                   id="category"
                   v-model.trim="tour.category"
-                  placeholder="Enter category"
                   @blur="$v.tour.category.$touch()"
                   >
             <option>Nature</option>
@@ -37,44 +39,48 @@
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.tour.desc.$error}">
-          <label for="desc">Description</label>
+          <label for="desc">{{ $t('Tour.formTxt.desc') }}</label>
           <input
             id="desc"
             v-model.trim="tour.desc"
-            placeholder="Enter description"
+            :placeholder="$t('Tour.formTxt.enter')"
             @blur="$v.tour.desc.$touch()"
           >
-          <div class="error" v-if="!$v.tour.desc.required">Fill in the field</div>
-          <div class="error" v-if="!$v.tour.desc.minLength">Name must have at least
+          <div class="error" v-if="!$v.tour.desc.required">
+            {{ $t('Tour.error.field') }}
+          </div>
+          <div class="error" v-if="!$v.tour.desc.minLength">
+            {{ $t('newTour.error.least') }}
             {{$v.tour.desc.$params.minLength.min}}
           </div>
         </div>
         <div class="form__item"
              :class="{'form__item_err' : $v.tour.price.$error}">
-          <label for="price">Price</label>
+          <label for="price">{{ $t('Tour.formTxt.price') }}</label>
           <input
             type="number"
             id="price"
             v-model.trim="tour.price"
-            placeholder="Enter price"
+            :placeholder="$t('Tour.formTxt.enter')"
             @blur="$v.tour.price.$touch()"
           >
-          <div class="error" v-if="!$v.tour.price.numeric">
-            Insert the number
-          </div>
           <div class="error" v-if="!$v.tour.price.required">
-            Fill in the field
+            {{ $t('Tour.error.field') }}
           </div>
         </div>
-        <div v-if="$v.$invalid" class="button button_no-active">Add tour</div>
-        <button v-else type="submit" class="button">Add tour</button>
+        <div v-if="$v.$invalid" class="button button_no-active">
+          {{ $t('Tour.btnTxt') }}
+        </div>
+        <button v-else type="submit" class="button">
+          {{ $t('Tour.btnTxt') }}
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { required, minLength, numeric } from 'vuelidate/lib/validators';
+import { required, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'NewTour',
@@ -93,7 +99,7 @@ export default {
       name: { required, minLength: minLength(3) },
       category: { required },
       desc: { required, minLength: minLength(10) },
-      price: { required, numeric },
+      price: { required },
     },
   },
   methods: {
