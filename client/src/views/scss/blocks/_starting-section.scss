@@ -106,6 +106,7 @@ header {
     background-color: $gray;
     cursor: pointer;
     border-radius: 5px;
+    transition: 0.4s;
 
     &::before {
       @include size(37px, 5px);
@@ -116,6 +117,7 @@ header {
       background-color: $gray;
       top: 10px;
       border-radius: 5px;
+      transition: 0.4s;
     }
 
     &::after {
@@ -127,36 +129,23 @@ header {
       background-color: $gray;
       top: -10px;
       border-radius: 5px;
-    }
-  }
-
-  &__cross {
-    @extend %flex-center;
-
-    background-color: $white;
-    transition: 0.3s;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 7;
-
-    &::before {
-      @include size(40px, 5px);
-
-      position: absolute;
-      content: '';
-      background-color: $white;
-      transform: rotate(-45deg);
-      border-radius: 5px;
+      transition: 0.4s;
     }
 
-    &::after {
-      @include size(40px, 5px);
+    &_active {
+      background-color: transparent;
 
-      position: absolute;
-      content: '';
-      background-color: $white;
-      transform: rotate(45deg);
-      border-radius: 5px;
+      &::before {
+        transform: rotate(-45deg);
+        top: 0;
+        background-color: $white;
+      }
+
+      &::after {
+        transform: rotate(45deg);
+        top: 0;
+        background-color: $white;
+      }
     }
   }
 }

@@ -10,8 +10,9 @@
       <header class="header">
         <router-link to="/" class="logo">advento</router-link>
         <div class="burger-bnt" @click="openBars">
-          <div v-if="!burgerBtn" class="burger-bnt__bars"></div>
-          <div v-if="burgerBtn" class="burger-bnt__cross"></div>
+          <div class="burger-bnt__bars"
+               :class="{'burger-bnt__bars_active' : burgerBtn}">
+          </div>
         </div>
         <transition name="burger-btn">
           <div v-if="burgerBtn" class="navbar-mobile-bgc">
