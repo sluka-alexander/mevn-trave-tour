@@ -1,6 +1,7 @@
 <template>
   <div class="tours">
-    <transition name="smooth">
+    <transition name="animate" appear enter-active-class="animated zoomIn faster"
+                leave-active-class="animated zoomOutLeft faster">
       <div v-if="confirmFormEdit" class="confirm-form">
         <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
@@ -21,7 +22,8 @@
         </div>
       </div>
     </transition>
-    <transition name="smooth">
+    <transition name="animate" appear enter-active-class="animated zoomIn faster"
+                leave-active-class="animated zoomOutLeft faster">
       <div v-if="confirmFormDelete" class="confirm-form">
         <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
@@ -30,7 +32,7 @@
         </div>
         <div class="confirm-form__buttons">
           <div class="confirm-form__button confirm-form__button_positive"
-                 @click="DeleteTour(clickId)">
+                 @click="deleteTour(clickId)">
             {{ $t('tours.confirmTxt.deleteBtn') }}
           </div>
           <div class="confirm-form__button confirm-form__button_negative"
@@ -43,27 +45,29 @@
     <div v-if="confirmFormEdit || confirmFormDelete" class="page-form"></div>
     <div class="container">
       <div class="title-item">
-        {{ $t('tours.titleTxt') }}
-        <div class="icon icon_tours"></div>
+        <transition name="animate" appear enter-active-class="animated fadeInRight fast">
+          <div>
+            {{ $t('tours.titleTxt') }}
+          </div>
+        </transition>
+        <transition name="animate" appear enter-active-class="animated zoomInDown fast">
+          <div class="icon icon_tours"></div>
+        </transition>
       </div>
-      <transition name="loading">
-        <div class="loading" v-if="!filteredTours.length && !NotTours"></div>
-      </transition>
+      <div class="loading" v-if="!filteredTours.length && !NotTours"></div>
       <transition name="loading">
         <div style="text-align: center;" v-if="!filteredTours.length && NotTours">
           {{ $t('tours.warningTxt') }}
         </div>
       </transition>
-      <div class="table-tours">
-        <transition name="tours">
+      <transition name="animate" appear enter-active-class="animated zoomIn faster">
+        <div class="table-tours">
           <input v-if="allTours.length" v-model="search"
                  :placeholder="$t('startingBlock.searchTxt')">
-        </transition>
           <button v-if="search " class="table-tours__search-item"
                   @click="cleanSearch">{{ search }}
             <i class="fas fa-times"></i>
           </button>
-        <transition name="tours">
           <table v-if="filteredTours.length">
             <tr>
               <th>{{ $t('tours.tableTxt.name') }}</th>
@@ -79,30 +83,30 @@
               <th v-if="isAdmin">{{ $t('tours.confirmTxt.editBtn') }}</th>
               <th v-if="isAdmin">{{ $t('tours.confirmTxt.deleteBtn') }}</th>
             <tr>
-            <tr v-for="tour in filteredTours.slice(0, numberTours)" v-bind:key="tour.id">
+            <tr v-for="tour in filteredTours.slice(0, initialNumberOfTours)" v-bind:key="tour.id">
               <td>{{ tour.name }}</td>
               <td>{{ tour.category}}</td>
               <td>{{ tour.description}}</td>
               <td>{{ tour.price}}$</td>
               <td>{{ tour.date}}</td>
               <td v-if="isAdmin">
-                <div @click="Update">
+                <div @click="updateTour">
                   <i class="fas fa-pencil-alt btn-edit" v-bind:id="tour._id"></i>
                 </div>
               </td>
               <td v-if="isAdmin">
-                <div @click="DeleteForm">
+                <div @click="deleteForm">
                   <i class="fas fa-trash-alt btn-delete" v-bind:id="tour._id"></i>
                 </div>
               </td>
             </tr>
           </table>
-        </transition>
-      </div>
-      <transition name="tours">
+        </div>
+      </transition>
+      <transition name="animate" appear enter-active-class="animated bounceInLeft">
         <button v-if="filteredTours.length &&
-         filteredTours.length > numberTours" class="button-load-tours"
-                @click="LoadTours">
+         filteredTours.length > initialNumberOfTours" class="button-load-tours"
+                @click="loadMoreTours">
           {{ $t('tours.btnLoadTxt') }}
         </button>
       </transition>
@@ -124,56 +128,57 @@ export default {
       NotTours: false,
       search: this.$route.query.search || '',
       sort: this.$route.query.sort || '',
-      numberTours: 5,
+      initialNumberOfTours: 5,
     };
   },
   methods: {
-    async fetchTours() {
-      await this.$store.dispatch('fetchTours');
+    fetchTours() {
+      this.$store.dispatch('fetchTours');
     },
 
-    async Sort() {
+    sortTours() {
       if (this.$route.query.sort === 'price_desc') {
-        await this.$store.dispatch('getTourSortDesc');
+        this.$store.dispatch('getTourSortDesc');
       } else if (this.$route.query.sort === 'price_asc') {
-        await this.$store.dispatch('getTourSortAsc');
+        this.$store.dispatch('getTourSortAsc');
       } else {
         this.fetchTours();
       }
     },
 
-    async cleanSearch() {
+    cleanSearch() {
       this.search = '';
     },
 
-    async DeleteForm(event) {
+    deleteForm(event) {
       this.confirmFormDelete = !this.confirmFormDelete;
       if (event) {
         this.clickId = event.target.id;
       }
     },
 
-    async DeleteTour(value) {
-      await this.$store.dispatch('deleteTour', value).then(() => {
+    deleteTour(value) {
+      this.$store.dispatch('deleteTour', value).then(() => {
         this.confirmFormDelete = !this.confirmFormDelete;
-        this.Sort();
+        this.sortTours();
       });
     },
 
-    async Update(event) {
+    updateTour(event) {
       this.confirmFormEdit = !this.confirmFormEdit;
       if (event) {
         this.clickId = event.target.id;
       }
     },
 
-    async Loading() {
+    loading() {
       setTimeout(() => {
         this.NotTours = !this.NotTours;
       }, 200);
     },
-    async LoadTours() {
-      this.numberTours += 10;
+
+    loadMoreTours() {
+      this.initialNumberOfTours += 10;
     },
   },
   computed: {
@@ -189,8 +194,8 @@ export default {
     },
   },
   mounted() {
-    this.Sort();
-    this.Loading();
+    this.sortTours();
+    this.loading();
   },
   watch: {
     search(newVal) {
@@ -198,10 +203,10 @@ export default {
     },
     '$route.query.search': function (val) {
       this.search = val;
-      this.numberTours = 5;
+      this.initialNumberOfTours = 5;
     },
     '$route.query.sort': function () {
-      this.Sort();
+      this.sortTours();
     },
   },
 };

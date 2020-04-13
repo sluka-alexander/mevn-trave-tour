@@ -1,33 +1,36 @@
 <template>
   <div>
-    <transition name="tours">
-      <div class="starting-section" @mousemove="Move">
-        <div class=" layer-line line-back"></div>
+    <transition name="animate" appear enter-active-class="animated zoomIn faster">
+      <div class=" layer-line line-back"></div>
+    </transition>
+      <div class="starting-section" @mousemove="move">
         <div class="container">
           <div class="info-and-img">
-            <div class="main-info">
-              <div class="main-info__subtitle">
-                {{ $t('startingBlock.subtitleMsg') }}
-              </div>
-              <div class="main-info__title">
-                {{ $t('startingBlock.titleMsgOne') }}<br>
-                {{ $t('startingBlock.titleMsgTwo') }}
-              </div>
-              <div class="search">
-                <input type="text" class="search__input"
-                       :placeholder="$t('startingBlock.searchTxt') "
-                       v-model="search" @keyup.enter="SearchTour">
-                <div class="search__button" @click="SearchTour">
-                  {{ $t('startingBlock.searchButtonTxt') }}
+            <transition name="animate" appear enter-active-class="animated bounceInLeft fast">
+              <div class="main-info">
+                <div class="main-info__subtitle">
+                  {{ $t('startingBlock.subtitleMsg') }}
+                </div>
+                <div class="main-info__title">
+                  {{ $t('startingBlock.titleMsgOne') }}<br>
+                  {{ $t('startingBlock.titleMsgTwo') }}
+                </div>
+                <div class="search">
+                  <input type="text" class="search__input"
+                         :placeholder="$t('startingBlock.searchTxt') "
+                         v-model="search" @keyup.enter="SearchTour">
+                  <div class="search__button" @click="SearchTour">
+                    {{ $t('startingBlock.searchButtonTxt') }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="layer main-img"></div>
+            </transition>
+            <transition name="animate" appear enter-active-class="animated zoomIn faster">
+              <div class="layer main-img"></div>
+            </transition>
           </div>
         </div>
       </div>
-    </transition>
-
     <div class="experience">
       <div class="container">
         <div class="title">
@@ -389,7 +392,7 @@ export default {
       this.$router.push({ name: 'Tours', query: { search: this.search } });
     },
 
-    Move(event) {
+    move(event) {
       document.querySelector('.layer').style.transform = `translateX(-${event.pageX / 20}px)
         translateY(-${event.pageY / 20}px)`;
       document.querySelector('.layer-line').style.transform = `translateX(${event.pageX / 50}px)

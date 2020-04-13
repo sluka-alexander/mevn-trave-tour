@@ -209,6 +209,8 @@ export default new VueI18n({
         signInBtn: 'Sign in',
         signUpBtn: 'Sign up',
         placeholder: 'Enter item',
+        confirmTxtOne: 'Congratulations,',
+        confirmTxtTwo: 'you can now log in',
       },
     },
     ru: {
@@ -403,6 +405,8 @@ export default new VueI18n({
         signInBtn: 'Войти',
         signUpBtn: 'Регистрация',
         placeholder: 'Введите данные',
+        confirmTxtOne: 'Поздравляем,',
+        confirmTxtTwo: 'теперь вы можете войти',
       },
     },
   },

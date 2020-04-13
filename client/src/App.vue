@@ -114,11 +114,7 @@ export default {
   methods: {
     openBars() {
       this.burgerBtn = !this.burgerBtn;
-      if (this.burgerBtn) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'auto';
-      }
+      document.body.style.overflow = this.burgerBtn ? 'hidden' : 'auto';
     },
     setLocale(locale) {
       const { sort } = this.$route.query;
@@ -158,4 +154,8 @@ export default {
 </script>
 <style lang="scss">
   @import 'views/scss/main';
+
+  .delay {
+    animation-delay: 1s;
+  }
 </style>

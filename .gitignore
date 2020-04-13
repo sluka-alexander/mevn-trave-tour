@@ -1,7 +1,3 @@
 .gitignore
-<<<<<<< HEAD
 .idea/
 node_modules
-=======
-node_modules
->>>>>>> 0354ad0bf2b7e67ead4249782feaddc1bf0aa23f
