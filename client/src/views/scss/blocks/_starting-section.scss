@@ -4,7 +4,7 @@
 @import "../common/functions";
 @import "../common/config";
 
-header {
+.header {
   @extend %flex-between;
 
   @include color-and-weight($gray, $medium);
@@ -176,6 +176,7 @@ header {
 .navbar-mobile {
   margin-top: 70px;
   width: 100%;
+  overflow-y: hidden;
 
   &__item {
     @extend %flex-center;
@@ -187,10 +188,15 @@ header {
     font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
     padding: 20px;
     transition: 0.3s;
+    cursor: pointer;
 
     &:hover {
       background-color: $pink;
       border-bottom: 2px solid $pink;
+    }
+
+    &_dark-mode {
+      color: $yellow;
     }
   }
 }
@@ -216,8 +222,7 @@ header {
   }
 
   &__title {
-    @include color-and-weight($black, $extra-bold);
-
+    font-weight: $extra-bold;
     font-size: calcFluidFontSize(25, $font-XL, 320, 1920);
   }
 
@@ -248,6 +253,10 @@ header {
     transition: 0.3s;
     padding-left: 20px;
     margin-bottom: 20px;
+
+    &_dark-theme {
+
+    }
   }
 
   &__button {

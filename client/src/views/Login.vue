@@ -11,20 +11,23 @@
           </div>
         </transition>
         <transition name="animate" appear enter-active-class="animated zoomIn faster">
-          <form class="form">
+          <form class="form"
+                :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
             <div class="form__item"
-                 :class="{'form__item_err' : $v.email.$error}">
+                 :class="{'form__item_err': $v.email.$error}">
               <label for="email">{{ $t('LoginAndRegister.emailTxt') }}</label>
-              <input
-                type="email"
-                id="email"
-                v-model.trim="email"
-                :placeholder="$t('LoginAndRegister.placeholder')"
-                @blur="$v.email.$touch()"
-              >
-                <div class="error" v-if="!$v.email.required">
-                  {{ $t('validates.field') }}
-                </div>
+              <transition name="animate" appear enter-active-class="animated flash delay-1s">
+                <input
+                  type="email"
+                  id="email"
+                  v-model.trim="email"
+                  :placeholder="$t('LoginAndRegister.placeholder')"
+                  @blur="$v.email.$touch()"
+                  :class="{'animated shake': $v.email.$error}">
+              </transition>
+              <div class="error" v-if="!$v.email.required">
+                {{ $t('validates.field') }}
+              </div>
               <div class="error" v-if="!$v.email.email">
                 {{ $t('validates.email') }}
               </div>
@@ -38,7 +41,7 @@
                 v-model.trim="password"
                 :placeholder="$t('LoginAndRegister.placeholder')"
                 @blur="$v.password.$touch()"
-              >
+                :class="{'animated shake': $v.password.$error}">
               <div class="error" v-if="!$v.password.required">
                 {{ $t('validates.field') }}
               </div>

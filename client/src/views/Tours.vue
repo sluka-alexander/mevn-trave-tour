@@ -1,5 +1,5 @@
 <template>
-  <div class="tours">
+  <div class="tours" :class="{'tours_dark-theme' : this.$store.state.isDarkTheme}">
     <transition name="animate" appear enter-active-class="animated zoomIn faster"
                 leave-active-class="animated zoomOutLeft faster">
       <div v-if="confirmFormEdit" class="confirm-form">
@@ -54,36 +54,40 @@
           <div class="icon icon_tours"></div>
         </transition>
       </div>
-      <div class="loading" v-if="!filteredTours.length && !NotTours"></div>
+<!--      <div class="loading" v-if="!filteredTours.length && !NotTours"></div>-->
       <transition name="loading">
         <div style="text-align: center;" v-if="!filteredTours.length && NotTours">
           {{ $t('tours.warningTxt') }}
         </div>
       </transition>
-      <transition name="animate" appear enter-active-class="animated zoomIn faster">
+      <transition name="animate" appear enter-active-class="animated zoomIn faster delay">
         <div class="table-tours">
           <input v-if="allTours.length" v-model="search"
                  :placeholder="$t('startingBlock.searchTxt')">
           <button v-if="search " class="table-tours__search-item"
+                  :class="{'table-tours__search-item_dark-theme' : this.$store.state.isDarkTheme}"
                   @click="cleanSearch">{{ search }}
             <i class="fas fa-times"></i>
           </button>
-          <table v-if="filteredTours.length">
-            <tr>
+          <table v-if="filteredTours.length"
+                 :class="{'table-dark-theme' : this.$store.state.isDarkTheme}">
+            <tr class="tr" :class="{'tr-dark-theme' : this.$store.state.isDarkTheme}">
               <th>{{ $t('tours.tableTxt.name') }}</th>
               <th>{{ $t('tours.tableTxt.category') }}</th>
               <th>{{ $t('tours.tableTxt.desc') }}</th>
               <th>{{ $t('tours.tableTxt.price') }}
                 <router-link v-if="this.$route.query.sort !== 'price_desc'"  :to="{query:
-                { search: search, sort: 'price_desc' } }" class="fas fa-arrow-down"></router-link>
+                  { search: search, sort: 'price_desc' } }"
+                             class="fas fa-arrow-down"></router-link>
                 <router-link v-else-if="this.$route.query.sort === 'price_desc'" :to="{query:
-                { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
+                  { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
               </th>
               <th>{{ $t('tours.tableTxt.date') }}</th>
               <th v-if="isAdmin">{{ $t('tours.confirmTxt.editBtn') }}</th>
               <th v-if="isAdmin">{{ $t('tours.confirmTxt.deleteBtn') }}</th>
-            <tr>
-            <tr v-for="tour in filteredTours.slice(0, initialNumberOfTours)" v-bind:key="tour.id">
+            </tr>
+            <tr v-for="tour in filteredTours.slice(0, initialNumberOfTours)"
+                :key="tour.name + tour.isActive ">
               <td>{{ tour.name }}</td>
               <td>{{ tour.category}}</td>
               <td>{{ tour.description}}</td>
@@ -103,7 +107,8 @@
           </table>
         </div>
       </transition>
-      <transition name="animate" appear enter-active-class="animated bounceInLeft">
+      <transition name="animate" appear enter-active-class="animated bounceInLeft"
+                  leave-active-class="animated bounceOutLeft delay">
         <button v-if="filteredTours.length &&
          filteredTours.length > initialNumberOfTours" class="button-load-tours"
                 @click="loadMoreTours">

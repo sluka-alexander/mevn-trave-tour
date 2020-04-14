@@ -2,30 +2,40 @@
   <div class="users">
     <div class="container">
       <div class="title-item">
-        {{ $t('users.titleTxt') }}
-        <div class="icon icon_users"></div>
+        <transition name="animate" appear enter-active-class="animated fadeInRight fast">
+        <div>
+          {{ $t('users.titleTxt') }}
+        </div>
+        </transition>
+        <transition name="animate" appear enter-active-class="animated zoomInDown fast">
+          <div class="icon icon_users"></div>
+        </transition>
       </div>
-      <div v-for="(user, index) in Users.slice((perPage * $route.query.page) - 2,
-      (perPage * $route.query.page) - 2 + perPage)"
-           class="users__item" v-bind:key="user.id">
-        <div class="users__item__photo">
-          <div class="users__item__photo__index">
-            {{index + $route.query.page * 2 - 1 }}
+      <transition name="animate" appear enter-active-class="animated zoomIn faster delay">
+        <div>
+          <div v-for="(user, index) in users.slice((perPage * $route.query.page) - 2,
+          (perPage * $route.query.page) - 2 + perPage)" v-bind:key="user.id"
+               class="users__item">
+            <div class="users__photo">
+              <div class="users__index">
+                {{index + $route.query.page * 2 - 1 }}
+              </div>
+            </div>
+            <div class="users__name">
+              {{ $t('users.nameTxt') }} <span class="bold">{{ user.name }}</span>
+            </div>
+            <div class="users__email">
+              {{ $t('users.emailTxt') }} <span class="bold">{{ user.email }}</span>
+            </div>
+            <div class="users__role">
+              {{ $t('users.roleTxt') }} <span class="bold">{{ user.role }}</span>
+            </div>
           </div>
         </div>
-        <div class="users__item_name">
-          {{ $t('users.nameTxt') }} <span class="bold">{{ user.name }}</span>
-        </div>
-        <div class="users__item__email">
-          {{ $t('users.emailTxt') }} <span class="bold">{{ user.email }}</span>
-        </div>
-        <div class="users__item__role">
-          {{ $t('users.roleTxt') }} <span class="bold">{{ user.role }}</span>
-        </div>
-      </div>
+      </transition>
     </div>
     <div class="pages">
-      <div v-for="(index) in Math.ceil(Users.length/perPage)" v-bind:key='index.id'>
+      <div v-for="(index) in Math.ceil(users.length/perPage)" v-bind:key='index.id'>
         <router-link :to="{ query: { page: index }}" class="page">{{ index }}
         </router-link>
       </div>
@@ -49,8 +59,8 @@ export default {
     },
   },
   computed: {
-    Users() {
-      return this.$store.getters.Users;
+    users() {
+      return this.$store.getters.users;
     },
   },
   mounted() {

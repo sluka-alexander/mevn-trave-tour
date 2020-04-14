@@ -6,12 +6,12 @@
 
 .form {
   width: 100%;
+  transition: 0.2s;
 
   input,
   textarea,
   select {
-    @include color-and-weight($black,$regular);
-
+    font-weight: $regular;
     font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
     border-bottom: 1px solid $gray;
     background-color: $background;
@@ -23,16 +23,14 @@
   }
 
   label {
-    @include color-and-weight($black,$bold);
-
+    font-weight: $bold;
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
     margin: 20px 0 10px 0;
     text-align: start;
   }
 
   .error {
-    @include color-and-weight($black,$medium);
-
+    font-weight: $medium;
     text-align: start;
     font-size: #{$font-S}px;
     display: block;
@@ -51,8 +49,7 @@
 
     &_err {
       .error {
-        @include color-and-weight($black,$medium);
-
+        font-weight: $medium;
         text-align: start;
         font-size: #{$font-S}px;
         display: block;
@@ -95,6 +92,36 @@
       &:hover {
         background-color: $purple;
       }
+    }
+  }
+
+  &_dark-theme {
+    background: $dark-mode-blue-high;
+    border-radius: 5px;
+    padding: 10px 30px;
+    //box-shadow: 0 3px 15px 15px rgba(67, 58, 139, 0.2);
+    color: $white;
+    //border: 1px solid $dark-mode-blue-medium;
+
+    select {
+      padding-left: 14px;
+      background-color: $dark-mode-blue-medium;
+      color: $white;
+      border-radius: 3px;
+      border: none;
+    }
+
+    ::placeholder {
+      color: $placeholder;
+    }
+
+    input,
+    textarea {
+      padding-left: 14px;
+      background-color: $dark-mode-blue-medium;
+      color: $white;
+      border-bottom: none;
+      border-radius: 3px;
     }
   }
 }

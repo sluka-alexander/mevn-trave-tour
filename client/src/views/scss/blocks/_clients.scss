@@ -66,8 +66,7 @@
   &__name {
     @extend %flex-center;
 
-    @include color-and-weight($black, $bold);
-
+    font-weight: $bold;
     font-size: calcFluidFontSize($font-M, $font-L, 320, 1920);
     margin: 30px 0;
   }

@@ -1,14 +1,24 @@
 <template>
-    <div>
+    <div class="container">
       <div class="title-item">
-        <div class="icon icon_welcome"></div>
-        {{ $t('dashboard.helloTxt') }} {{ DataUser.name }} !<br>
+        <transition name="animate" appear enter-active-class="animated zoomInDown fast">
+          <div class="icon icon_welcome"></div>
+        </transition>
+        <transition name="animate" appear enter-active-class="animated fadeInRight fast">
+        <div>
+          {{ $t('dashboard.helloTxt') }} {{ DataUser.name }} !
+        </div>
+        </transition>
       </div>
-      <div class="info-user">
-        {{ $t('dashboard.emailTxt') }} {{ DataUser.email }}<br>
-        {{ $t('dashboard.roleTxt') }} {{ DataUser.role }}<br>
-      </div>
-      <div class="logOut" @click="logout">{{ $t('dashboard.logOutBtn') }}</div>
+      <transition name="animate" appear enter-active-class="animated zoomIn faster delay">
+        <div class="info-user">
+          {{ $t('dashboard.emailTxt') }} {{ DataUser.email }}<br>
+          {{ $t('dashboard.roleTxt') }} {{ DataUser.role }}<br>
+        </div>
+      </transition>
+      <transition name="animate" appear enter-active-class="animated bounceInLeft">
+       <div class="logOut" @click="logout">{{ $t('dashboard.logOutBtn') }}</div>
+      </transition>
     </div>
 </template>
 

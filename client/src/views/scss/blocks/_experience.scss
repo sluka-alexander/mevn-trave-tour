@@ -10,10 +10,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   padding-bottom: 50px;
-
-  @include media(large-desktop) {
-    background-image: url('#{$img}experience-travel-back.jpg');
-  }
 }
 
 .boxes {
@@ -84,8 +80,7 @@
   }
 
   &__title {
-    @include color-and-weight($black, $bold);
-
+    font-weight: $bold;
     margin: 30px 0;
     font-size: calcFluidFontSize(15, $font-M, 320, 1920);
   }

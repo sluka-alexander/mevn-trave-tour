@@ -11,9 +11,11 @@ export default new Vuex.Store({
     user: {},
     isAdmin: false,
     error: '',
+    isDarkTheme: localStorage.getItem('darkMode') || false,
     users: [],
     editTour: [],
     allTours: [],
+    lang: localStorage.getItem('lang') || 'en',
   },
   actions: {
     register({ commit }, user) {
@@ -211,6 +213,23 @@ export default new Vuex.Store({
         console.error(err);
       }
     },
+    checkDarkTheme() {
+      const html = document.getElementsByTagName('html');
+      if (this.state.isDarkTheme) {
+        html[0].classList.add('dark-mode');
+      } else localStorage.removeItem('darkMode');
+    },
+    darkTheme({ commit }) {
+      const html = document.getElementsByTagName('html');
+      commit('darkTheme');
+      localStorage.setItem('darkMode', this.state.isDarkTheme);
+      if (this.state.isDarkTheme) {
+        html[0].classList.add('dark-mode');
+      } else {
+        html[0].classList.remove('dark-mode');
+        localStorage.removeItem('darkMode');
+      }
+    },
   },
   mutations: {
     auth_request(state) {
@@ -230,6 +249,10 @@ export default new Vuex.Store({
       state.isAdmin = false;
       state.users = {};
     },
+    darkTheme(state) {
+      state.isDarkTheme = !state.isDarkTheme;
+      state.status = 'theme edited';
+    },
   },
   getters: {
     isLoggedIn: (state) => !!state.token,
@@ -237,8 +260,9 @@ export default new Vuex.Store({
     DataUser: (state) => state.user,
     Error: (state) => state.error,
     isAdmin: (state) => state.isAdmin,
-    Users: (state) => state.users,
+    users: (state) => state.users,
     EditTour: (state) => state.editTour,
     allTours: (state) => state.allTours,
+    isDarkTheme: (state) => state.isAdmin,
   },
 });

@@ -22,8 +22,9 @@
 
 html {
   font-family: 'Nunito', sans-serif;
-  background-color: $background;
   overflow-x: hidden;
+  background: $background;
+  color: $black;
 }
 
 input,
@@ -50,6 +51,14 @@ a::selection {
 a {
   text-decoration: none;
   color: black;
+}
+
+.dark-theme {
+  background-color: black;
+}
+
+.dark-theme-text {
+  color: white;
 }
 
 .container {
@@ -90,8 +99,7 @@ a {
 }
 
 .title-item {
-  @include color-and-weight($black, $bold);
-
+  font-weight: $bold;
   font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
   margin: 30px 0;
   text-align: center;
@@ -174,17 +182,17 @@ a {
 .icons-lang-desktop {
   @extend %flex-center;
 
-  opacity: 0;
+  display: none;
   position: absolute;
   top: 60px;
   right: 30px;
 
   @include media(desktop) {
-    opacity: 1;
+    display: block;
   }
 
   @include media(large-desktop) {
-    top: 30px;
+    top: 20px;
   }
 
   &__icon {
@@ -194,7 +202,6 @@ a {
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
-    margin-left: 10px;
     transition: 0.1s;
 
     &:hover {
@@ -301,7 +308,7 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 9;
   opacity: 0.4;
   background-color: black;
 }
@@ -320,7 +327,7 @@ a {
   flex-direction: column;
   padding: 50px;
   background-color: $white;
-  border: 2px solid $black;
+  border: 1px solid $black;
   z-index: 10;
 
   &__buttons {
@@ -328,8 +335,7 @@ a {
   }
 
   &__title {
-    @include color-and-weight($black, $extra-bold);
-
+    font-weight: $bold;
     text-align: center;
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
     padding: 10px;
@@ -341,7 +347,7 @@ a {
     @include color-and-weight($white, $medium);
     @include size(70px, 40px);
 
-    border: 2px solid $black;
+    border: 1px solid $black;
     background-color: $purple;
     cursor: pointer;
     transition: 0.2s;
@@ -465,4 +471,78 @@ a {
   @extend %flex-center;
 
   text-align: center;
+}
+
+.fa-moon {
+  display: none;
+  font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+  cursor: pointer;
+  position: absolute;
+  transition: 0.1s;
+
+  @include media(desktop) {
+    display: block;
+    right: 35px;
+    top: 130px;
+  }
+
+  @include media(large-desktop) {
+    right: 100px;
+    top: 27px;
+  }
+
+  &_active {
+    color: $yellow;
+  }
+
+  &:active {
+    transform: scale(1.6);
+  }
+}
+
+.dark-mode {
+  background: $dark-mode-background;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+
+  ::placeholder {
+    color: $placeholder;
+  }
+
+  .logo,
+  .title,
+  .footer__icons,
+  .footer__logo {
+    color: $light-purple;
+  }
+
+  .search {
+    input {
+      background-color: $dark-mode-blue-high;
+      color: $white;
+    }
+  }
+
+  .confirm-form {
+    background-color: $dark-mode-blue-medium;
+  }
+
+  .users {
+    &__item {
+      background-color: $dark-mode-blue-high;
+      box-shadow: none;
+    }
+
+    &__photo {
+      background-color: $purple;
+      border-radius: 50px;
+    }
+  }
+
+  .navbar-mobile-bgc {
+    background-color: $dark-mode-blue-high;
+  }
 }

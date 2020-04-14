@@ -26,47 +26,47 @@
     background-color: $white;
     padding: 20px;
     width: 50%;
-    margin: 15px auto;
-    box-shadow: 0 4px 58px -2px rgba(220, 213, 222, 1);
+    margin: 25px auto;
+    box-shadow: 0 4px 30px -2px rgba(220, 213, 222, 1);
 
     .bold {
-      @include color-and-weight($black, $bold);
+      font-weight: $bold;
     }
+  }
 
-    &__photo {
-      @extend %flex-center;
+  &__photo {
+    @extend %flex-center;
 
-      @include size(80px);
+    @include size(80px);
 
-      background-image: url("https://image.flaticon.com/icons/svg/149/149452.svg");
-      background-size: cover;
-      margin-bottom: 15px;
+    background-image: url("https://image.flaticon.com/icons/svg/149/149452.svg");
+    background-size: cover;
+    margin-bottom: 15px;
+  }
 
-      &__index {
-        @include color-and-weight($pink, $extra-bold);
+  &__index {
+    @include color-and-weight($pink, $extra-bold);
 
-        font-size: calcFluidFontSize(18, $font-S, 320, 1920);
-      }
-    }
+    font-size: calcFluidFontSize(18, $font-S, 320, 1920);
+  }
 
-    &__edit {
-      @include color-and-weight($white, $medium);
-      @include size(120px, 50px);
+  &__edit {
+    @include color-and-weight($white, $medium);
+    @include size(120px, 50px);
 
-      @extend %flex-center;
+    @extend %flex-center;
 
-      font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
-      border: none;
-      background-color: $purple;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: 0.3s;
-      border-radius: 5px;
-      outline: 0;
+    font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
+    border: none;
+    background-color: $purple;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+    border-radius: 5px;
+    outline: 0;
 
-      &:hover {
-        background-color: $pink;
-      }
+    &:hover {
+      background-color: $pink;
     }
   }
 

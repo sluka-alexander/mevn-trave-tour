@@ -2,10 +2,12 @@
   <div id="app">
     <div class="icons-lang-desktop">
       <div class="icons-lang-desktop__icon icons-lang-mobile__icon_rus"
-           @click="setLocale('ru')"></div>
+           @click="editLanguage('ru')"></div>
       <div class="icons-lang-desktop__icon icons-lang-mobile__icon_eng"
-           @click="setLocale('en')"></div>
+           @click="editLanguage('en')"></div>
     </div>
+    <div class="fas fa-moon" @click="darkTheme"
+         :class="{'fa-moon_active' : this.$store.state.isDarkTheme}"></div>
     <div class="container">
       <header class="header">
         <router-link to="/" class="logo">advento</router-link>
@@ -46,11 +48,15 @@
                              to="/user/dashboard" class="navbar-mobile__item">
                   {{ $t('navbar.profileItemTxt') }}
                 </router-link>
+                <div @click="darkTheme" class="navbar-mobile__item"
+                     :class="{'navbar-mobile__item_dark-mode' : this.$store.state.isDarkTheme}">
+                  Dark Mode
+                </div>
                 <div class="icons-lang-mobile">
                   <div class="icons-lang-mobile__icon icons-lang-mobile__icon_rus"
-                       @click="setLocale('ru')"></div>
+                       @click="editLanguage('ru')"></div>
                   <div class="icons-lang-mobile__icon icons-lang-mobile__icon_eng"
-                       @click="setLocale('en')"></div>
+                       @click="editLanguage('en')"></div>
                 </div>
               </div>
             </div>
@@ -116,33 +122,22 @@ export default {
       this.burgerBtn = !this.burgerBtn;
       document.body.style.overflow = this.burgerBtn ? 'hidden' : 'auto';
     },
-    setLocale(locale) {
-      const { sort } = this.$route.query;
-      const { page } = this.$route.query;
-      const { search } = this.$route.query;
-
-      if (this.$route.query.lang !== locale) {
-        this.$i18n.locale = locale;
-        this.$router.push({
-          query: {
-            lang: locale,
-            sort,
-            page,
-            search,
-          },
-        });
-      }
+    editLanguage(lang) {
+      this.$i18n.locale = lang;
+      localStorage.setItem('lang', lang);
+    },
+    darkTheme() {
+      this.$store.dispatch('darkTheme');
     },
   },
   mounted() {
     if (this.$store.getters.isLoggedIn) {
       this.$store.dispatch('dashboard');
     }
-    setTimeout(() => {
-      if (this.$route.query.lang === 'ru') {
-        this.$i18n.locale = 'ru';
-      }
-    }, 500);
+    this.$store.dispatch('checkDarkTheme');
+    if (this.$store.state.lang === 'ru') {
+      this.editLanguage('ru');
+    }
   },
   computed: {
     isLoggedIn() { return this.$store.getters.isLoggedIn; },
@@ -156,6 +151,6 @@ export default {
   @import 'views/scss/main';
 
   .delay {
-    animation-delay: 1s;
+    animation-delay: 0.3s;
   }
 </style>

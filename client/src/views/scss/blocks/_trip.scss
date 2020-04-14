@@ -9,8 +9,8 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  @include media(large-desktop){
-    background-image: url('#{$img}video-back.jpg');
+  @include media(large-desktop) {
+    background-image: url('#{$img}video-back.png');
   }
 }
 

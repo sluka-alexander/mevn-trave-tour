@@ -17,13 +17,17 @@
   }
 
   &__search-item {
-    @include color-and-weight($black,$bold);
-
+    font-weight: $bold;
     padding: 5px 15px;
     margin: 10px 0;
     background-color: $white;
     border-radius: 50px;
     border: none;
+
+    &_dark-theme {
+      background-color: $dark-mode-blue-high;
+      color: $white;
+    }
   }
 
   &__tour {
@@ -45,16 +49,17 @@
 
 table {
   margin-bottom: 50px;
-  background: white;
+  background: $white;
   max-width: 100%;
   width: 100%;
   border-collapse: collapse;
 }
 
 .tours {
-  input {
-    @include color-and-weight($black,$regular);
+  height: 100%;
 
+  input {
+    font-weight: $regular;
     font-size: calcFluidFontSize($font-S, $font-S, 320, 1920);
     border-bottom: 1px solid $gray;
     background-color: $background;
@@ -64,15 +69,21 @@ table {
     margin: 0;
     padding: 10px 0;
   }
+
+  &_dark-theme {
+    input {
+      border-bottom: 1px solid $white;
+      background-color: $dark-mode-background;
+      color: $white;
+    }
+  }
 }
 
 th {
-  @include color-and-weight($black, $bold);
-
+  font-weight: $bold;
   font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
   padding: 10px;
   text-align: start;
-  border-bottom: 3px solid $purple;
 }
 
 td {
@@ -82,6 +93,10 @@ td {
   padding: 10px;
   transition: 0.3s linear;
   border-bottom: 1px solid #ccc;
+}
+
+.tr {
+  background: $bgcTr;
 }
 
 th:nth-last-child(1),
@@ -126,5 +141,35 @@ hr {
 
   &:hover {
     background-color: $pink;
+  }
+
+  &:active {
+    background-color: $red;
+  }
+}
+
+.fa-arrow-down,
+.fa-arrow-up {
+  transition: 0.1s;
+
+  &:active {
+    transform: scale(1.5);
+  }
+}
+
+.tr-dark-theme {
+  background-color: $dark-mode-blue-medium;
+  border: none;
+}
+
+.table-dark-theme {
+  background-color: $dark-mode-blue-high;
+
+  a {
+    color: $white;
+  }
+
+  td {
+    border-bottom: 1px solid $dark-mode-blue-medium;
   }
 }

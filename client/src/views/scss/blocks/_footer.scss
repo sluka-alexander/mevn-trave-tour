@@ -94,8 +94,7 @@
   }
 
   &__title {
-    @include color-and-weight($black, $medium);
-
+    font-weight: $medium;
     margin-bottom: 10px;
     font-size: calcFluidFontSize($font-M, $font-M, 320, 1920);
   }
@@ -118,9 +117,9 @@
   &__made {
     @extend %flex-center;
 
-    @include color-and-weight($black, $bold);
     @include size(100%, 95px);
 
+    font-weight: $bold;
     font-size: calcFluidFontSize(14, $font-M, 320, 1920);
     text-align: center;
     border-top: 1px solid #e3e3e3;
