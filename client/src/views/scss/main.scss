@@ -387,6 +387,12 @@ a {
     &_register {
       background-image: url('https://image.flaticon.com/icons/svg/1474/1474713.svg');
     }
+
+    &_darth-vader {
+      @include size(70px);
+
+      background-image: url('https://img.icons8.com/color/240/000000/darth-vader.png');
+    }
   }
 }
 

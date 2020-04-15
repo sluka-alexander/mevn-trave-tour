@@ -20,7 +20,8 @@
       <transition name="animate" appear enter-active-class="animated zoomIn faster">
         <form @submit.prevent="addUser" class="form"
               :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
-          <transition name="smooth">
+          <transition name="animate" appear enter-active-class="animated zoomIn faster"
+                      leave-active-class="animated zoomOutLeft faster">
             <div v-if="isConfirmForm" class="confirm-form">
               <div class="confirm-form__icon confirm-form__icon_register">
               </div>

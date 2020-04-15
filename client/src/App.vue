@@ -1,5 +1,22 @@
 <template >
   <div id="app">
+    <transition name="animate" appear enter-active-class="animated zoomIn faster"
+                leave-active-class="animated zoomOutLeft faster">
+      <div v-if="this.$store.state.isConfirmVader" class="confirm-form">
+        <div class="confirm-form__icon confirm-form__icon_darth-vader">
+        </div>
+        <div class="confirm-form__title">
+          {{ $t('confirmForm.darthVader.first') }}<br>
+          {{ $t('confirmForm.darthVader.second') }}
+        </div>
+        <div class="confirm-form__buttons">
+          <button type="submit" class="confirm-form__button confirm-form__button_positive"
+                  @click="closeConfirmFormVader">
+            OK</button>
+        </div>
+      </div>
+    </transition>
+    <div v-if="this.$store.state.isConfirmVader" class="page-form"></div>
     <div class="icons-lang-desktop">
       <div class="icons-lang-desktop__icon icons-lang-mobile__icon_rus"
            @click="editLanguage('ru')"></div>
@@ -128,6 +145,9 @@ export default {
     },
     darkTheme() {
       this.$store.dispatch('darkTheme');
+    },
+    closeConfirmFormVader() {
+      this.$store.dispatch('closeConfirmFormVader');
     },
   },
   mounted() {

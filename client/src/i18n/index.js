@@ -15,6 +15,12 @@ export default new VueI18n({
         least: 'Must have at least ',
         email: 'This is incorrect email',
       },
+      confirmForm: {
+        darthVader: {
+          first: 'Now you are on',
+          second: 'he dark side',
+        },
+      },
       navbar: {
         helloMsg: 'Hi',
         homeItemTxt: 'Home',
@@ -220,6 +226,12 @@ export default new VueI18n({
         field: 'Заполните поле',
         least: 'Должен быть не менее ',
         email: 'Введите корректный email',
+      },
+      confirmForm: {
+        darthVader: {
+          first: 'Теперь ты',
+          second: 'на тёмной стороне!',
+        },
       },
       navbar: {
         helloMsg: 'Привет',

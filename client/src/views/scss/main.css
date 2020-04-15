@@ -1568,6 +1568,11 @@ a {
 .confirm-form__icon_register {
   background-image: url("https://image.flaticon.com/icons/svg/1474/1474713.svg");
 }
+.confirm-form__icon_darth-vader {
+  height: 70px;
+  width: 70px;
+  background-image: url("https://img.icons8.com/color/240/000000/darth-vader.png");
+}
 
 .burger-btn-enter-active {
   transition: opacity 0.3s;

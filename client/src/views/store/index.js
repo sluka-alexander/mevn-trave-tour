@@ -12,6 +12,8 @@ export default new Vuex.Store({
     isAdmin: false,
     error: '',
     isDarkTheme: localStorage.getItem('darkMode') || false,
+    isConfirmVader: false,
+    isConfirmVaderSingleAppearance: localStorage.getItem('darthVaderConfirm') || '',
     users: [],
     editTour: [],
     allTours: [],
@@ -222,6 +224,9 @@ export default new Vuex.Store({
     darkTheme({ commit }) {
       const html = document.getElementsByTagName('html');
       commit('darkTheme');
+      if (!localStorage.getItem('darthVaderConfirm') && this.state.isDarkTheme) {
+        this.state.isConfirmVader = !this.state.isConfirmVader;
+      }
       localStorage.setItem('darkMode', this.state.isDarkTheme);
       if (this.state.isDarkTheme) {
         html[0].classList.add('dark-mode');
@@ -229,6 +234,10 @@ export default new Vuex.Store({
         html[0].classList.remove('dark-mode');
         localStorage.removeItem('darkMode');
       }
+    },
+    closeConfirmFormVader() {
+      this.state.isConfirmVader = !this.state.isConfirmVader;
+      localStorage.setItem('darthVaderConfirm', 'true');
     },
   },
   mutations: {
