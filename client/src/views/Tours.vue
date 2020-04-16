@@ -5,19 +5,19 @@
       <div v-if="confirmFormEdit" class="confirm-form">
         <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
-          {{ $t('tours.confirmTxt.warning.one') }} <br>
-          {{ $t('tours.confirmTxt.warning.two') }}
+          {{ $t('confirmForm.warning.first') }} <br>
+          {{ $t('confirmForm.warning.second') }}
         </div>
         <div class="confirm-form__buttons">
           <router-link v-bind:to="{ name: 'EditTour', params:
                   { id: clickId } }">
             <div class="confirm-form__button confirm-form__button_positive">
-              {{ $t('tours.confirmTxt.editBtn') }}
+              {{ $t('btn.edit') }}
             </div>
           </router-link>
           <div class="confirm-form__button confirm-form__button_negative"
                @click="confirmFormEdit = !confirmFormEdit">
-            {{ $t('tours.confirmTxt.cancelBtn') }}
+            {{ $t('btn.cancel') }}
           </div>
         </div>
       </div>
@@ -27,39 +27,38 @@
       <div v-if="confirmFormDelete" class="confirm-form">
         <div class="confirm-form__icon confirm-form__icon_warning"></div>
         <div class="confirm-form__title">
-          {{ $t('tours.confirmTxt.warning.one') }} <br>
-          {{ $t('tours.confirmTxt.warning.two') }}
+          {{ $t('confirmForm.warning.first') }} <br>
+          {{ $t('confirmForm.warning.second') }}
         </div>
         <div class="confirm-form__buttons">
           <div class="confirm-form__button confirm-form__button_positive"
                  @click="deleteTour(clickId)">
-            {{ $t('tours.confirmTxt.deleteBtn') }}
+            {{ $t('btn.delete') }}
           </div>
           <div class="confirm-form__button confirm-form__button_negative"
-               @click="confirmFormDelete = !confirmFormDelete">
-            {{ $t('tours.confirmTxt.cancelBtn') }}
+               @click="closeForm">
+            {{ $t('btn.cancel') }}
           </div>
         </div>
       </div>
     </transition>
-    <div v-if="confirmFormEdit || confirmFormDelete" class="page-form"></div>
+    <div v-if="confirmFormEdit || confirmFormDelete" class="page-form"
+         @click="closeForm"></div>
     <div class="container">
       <div class="title-item">
         <transition name="animate" appear enter-active-class="animated fadeInRight fast">
           <div>
-            {{ $t('tours.titleTxt') }}
+            {{ $t('titleRoute.tours') }}
           </div>
         </transition>
         <transition name="animate" appear enter-active-class="animated zoomInDown fast">
           <div class="icon icon_tours"></div>
         </transition>
+        <div class="loading" v-if="!filteredTours.length && !NotTours"></div>
       </div>
-<!--      <div class="loading" v-if="!filteredTours.length && !NotTours"></div>-->
-      <transition name="loading">
-        <div style="text-align: center;" v-if="!filteredTours.length && NotTours">
-          {{ $t('tours.warningTxt') }}
-        </div>
-      </transition>
+      <div style="text-align: center;" v-if="!filteredTours.length && NotTours">
+        {{ $t('tours.warningTxt') }}
+      </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster delay">
         <div class="table-tours">
           <input v-if="allTours.length" v-model="search"
@@ -83,8 +82,8 @@
                   { search: search, sort: 'price_asc' } }" class="fas fa-arrow-up"></router-link>
               </th>
               <th>{{ $t('tours.tableTxt.date') }}</th>
-              <th v-if="isAdmin">{{ $t('tours.confirmTxt.editBtn') }}</th>
-              <th v-if="isAdmin">{{ $t('tours.confirmTxt.deleteBtn') }}</th>
+              <th v-if="isAdmin">{{ $t('btn.edit') }}</th>
+              <th v-if="isAdmin">{{ $t('btn.delete') }}</th>
             </tr>
             <tr v-for="tour in filteredTours.slice(0, initialNumberOfTours)"
                 :key="tour.name + tour.isActive ">
@@ -112,7 +111,7 @@
         <button v-if="filteredTours.length &&
          filteredTours.length > initialNumberOfTours" class="button-load-tours"
                 @click="loadMoreTours">
-          {{ $t('tours.btnLoadTxt') }}
+          {{ $t('btn.loadTours') }}
         </button>
       </transition>
     </div>
@@ -153,6 +152,11 @@ export default {
 
     cleanSearch() {
       this.search = '';
+    },
+
+    closeForm() {
+      this.confirmFormDelete = false;
+      this.confirmFormEdit = false;
     },
 
     deleteForm(event) {

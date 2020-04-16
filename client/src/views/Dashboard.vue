@@ -17,7 +17,7 @@
         </div>
       </transition>
       <transition name="animate" appear enter-active-class="animated bounceInLeft">
-       <div class="logOut" @click="logout">{{ $t('dashboard.logOutBtn') }}</div>
+       <div class="logOut" @click="logout">{{ $t('btn.logOut') }}</div>
       </transition>
     </div>
 </template>

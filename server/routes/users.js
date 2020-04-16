@@ -44,6 +44,7 @@ router.post('/users',verifyToken, async (req, res) => {
                         'name': user.name,
                         'email': user.email,
                         'role': user.role,
+                        '_id': user._id,
                     };
                 }));
             }
@@ -97,6 +98,57 @@ router.post('/login', async (req, res) => {
         }
     });
 
+});
+
+router.post('/:id', verifyToken, async (req, res)=>{
+    try {
+        jwt.verify(req.token, 'secretKey', async (err, authData) => {
+            if(err) {
+                res.sendStatus(403);
+            }
+            if(authData.role === 'admin') {
+                const user = await User.findById(req.params.id);
+                await res.json(user);
+            }
+            else {
+                await res.json('This is protected page')
+            }
+        });
+    } catch (err) {
+        res.sendStatus(500);
+    }
+});
+
+router.put('/:id', verifyToken, (req, res) => {
+    try {
+        jwt.verify(req.token, 'secretKey', async (err, authData) => {
+            if(err) {
+                res.sendStatus(403);
+            }
+            if(authData.role === 'admin') {
+                User.findById(req.params.id, (err, user) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        user.name = req.body.name;
+                        user.role = req.body.role;
+                        user.save(err => {
+                            if (err) {
+                                res.sendStatus(500);
+                            } else {
+                                res.sendStatus(200)
+                            }
+                        })
+                    }
+                })
+            }
+            else {
+                await res.json('This is protected page')
+            }
+        });
+    } catch (err) {
+        res.sendStatus(500);
+    }
 });
 
 module.exports = router;

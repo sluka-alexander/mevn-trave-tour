@@ -1,23 +1,27 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import environment from './environment';
+import endpoints from './endpoints.const';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    status: '',
+    status: null,
+    error: null,
+    validate: null,
     token: localStorage.getItem('token') || '',
-    user: {},
     isAdmin: false,
-    error: '',
     isDarkTheme: localStorage.getItem('darkMode') || false,
     isConfirmVader: false,
-    isConfirmVaderSingleAppearance: localStorage.getItem('darthVaderConfirm') || '',
+    isConfirmVaderSingleAppearance: localStorage.getItem('darthVaderConfirm') || false,
+    lang: localStorage.getItem('lang') || 'en',
+    user: {},
     users: [],
     editTour: [],
+    editUser: [],
     allTours: [],
-    lang: localStorage.getItem('lang') || 'en',
   },
   actions: {
     register({ commit }, user) {
@@ -26,7 +30,7 @@ export default new Vuex.Store({
         commit('auth_request');
         axios({ url: 'http://localhost:8081/user/register', data: user, method: 'POST' })
           .then((res) => {
-            this.state.error = res.data.message;
+            this.state.validate = res.data.message;
             resolve(res);
           }).catch((err) => {
             reject(err);
@@ -49,7 +53,7 @@ export default new Vuex.Store({
           .catch((err) => {
             commit('auth_error', err);
             localStorage.removeItem('token');
-            this.state.error = 'login failed';
+            this.state.validate = 'login failed';
             reject(err);
           });
       });
@@ -107,16 +111,55 @@ export default new Vuex.Store({
           });
       });
     },
-    newTour({ commit }, data) {
+    getUser({ commit }, params) {
       try {
         commit('auth_request');
         axios({
-          url: 'http://localhost:8081/tours/new',
+          url: `${environment.baseUrl}${endpoints.USER}${params.id}`,
           method: 'POST',
-          data,
           headers: {
             'auth-token': `Bearer ${localStorage.getItem('token')}`,
           },
+        }).then((res) => {
+          this.state.editUser = res.data;
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    updateUser({ commit }, data) {
+      try {
+        axios.put(`${environment.baseUrl}${endpoints.USER}${data.id}`, data,
+          { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+          .then(() => {
+            commit('success');
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    fetchTours({ commit }) {
+      try {
+        axios.get(`${environment.baseUrl}${endpoints.TOURS}`)
+          .then((res) => {
+            commit('success');
+            this.state.allTours = res.data;
+          }).catch((err) => {
+            commit('error');
+            console.error(err);
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    newTour({ commit }, data) {
+      try {
+        axios.post(`${environment.baseUrl}${endpoints.NEW_TOUR}}`, data, {
+          headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` },
+        }).then(() => {
+          commit('success');
+        }).catch(() => {
+          commit('error');
         });
       } catch (err) {
         console.error(err);
@@ -124,14 +167,14 @@ export default new Vuex.Store({
     },
     getEditTour({ commit }, params) {
       try {
-        commit('auth_request');
         axios({
-          url: `http://localhost:8081/tours/${params.id}`,
+          url: `${environment.baseUrl}${endpoints.TOURS}/${params.id}`,
           method: 'POST',
           headers: {
             'auth-token': `Bearer ${localStorage.getItem('token')}`,
           },
         }).then((res) => {
+          commit('success');
           this.state.editTour = res.data;
         });
       } catch (err) {
@@ -142,7 +185,7 @@ export default new Vuex.Store({
       try {
         commit('auth_request');
         axios({
-          url: `http://localhost:8081/tours/${data.id}`,
+          url: `${environment.baseUrl}${endpoints.TOURS}/${data.id}`,
           method: 'PUT',
           data,
           headers: {
@@ -153,26 +196,10 @@ export default new Vuex.Store({
         console.error(err);
       }
     },
-    fetchTours() {
-      try {
-        axios({
-          url: 'http://localhost:8081/tours',
-          method: 'GET',
-        })
-          .then((res) => {
-            this.state.allTours = res.data;
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } catch (err) {
-        console.error(err);
-      }
-    },
     getTourSortDesc() {
       try {
         axios({
-          url: 'http://localhost:8081/tours/desc',
+          url: `${environment.baseUrl}${endpoints.DESC_TOURS}`,
           method: 'GET',
         })
           .then((res) => {
@@ -188,7 +215,7 @@ export default new Vuex.Store({
     getTourSortAsc() {
       try {
         axios({
-          url: 'http://localhost:8081/tours/asc',
+          url: `${environment.baseUrl}${endpoints.ASC_TOURS}`,
           method: 'GET',
         })
           .then((res) => {
@@ -205,7 +232,7 @@ export default new Vuex.Store({
       try {
         commit('auth_request');
         axios({
-          url: `http://localhost:8081/tours/${id}`,
+          url: `${environment.baseUrl}${endpoints.TOURS}/${id}`,
           method: 'DELETE',
           headers: {
             'auth-token': `Bearer ${localStorage.getItem('token')}`,
@@ -222,25 +249,40 @@ export default new Vuex.Store({
       } else localStorage.removeItem('darkMode');
     },
     darkTheme({ commit }) {
-      const html = document.getElementsByTagName('html');
+      const html = document.getElementsByTagName('html')[0];
       commit('darkTheme');
       if (!localStorage.getItem('darthVaderConfirm') && this.state.isDarkTheme) {
         this.state.isConfirmVader = !this.state.isConfirmVader;
+        html.style.overflow = 'hidden';
       }
       localStorage.setItem('darkMode', this.state.isDarkTheme);
       if (this.state.isDarkTheme) {
-        html[0].classList.add('dark-mode');
+        html.classList.add('dark-mode');
       } else {
-        html[0].classList.remove('dark-mode');
+        html.classList.remove('dark-mode');
         localStorage.removeItem('darkMode');
       }
     },
     closeConfirmFormVader() {
+      const html = document.getElementsByTagName('html')[0];
       this.state.isConfirmVader = !this.state.isConfirmVader;
       localStorage.setItem('darthVaderConfirm', 'true');
+      html.style.overflow = 'auto';
     },
   },
   mutations: {
+    success(state) {
+      state.status = 'Success';
+    },
+    error(state) {
+      state.status = 'Error';
+    },
+    newTourSuccess(state) {
+      state.status = 'New tour created';
+    },
+    newTourError(state) {
+      state.status = 'Error, new tour do not created';
+    },
     auth_request(state) {
       state.status = 'loading';
     },
@@ -267,10 +309,9 @@ export default new Vuex.Store({
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
     DataUser: (state) => state.user,
-    Error: (state) => state.error,
+    validate: (state) => state.validate,
     isAdmin: (state) => state.isAdmin,
     users: (state) => state.users,
-    EditTour: (state) => state.editTour,
     allTours: (state) => state.allTours,
     isDarkTheme: (state) => state.isAdmin,
   },

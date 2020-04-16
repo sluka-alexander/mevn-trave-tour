@@ -2,7 +2,7 @@
     <div>
       <div class="icon icon_error"></div>
       <div class="title-item">
-        {{ $t('errorAndNotFound.error') }}
+        {{ $t('titleRoute.error') }}
       </div>
     </div>
 </template>

@@ -235,8 +235,12 @@ a {
     background-image: url('https://image.flaticon.com/icons/svg/2569/2569869.svg');
   }
 
-  &_edit {
+  &_edit-tour {
     background-image: url('https://image.flaticon.com/icons/svg/1508/1508034.svg');
+  }
+
+  &_edit-user {
+    background-image: url('https://image.flaticon.com/icons/svg/2808/2808298.svg');
   }
 
   &_new {
@@ -303,6 +307,8 @@ a {
 }
 
 .page-form {
+  @extend %flex-center;
+
   @include size(100%);
 
   position: fixed;
@@ -319,7 +325,7 @@ a {
   @include size(300px,400px);
 
   margin: auto;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;

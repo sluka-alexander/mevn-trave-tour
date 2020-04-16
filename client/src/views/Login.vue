@@ -3,7 +3,7 @@
       <div class="title-item">
         <transition name="animate" appear enter-active-class="animated fadeInRight fast">
           <div>
-            {{ $t('LoginAndRegister.titleLoginTxt') }}
+            {{ $t('titleRoute.signIn') }}
           </div>
         </transition>
         <transition name="animate" appear enter-active-class="animated zoomInDown fast">
@@ -15,13 +15,13 @@
                 :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
             <div class="form__item"
                  :class="{'form__item_err': $v.email.$error}">
-              <label for="email">{{ $t('LoginAndRegister.emailTxt') }}</label>
+              <label for="email">{{ $t('form.titleInput.email') }}</label>
               <transition name="animate" appear enter-active-class="animated flash delay-1s">
                 <input
                   type="email"
                   id="email"
                   v-model.trim="email"
-                  :placeholder="$t('LoginAndRegister.placeholder')"
+                  :placeholder="$t('form.placeholder')"
                   @blur="$v.email.$touch()"
                   :class="{'animated shake': $v.email.$error}">
               </transition>
@@ -34,12 +34,12 @@
             </div>
             <div class="form__item"
                  :class="{'form__item_err' : $v.password.$error}">
-              <label for="password">{{ $t('LoginAndRegister.passwordTxt') }}</label>
+              <label for="password">{{ $t('form.titleInput.password') }}</label>
               <input
                 type="password"
                 id="password"
                 v-model.trim="password"
-                :placeholder="$t('LoginAndRegister.placeholder')"
+                :placeholder="$t('form.placeholder')"
                 @blur="$v.password.$touch()"
                 :class="{'animated shake': $v.password.$error}">
               <div class="error" v-if="!$v.password.required">
@@ -54,10 +54,10 @@
             </div>
             <div class="error">{{ Error }} </div>
             <div v-if="$v.$invalid" class="button button_no-active" >
-              {{ $t('LoginAndRegister.signInBtn') }}
+              {{ $t('btn.signIn') }}
             </div>
             <div v-else @click="login" class="button">
-              {{ $t('LoginAndRegister.signInBtn') }}
+              {{ $t('btn.signIn') }}
             </div>
           </form>
         </transition>
@@ -86,6 +86,7 @@ export default {
     email: {
       required,
       email,
+      maxLength: maxLength(30),
     },
     password: {
       required,

@@ -4,11 +4,11 @@
       <div class="title-item">
         <transition name="animate" appear enter-active-class="animated fadeInRight fast">
           <div>
-           {{ $t('Tour.titleEditTxt') }}
+           {{ $t('titleRoute.editTour') }}
           </div>
         </transition>
         <transition name="animate" appear enter-active-class="animated zoomInDown fast">
-          <div class="icon icon_edit"></div>
+          <div class="icon icon_edit-tour"></div>
         </transition>
       </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster">
@@ -16,24 +16,30 @@
               :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
           <div class="form__item"
                :class="{'form__item_err' : $v.tour.name.$error}">
-            <label for="name">{{ $t('Tour.formTxt.name') }}</label>
-            <input
-              type="text"
-              id="name"
-              v-model.trim="tour.name"
-              :placeholder="$t('Tour.formTxt.enter')"
-              @blur="$v.tour.name.$touch()"
-              :class="{'animated shake': $v.tour.name.$error}">
+            <label for="name">{{ $t('form.titleInput.name') }}</label>
+            <transition name="animate" appear enter-active-class="animated flash delay-1s">
+              <input
+                type="text"
+                id="name"
+                v-model.trim="tour.name"
+                :placeholder="$t('form.placeholder')"
+                @blur="$v.tour.name.$touch()"
+                :class="{'animated shake': $v.tour.name.$error}">
+            </transition>
             <div class="error" v-if="!$v.tour.name.required">
-              {{ $t('Tour.error.field') }}
+              {{ $t('validates.field') }}
             </div>
             <div class="error" v-if="!$v.tour.name.minLength">
-              {{ $t('Tour.error.least') }}
+              {{ $t('validates.min') }}
               {{$v.tour.name.$params.minLength.min}}
+            </div>
+            <div class="error" v-if="!$v.tour.name.maxLength">
+              {{ $t('validates.max') }}
+              {{$v.tour.name.$params.maxLength.max}}
             </div>
           </div>
           <div class="form__item">
-            <label for="category">{{ $t('Tour.formTxt.category') }}</label>
+            <label for="category">{{ $t('form.titleInput.category') }}</label>
             <select type="text"
                     id="category"
                     v-model.trim="tour.category"
@@ -47,41 +53,52 @@
           </div>
           <div class="form__item"
                :class="{'form__item_err' : $v.tour.description.$error}">
-            <label for="desc">{{ $t('Tour.formTxt.desc') }}</label>
+            <label for="desc">{{ $t('form.titleInput.desc') }}</label>
             <input
               id="desc"
               v-model.trim="tour.description"
-              :placeholder="$t('Tour.formTxt.enter')"
+              :placeholder="$t('form.placeholder')"
               @blur="$v.tour.description.$touch()"
               :class="{'animated shake': $v.tour.description.$error}">
-            <div class="error" v-if="!$v.tour.name.required">
-              {{ $t('Tour.error.field') }}
+            <div class="error" v-if="!$v.tour.description.required">
+              {{ $t('validates.field') }}
             </div>
-            <div class="error" v-if="!$v.tour.name.minLength">
-              {{ $t('Tour.error.least') }}
+            <div class="error" v-if="!$v.tour.description.minLength">
+              {{ $t('newTour.error.least') }}
               {{$v.tour.description.$params.minLength.min}}
+            </div>
+            <div class="error" v-if="!$v.tour.description.maxLength">
+              {{ $t('validates.max') }}
+              {{$v.tour.description.$params.maxLength.max}}
             </div>
           </div>
           <div class="form__item"
                :class="{'form__item_err' : $v.tour.price.$error}">
-            <label for="price">{{ $t('Tour.formTxt.price') }}</label>
+            <label for="price">{{ $t('form.titleInput.price') }}</label>
             <input
               type="number"
               id="price"
               v-model.trim="tour.price"
-              :placeholder="$t('Tour.formTxt.enter')"
+              :placeholder="$t('form.placeholder')"
               @blur="$v.tour.price.$touch()"
               :class="{'animated shake': $v.tour.price.$error}">
-            <div class="error" v-if="!$v.tour.name.required">
-              {{ $t('Tour.error.field') }}
+            <div class="error" v-if="!$v.tour.price.required">
+              {{ $t('validates.field') }}
+            </div>
+            <div class="error" v-if="!$v.tour.price.maxLength">
+              {{ $t('validates.max') }}
+              {{$v.tour.price.$params.maxLength.max}}
             </div>
           </div>
           <span style="display: flex;">
-            <div v-if="$v.$invalid"
-              class="button button_no-active">{{ $t('Tour.btnEditTxt') }}
+            <div v-if="$v.$invalid || oldTour[0].name === tour.name &&
+                oldTour[0].category === tour.category &&
+                oldTour[0].description === tour.description &&
+                String(oldTour[0].price) === String(tour.price)"
+              class="button button_no-active">{{ $t('btn.edit') }}
             </div>
-            <button type="submit" v-else class="button">{{ $t('Tour.btnEditTxt') }}</button>
-            <span class="button-back" @click="Back">{{ $t('Tour.btnCancelTxt') }}</span>
+            <button type="submit" v-else class="button">{{ $t('btn.edit') }}</button>
+            <span class="button-back" @click="Back">{{ $t('btn.back') }}</span>
           </span>
         </form>
       </transition>
@@ -90,30 +107,36 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import axios from 'axios';
 
 export default {
   name: 'EditTour',
 
   data() {
     return {
-      oldTour: [],
       tour: [],
+      oldTour: [],
       comparison: false,
     };
   },
 
   validations: {
     tour: {
-      name: { required, minLength: minLength(3) },
+      name: { required, minLength: minLength(3), maxLength: maxLength(16) },
       category: { required },
-      description: { required, minLength: minLength(10) },
-      price: { required },
+      description: { required, minLength: minLength(10), maxLength: maxLength(30) },
+      price: { required, maxLength: maxLength(5) },
     },
   },
   methods: {
     async getTour() {
       const tourId = { id: this.$route.params.id };
+      axios.get('http://localhost:8081/tours/')
+        .then((res) => {
+        /* eslint no-underscore-dangle: 0 */
+          this.oldTour = res.data.filter((tour) => tour._id === tourId.id);
+        });
       await this.$store.dispatch('getEditTour', tourId);
       setTimeout(() => {
         this.tour = this.$store.state.editTour;

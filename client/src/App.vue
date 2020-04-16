@@ -12,11 +12,13 @@
         <div class="confirm-form__buttons">
           <button type="submit" class="confirm-form__button confirm-form__button_positive"
                   @click="closeConfirmFormVader">
-            OK</button>
+            {{ $t('btn.ok') }}
+          </button>
         </div>
       </div>
     </transition>
-    <div v-if="this.$store.state.isConfirmVader" class="page-form"></div>
+    <div v-if="this.$store.state.isConfirmVader" class="page-form"
+         @click="closeConfirmFormVader"></div>
     <div class="icons-lang-desktop">
       <div class="icons-lang-desktop__icon icons-lang-mobile__icon_rus"
            @click="editLanguage('ru')"></div>
@@ -137,7 +139,8 @@ export default {
   methods: {
     openBars() {
       this.burgerBtn = !this.burgerBtn;
-      document.body.style.overflow = this.burgerBtn ? 'hidden' : 'auto';
+      const html = document.getElementsByTagName('html')[0];
+      html.style.overflow = this.burgerBtn ? 'hidden' : 'auto';
     },
     editLanguage(lang) {
       this.$i18n.locale = lang;

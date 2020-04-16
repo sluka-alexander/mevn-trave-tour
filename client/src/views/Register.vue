@@ -1,50 +1,52 @@
 <template>
   <div>
     <div class="container">
+      <transition name="animate" appear enter-active-class="animated zoomIn faster"
+                  leave-active-class="animated zoomOutLeft faster">
+        <div v-if="isConfirmForm" class="confirm-form">
+          <div class="confirm-form__icon confirm-form__icon_register">
+          </div>
+          <div class="confirm-form__title">
+            {{ $t('register.first') }} <br>
+            {{ $t('register.second') }}
+          </div>
+          <div class="confirm-form__buttons">
+            <button type="submit" class="confirm-form__button confirm-form__button_positive"
+                    @click="Redirect">
+              {{ $t('btn.ok') }}
+            </button>
+          </div>
+        </div>
+      </transition>
       <transition name="smooth">
-        <div v-if="isConfirmForm" class="page-form"></div>
+        <div v-if="isConfirmForm" class="page-form" @click="Redirect"></div>
       </transition>
       <div class="title-item">
         <transition name="animate" appear enter-active-class="animated fadeInRight fast">
           <div>
-            {{ $t('LoginAndRegister.titleRegisterTxt') }}
+            {{ $t('titleRoute.signUp') }}
           </div>
         </transition>
         <transition name="animate" appear enter-active-class="animated zoomInDown fast">
         <div class="icon icon_user"
-             :class="{'icon_user-correct' : !$v.$invalid,
-              'icon_user-incorrect' : $v.name.$error || $v.email.$error || $v.password.$error}"
+             :class="{'icon_user-correct animated heartBeat' : !$v.$invalid,
+              'icon_user-incorrect animated heartBeat' :
+              $v.name.$error || $v.email.$error || $v.password.$error}"
         ></div>
         </transition>
       </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster">
-        <form @submit.prevent="addUser" class="form"
+        <form @submit.prevent="register" class="form"
               :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
-          <transition name="animate" appear enter-active-class="animated zoomIn faster"
-                      leave-active-class="animated zoomOutLeft faster">
-            <div v-if="isConfirmForm" class="confirm-form">
-              <div class="confirm-form__icon confirm-form__icon_register">
-              </div>
-              <div class="confirm-form__title">
-                {{ $t('LoginAndRegister.confirmTxtOne') }}<br>
-                {{ $t('LoginAndRegister.confirmTxtTwo') }}
-              </div>
-              <div class="confirm-form__buttons">
-                <button type="submit" class="confirm-form__button confirm-form__button_positive"
-                        @click="Redirect">
-                  OK</button>
-              </div>
-            </div>
-          </transition>
           <div class="form__item"
                :class="{'form__item_err' : $v.name.$error}">
-            <label for="name">{{ $t('LoginAndRegister.nameTxt') }}</label>
+            <label for="name">{{ $t('form.titleInput.name') }}</label>
             <transition name="animate" appear enter-active-class="animated flash delay-1s">
             <input
               type="text"
               id="name"
               v-model.trim="name"
-              :placeholder="$t('LoginAndRegister.placeholder')"
+              :placeholder="$t('form.placeholder')"
               @blur="$v.name.$touch()"
               :class="{'animated shake': $v.name.$error}">
             </transition>
@@ -52,18 +54,22 @@
               {{ $t('validates.field') }}
             </div>
             <div class="error" v-if="!$v.name.minLength">
-              {{ $t('validates.least') }}
-            {{$v.name.$params.minLength.min}}
-          </div>
+                {{ $t('validates.min') }}
+              {{$v.name.$params.minLength.min}}
+            </div>
+            <div class="error" v-if="!$v.name.maxLength">
+                {{ $t('validates.max') }}
+              {{$v.name.$params.maxLength.max}}
+            </div>
           </div>
           <div class="form__item"
                :class="{'form__item_err' : $v.email.$error}">
-            <label for="email">{{ $t('LoginAndRegister.emailTxt') }}</label>
+            <label for="email">{{ $t('form.titleInput.email') }}</label>
             <input
               type="email"
               id="email"
               v-model.trim="email"
-              :placeholder="$t('LoginAndRegister.placeholder')"
+              :placeholder="$t('form.placeholder')"
               @blur="$v.email.$touch()"
               :class="{'animated shake': $v.email.$error}">
             <div class="error " v-if="!$v.email.required">
@@ -75,12 +81,12 @@
           </div>
           <div class="form__item"
                :class="{'form__item_err' : $v.password.$error}">
-            <label for="password">{{ $t('LoginAndRegister.passwordTxt') }}</label>
+            <label for="password">{{ $t('form.titleInput.password') }}</label>
             <input
               type="password"
               id="password"
               v-model.trim="password"
-              :placeholder="$t('LoginAndRegister.placeholder')"
+              :placeholder="$t('form.placeholder')"
               @blur="$v.password.$touch()"
               :class="{'animated shake': $v.password.$error}">
             <div class="error" v-if="!$v.password.required">
@@ -92,14 +98,15 @@
             </div>
             <div class="error" v-if="!$v.password.maxLength">
               {{ $t('validates.long') }}
+              {{$v.password.$params.maxLength.max}}
             </div>
           </div>
           <div class="error">{{ Error }}</div>
           <div v-if="$v.$invalid" class="button button_no-active" >
-            {{ $t('LoginAndRegister.signUpBtn') }}
+            {{ $t('btn.signUp') }}
           </div>
-          <div v-else @click="register" class="button">
-            {{ $t('LoginAndRegister.signUpBtn') }}
+          <div v-else class="button">
+            {{ $t('btn.signUp') }}
           </div>
         </form>
       </transition>
@@ -136,7 +143,7 @@ export default {
     password: {
       required,
       minLength: minLength(6),
-      maxLength: maxLength(16),
+      maxLength: maxLength(30),
     },
   },
   computed: {

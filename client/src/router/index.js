@@ -6,6 +6,7 @@ const Home = import('../views/Home.vue');
 const Register = import('../views/Register.vue');
 const Login = import('../views/Login.vue');
 const Users = import('../views/Users.vue');
+const EditUser = import('../views/Edit-user.vue');
 const Tours = import('../views/Tours.vue');
 const NewTour = import('../views/New-tour.vue');
 const EditTour = import('../views/Edit-tour.vue');
@@ -43,6 +44,14 @@ const routes = [
     component: () => Dashboard,
     meta: {
       auth: true,
+    },
+  },
+  {
+    path: '/user/:id',
+    name: 'EditUser',
+    component: () => EditUser,
+    meta: {
+      Admin: true,
     },
   },
   {

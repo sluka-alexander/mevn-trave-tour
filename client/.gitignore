@@ -7,8 +7,8 @@ node_modules
 .env.*.local
 
 # css
-main.css
-main.css.map
+src/views/scss/main.css
+src/views/scss/main.css.map
 
 # Log files
 npm-debug.log*

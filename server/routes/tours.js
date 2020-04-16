@@ -73,7 +73,7 @@ router.post('/:id', verifyToken, async (req, res)=>{
                 await res.json(tour);
             }
             else {
-                res.json('This is protected page')
+                await res.json('This is protected page')
             }
         });
     } catch (err) {
@@ -107,7 +107,7 @@ router.put('/:id', verifyToken, (req, res) => {
                 })
             }
             else {
-                res.json('This is protected page')
+                await res.json('This is protected page')
             }
         });
     } catch (err) {
@@ -131,7 +131,7 @@ router.delete('/:id', verifyToken, (req, res) => {
                 })
             }
             else {
-                res.json('This is protected page')
+                await res.json('This is protected page')
             }
         });
     } catch (err) {

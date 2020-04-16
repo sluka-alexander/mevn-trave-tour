@@ -20,7 +20,7 @@
                          :placeholder="$t('startingBlock.searchTxt') "
                          v-model="search" @keyup.enter="SearchTour">
                   <div class="search__button" @click="SearchTour">
-                    {{ $t('startingBlock.searchButtonTxt') }}
+                    {{ $t('btn.search') }}
                   </div>
                 </div>
               </div>
@@ -262,7 +262,7 @@
         <div class="container">
           <div class="email">
             <input class="email__input" :placeholder="$t('feedbackBlock.inputTxt')">
-            <div class="email__button">{{ $t('feedbackBlock.btnTxt') }}</div>
+            <div class="email__button">{{ $t('btn.bookNow') }}</div>
           </div>
         </div>
         <div class="text-end">{{ $t('feedbackBlock.endTxt') }}</div>
