@@ -7,6 +7,8 @@ export default {
     email: 'This is incorrect email',
     max: 'Max length of symbols: ',
     min: 'Max length of symbols: ',
+    login: 'Login failed',
+    register: 'This email is already there',
   },
   confirmForm: {
     darthVader: {

@@ -95,7 +95,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('users');
+    this.$store.dispatch('getAllUsers');
   },
   methods: {
     updateUser(event) {

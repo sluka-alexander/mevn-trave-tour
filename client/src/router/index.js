@@ -95,7 +95,7 @@ const routes = [
   },
   {
     path: '/tours/*',
-    name: 'NotFound',
+    name: 'NotFoundTour',
     component: () => NotFound,
   },
 ];

@@ -7,19 +7,19 @@
           <div class="confirm-form__icon confirm-form__icon_register">
           </div>
           <div class="confirm-form__title">
-            {{ $t('register.first') }} <br>
-            {{ $t('register.second') }}
+            {{ $t('confirmForm.register.first') }} <br>
+            {{ $t('confirmForm.register.second') }}
           </div>
           <div class="confirm-form__buttons">
             <button type="submit" class="confirm-form__button confirm-form__button_positive"
-                    @click="Redirect">
+                    @click="redirect">
               {{ $t('btn.ok') }}
             </button>
           </div>
         </div>
       </transition>
       <transition name="smooth">
-        <div v-if="isConfirmForm" class="page-form" @click="Redirect"></div>
+        <div v-if="isConfirmForm" class="page-form" @click="redirect"></div>
       </transition>
       <div class="title-item">
         <transition name="animate" appear enter-active-class="animated fadeInRight fast">
@@ -36,7 +36,7 @@
         </transition>
       </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster">
-        <form @submit.prevent="register" class="form"
+        <form class="form"
               :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
           <div class="form__item"
                :class="{'form__item_err' : $v.name.$error}">
@@ -101,11 +101,11 @@
               {{$v.password.$params.maxLength.max}}
             </div>
           </div>
-          <div class="error">{{ Error }}</div>
+          <div class="error" v-if="validate">{{ $t('validates.register') }}</div>
           <div v-if="$v.$invalid" class="button button_no-active" >
             {{ $t('btn.signUp') }}
           </div>
-          <div v-else class="button">
+          <div v-else class="button" @click="register">
             {{ $t('btn.signUp') }}
           </div>
         </form>
@@ -123,11 +123,11 @@ export default {
   name: 'Register',
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
+      name: null,
+      email: null,
+      password: null,
+      validate: false,
       isConfirmForm: false,
-      error: '',
     };
   },
   validations: {
@@ -146,11 +146,8 @@ export default {
       maxLength: maxLength(30),
     },
   },
-  computed: {
-    Error() { return this.$store.getters.Error; },
-  },
   methods: {
-    Redirect() {
+    redirect() {
       this.$router.push({ name: 'Login' });
     },
     register() {
@@ -158,18 +155,16 @@ export default {
         name: this.name,
         email: this.email,
         password: this.password,
-        is_admin: this.is_admin,
       };
-      this.$store.dispatch('register', data);
-      setTimeout(() => {
-        if (!this.Error) {
+      this.$store.dispatch('register', data)
+        .then(() => {
           this.isConfirmForm = !this.isConfirmForm;
-        }
-      }, 500);
+        })
+        .catch((err) => {
+          this.validate = true;
+          console.log(err);
+        });
     },
-  },
-  mounted() {
-    this.$store.dispatch('clearError');
   },
 };
 </script>

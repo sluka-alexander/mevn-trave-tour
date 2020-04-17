@@ -52,7 +52,9 @@
                 {{ $t('validates.long') }}
               </div>
             </div>
-            <div class="error">{{ Error }} </div>
+            <div class="error" v-if="validate">
+              {{ $t('validates.login') }}
+            </div>
             <div v-if="$v.$invalid" class="button button_no-active" >
               {{ $t('btn.signIn') }}
             </div>
@@ -76,10 +78,9 @@ export default {
   },
   data() {
     return {
-      email: '',
-      password: '',
-      validateLogin: false,
-      error: '',
+      email: null,
+      password: null,
+      validate: false,
     };
   },
   validations: {
@@ -94,9 +95,6 @@ export default {
       maxLength: maxLength(16),
     },
   },
-  computed: {
-    Error() { return this.$store.getters.Error; },
-  },
   methods: {
     login() {
       const data = {
@@ -105,11 +103,11 @@ export default {
       };
       this.$store.dispatch('login', data)
         .then(() => this.$router.go(-1))
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.validate = true;
+          console.log(err);
+        });
     },
-  },
-  mounted() {
-    this.$store.dispatch('clearError');
   },
 };
 </script>

@@ -10,7 +10,6 @@ export default new Vuex.Store({
   state: {
     status: null,
     error: null,
-    validate: null,
     token: localStorage.getItem('token') || '',
     isAdmin: false,
     isDarkTheme: localStorage.getItem('darkMode') || false,
@@ -25,25 +24,23 @@ export default new Vuex.Store({
   },
   actions: {
     register({ commit }, user) {
-      this.state.error = '';
       return new Promise((resolve, reject) => {
-        commit('auth_request');
-        axios({ url: 'http://localhost:8081/user/register', data: user, method: 'POST' })
+        axios.post(`${environment.baseUrl}${endpoints.REGISTER}`, user)
           .then((res) => {
-            this.state.validate = res.data.message;
+            commit('success');
             resolve(res);
           }).catch((err) => {
+            commit('errorAuth', err);
             reject(err);
           });
       });
     },
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
-        commit('auth_request');
-        axios({ url: 'http://localhost:8081/user/login', data: user, method: 'POST' })
+        axios.post(`${environment.baseUrl}${endpoints.LOGIN}`, user)
           .then((res) => {
             localStorage.setItem('token', res.data.token);
-            commit('auth_success', res.data.token, res.data.user);
+            commit('successAuth', res.data.token);
             this.state.user = res.data.user;
             if (res.data.user.role === 'admin') {
               this.state.isAdmin = true;
@@ -51,87 +48,59 @@ export default new Vuex.Store({
             resolve(res);
           })
           .catch((err) => {
-            commit('auth_error', err);
+            commit('errorAuth', err);
             localStorage.removeItem('token');
-            this.state.validate = 'login failed';
             reject(err);
           });
       });
     },
     logout({ commit }) {
-      return new Promise((resolve) => {
-        commit('logout');
-        localStorage.removeItem('token');
-        delete axios.defaults.headers.common.Authorization;
-        resolve();
-      });
-    },
-    clearError() {
-      this.state.error = '';
+      commit('logout');
+      localStorage.removeItem('token');
     },
     dashboard({ commit }) {
-      return new Promise((resolve, reject) => {
-        commit('auth_request');
-        axios({
-          url: 'http://localhost:8081/user/dashboard',
-          method: 'POST',
-          headers: {
-            'auth-token': `Bearer ${localStorage.getItem('token')}`,
-          },
-        })
-          .then((res) => {
-            this.state.user = res.data.user;
-            if (res.data.user.role === 'admin') {
-              this.state.isAdmin = true;
-            }
-            resolve(res);
-          })
-          .catch((err) => {
-            commit('auth_error', err);
-            reject(err);
-          });
-      });
+      return axios.post(`${environment.baseUrl}${endpoints.DASHBOARD}`, '',
+        { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+        .then((res) => {
+          commit('success');
+          this.state.user = res.data.user;
+          if (res.data.user.role === 'admin') {
+            this.state.isAdmin = true;
+          }
+        }).catch(() => {
+          commit('error');
+        });
     },
-    users({ commit }) {
-      return new Promise((resolve, reject) => {
-        commit('auth_request');
-        axios({
-          url: 'http://localhost:8081/user/users',
-          method: 'POST',
-          headers: {
-            'auth-token': `Bearer ${localStorage.getItem('token')}`,
-          },
-        })
-          .then((res) => {
-            this.state.users = res.data;
-          })
-          .catch((err) => {
-            commit('auth_error', err);
-            reject(err);
-          });
-      });
+    getAllUsers({ commit }) {
+      return axios.post(`${environment.baseUrl}${endpoints.USERS}`, '',
+        { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+        .then((res) => {
+          commit('success');
+          this.state.users = res.data;
+          if (res.data.user.role === 'admin') {
+            this.state.isAdmin = true;
+          }
+        }).catch(() => {
+          commit('error');
+        });
     },
     getUser({ commit }, params) {
-      try {
-        commit('auth_request');
-        axios({
-          url: `${environment.baseUrl}${endpoints.USER}${params.id}`,
-          method: 'POST',
-          headers: {
-            'auth-token': `Bearer ${localStorage.getItem('token')}`,
-          },
-        }).then((res) => {
+      return axios.post(`${environment.baseUrl}${endpoints.USER}${params.id}`, params.id,
+        { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+        .then((res) => {
+          commit('success');
           this.state.editUser = res.data;
+        }).catch(() => {
+          commit('error');
         });
-      } catch (err) {
-        console.error(err);
-      }
     },
     updateUser({ commit }, data) {
       return axios.put(`${environment.baseUrl}${endpoints.USER}${data.id}`, data,
         { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
         .then(() => {
           commit('success');
+        }).catch(() => {
+          commit('error');
         });
     },
     getAllTours({ commit }) {
@@ -144,7 +113,7 @@ export default new Vuex.Store({
         });
     },
     newTour({ commit }, data) {
-      return axios.post('http://localhost:8081/tours/new', data, {
+      return axios.post(`${environment.baseUrl}${endpoints.NEW_TOUR}`, data, {
         headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` },
       }).then(() => {
         commit('success');
@@ -227,27 +196,14 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    success(state) {
-      state.status = 'Success';
-    },
-    error(state) {
-      state.status = 'Error';
-    },
-    newTourSuccess(state) {
-      state.status = 'New tour created';
-    },
-    newTourError(state) {
-      state.status = 'Error, new tour do not created';
-    },
-    auth_request(state) {
+    loadingAuth(state) {
       state.status = 'loading';
     },
-    auth_success(state, token, user) {
+    successAuth(state, token) {
       state.status = 'success';
       state.token = token;
-      state.user = user;
     },
-    auth_error(state) {
+    errorAuth(state) {
       state.status = 'error';
     },
     logout(state) {
@@ -255,6 +211,12 @@ export default new Vuex.Store({
       state.token = '';
       state.isAdmin = false;
       state.users = {};
+    },
+    success(state) {
+      state.status = 'Success';
+    },
+    error(state) {
+      state.status = 'Error';
     },
     darkTheme(state) {
       state.isDarkTheme = !state.isDarkTheme;
@@ -265,7 +227,6 @@ export default new Vuex.Store({
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
     DataUser: (state) => state.user,
-    validate: (state) => state.validate,
     isAdmin: (state) => state.isAdmin,
     users: (state) => state.users,
     allTours: (state) => state.allTours,

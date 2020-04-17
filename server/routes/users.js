@@ -7,23 +7,52 @@ const verifyToken = require('./verifyToken');
 
 router.post('/register', async (req, res) => {
     const newUser = new User({
-        name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        name: req.body.name,
+        password: bcrypt.hashSync(req.body.password, 10)
+    })
+    User.findOne({ email: req.body.email }, (err, user) => {
+       if(!user) {
+           newUser.save(() => {
+               return res.status(200).json({
+                   title: 'Success'
+               })
+           })
+       } else {
+           return res.status(500).json({
+               message: 'This email is already there',
+               err: err,
+           });
+       }
     });
-    User.findOne({ email: req.body.email }).then(user => {
-        if(!user) {
-            bcrypt.genSalt(10,  (err, salt) => {
-                bcrypt.hash(newUser.password, salt,async (err, hash) => {
-                    newUser.password = hash;
-                    newUser.save();
-                });
-            });
-        } else {
-            res.json({ message: 'This email is already there' });
-            console.log('This email is already there');
+});
+
+router.post('/login', async (req, res) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if(err) {
+            return res.status(500).json({
+                title: 'server error',
+                error: err,
+            })
         }
-    }).catch(err => console.log(err));
+        if(!user) {
+            return res.status(401).json({
+                title: 'user not found',
+                error: 'invalid credentials'
+            })
+        }
+        if(!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(401).json({
+                title: 'login failed',
+                error: 'invalid credentials'
+            })
+        }
+        else {
+            let token = jwt.sign({ id: user.id, name: user.name, role: user.role, email: user.email },
+                'secretKey', { expiresIn: 86400 });
+            res.status(200).header('auth-token', token).send({ auth: true, token: token, user: user });
+        }
+    });
 });
 
 router.get('/logout', function(req, res){
@@ -71,34 +100,6 @@ router.post('/dashboard', verifyToken, (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
-    User.findOne({ email: req.body.email }, (err, user) => {
-        if(err) {
-            return res.status(500).json({
-                title: 'server error',
-                error: err,
-            })
-        }
-        if(!user) {
-            return res.status(401).json({
-                title: 'user not found',
-                error: 'invalid credentials'
-            })
-        }
-        if(!bcrypt.compareSync(req.body.password, user.password)) {
-            return res.status(401).json({
-                title: 'login failed',
-                error: 'invalid credentials'
-            })
-        }
-        else {
-            let token = jwt.sign({ id: user.id, name: user.name, role: user.role, email: user.email },
-                'secretKey', { expiresIn: 86400 });
-            res.status(200).header('auth-token', token).send({ auth: true, token: token, user: user });
-        }
-    });
-
-});
 
 router.post('/:id', verifyToken, async (req, res)=>{
     try {
