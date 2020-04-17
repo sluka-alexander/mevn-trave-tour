@@ -52,24 +52,24 @@
             </select>
           </div>
           <div class="form__item"
-               :class="{'form__item_err' : $v.tour.description.$error}">
+               :class="{'form__item_err' : $v.tour.desc.$error}">
             <label for="desc">{{ $t('form.titleInput.desc') }}</label>
             <input
               id="desc"
-              v-model.trim="tour.description"
+              v-model.trim="tour.desc"
               :placeholder="$t('form.placeholder')"
-              @blur="$v.tour.description.$touch()"
-              :class="{'animated shake': $v.tour.description.$error}">
-            <div class="error" v-if="!$v.tour.description.required">
+              @blur="$v.tour.desc.$touch()"
+              :class="{'animated shake': $v.tour.desc.$error}">
+            <div class="error" v-if="!$v.tour.desc.required">
               {{ $t('validates.field') }}
             </div>
-            <div class="error" v-if="!$v.tour.description.minLength">
-              {{ $t('newTour.error.least') }}
-              {{$v.tour.description.$params.minLength.min}}
-            </div>
-            <div class="error" v-if="!$v.tour.description.maxLength">
+            <div class="error" v-if="!$v.tour.desc.minLength">
               {{ $t('validates.max') }}
-              {{$v.tour.description.$params.maxLength.max}}
+              {{$v.tour.desc.$params.minLength.min}}
+            </div>
+            <div class="error" v-if="!$v.tour.desc.maxLength">
+              {{ $t('validates.max') }}
+              {{$v.tour.desc.$params.maxLength.max}}
             </div>
           </div>
           <div class="form__item"
@@ -121,7 +121,7 @@ export default {
     tour: {
       name: { required, minLength: minLength(3), maxLength: maxLength(16) },
       category: { required },
-      description: { required, minLength: minLength(10), maxLength: maxLength(30) },
+      desc: { required, minLength: minLength(10), maxLength: maxLength(30) },
       price: { required, maxLength: maxLength(5) },
     },
   },
@@ -134,8 +134,8 @@ export default {
           desc: this.tour.desc,
           price: this.tour.price,
         };
-        await this.$store.dispatch('newTour', data)
-          .then(() => this.$router.push({ name: 'Tours' }));
+        await this.$store.dispatch('newTour', data);
+        await this.$router.push({ name: 'Tours' });
       } catch (error) {
         console.log(error);
         await this.$router.push({ name: 'Error' });

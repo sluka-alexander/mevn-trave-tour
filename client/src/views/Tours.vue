@@ -136,8 +136,8 @@ export default {
     };
   },
   methods: {
-    fetchTours() {
-      this.$store.dispatch('fetchTours');
+    getAllTours() {
+      this.$store.dispatch('getAllTours');
     },
 
     sortTours() {
@@ -146,7 +146,7 @@ export default {
       } else if (this.$route.query.sort === 'price_asc') {
         this.$store.dispatch('getTourSortAsc');
       } else {
-        this.fetchTours();
+        this.getAllTours();
       }
     },
 

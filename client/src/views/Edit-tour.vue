@@ -115,8 +115,12 @@ export default {
 
   data() {
     return {
-      tour: [],
-      oldTour: [],
+      tour: {
+        name: '',
+      },
+      oldTour: [{
+        name: '',
+      }],
       comparison: false,
     };
   },
@@ -137,10 +141,9 @@ export default {
         /* eslint no-underscore-dangle: 0 */
           this.oldTour = res.data.filter((tour) => tour._id === tourId.id);
         });
-      await this.$store.dispatch('getEditTour', tourId);
-      setTimeout(() => {
+      await this.$store.dispatch('getTour', tourId).then(() => {
         this.tour = this.$store.state.editTour;
-      }, 350);
+      });
     },
 
     async UpdateTour() {

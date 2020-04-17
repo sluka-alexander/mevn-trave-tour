@@ -86,18 +86,16 @@ export default {
       });
     },
 
-    updateUser() {
+    async updateUser() {
       const data = {
         id: this.$route.params.id,
         date: this.user.date,
         name: this.user.name,
         role: this.user.role,
       };
-      this.$store.dispatch('updateUser', data).then(() => {
-        setTimeout(() => {
-          this.$router.go(-1);
-        }, 300);
-      });
+      this.$store.dispatch('updateUser', data)
+        .then(() => this.$router.go(-1))
+        .catch((err) => console.log(err));
     },
     back() {
       this.$router.go(-1);

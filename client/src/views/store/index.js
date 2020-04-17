@@ -128,119 +128,75 @@ export default new Vuex.Store({
       }
     },
     updateUser({ commit }, data) {
-      try {
-        axios.put(`${environment.baseUrl}${endpoints.USER}${data.id}`, data,
-          { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
-          .then(() => {
-            commit('success');
-          });
-      } catch (err) {
-        console.error(err);
-      }
+      return axios.put(`${environment.baseUrl}${endpoints.USER}${data.id}`, data,
+        { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+        .then(() => {
+          commit('success');
+        });
     },
-    fetchTours({ commit }) {
-      try {
-        axios.get(`${environment.baseUrl}${endpoints.TOURS}`)
-          .then((res) => {
-            commit('success');
-            this.state.allTours = res.data;
-          }).catch((err) => {
-            commit('error');
-            console.error(err);
-          });
-      } catch (err) {
-        console.error(err);
-      }
+    getAllTours({ commit }) {
+      return axios.get(`${environment.baseUrl}${endpoints.TOURS}`)
+        .then((res) => {
+          commit('success');
+          this.state.allTours = res.data;
+        }).catch(() => {
+          commit('error');
+        });
     },
     newTour({ commit }, data) {
-      try {
-        axios.post(`${environment.baseUrl}${endpoints.NEW_TOUR}}`, data, {
-          headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` },
-        }).then(() => {
+      return axios.post('http://localhost:8081/tours/new', data, {
+        headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` },
+      }).then(() => {
+        commit('success');
+      }).catch(() => {
+        commit('error');
+      });
+    },
+    getTour({ commit }, params) {
+      return axios.post(`${environment.baseUrl}${endpoints.TOURS}/${params.id}`, params.id,
+        { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+        .then((res) => {
+          commit('success');
+          this.state.editTour = res.data;
+        }).catch(() => {
+          commit('error');
+        });
+    },
+    updateTour({ commit }, data) {
+      return axios.put(`${environment.baseUrl}${endpoints.TOURS}/${data.id}`, data, {
+        headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` },
+      }).then(() => {
+        commit('success');
+      }).catch(() => {
+        commit('error');
+      });
+    },
+    deleteTour({ commit }, id) {
+      return axios.delete(`${environment.baseUrl}${endpoints.TOURS}/${id}`,
+        { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
+        .then(() => {
           commit('success');
         }).catch(() => {
           commit('error');
         });
-      } catch (err) {
-        console.error(err);
-      }
     },
-    getEditTour({ commit }, params) {
-      try {
-        axios({
-          url: `${environment.baseUrl}${endpoints.TOURS}/${params.id}`,
-          method: 'POST',
-          headers: {
-            'auth-token': `Bearer ${localStorage.getItem('token')}`,
-          },
-        }).then((res) => {
+    getTourSortDesc({ commit }) {
+      return axios.get(`${environment.baseUrl}${endpoints.DESC_TOURS}`)
+        .then((res) => {
           commit('success');
-          this.state.editTour = res.data;
+          this.state.allTours = res.data;
+        }).catch(() => {
+          commit('error');
         });
-      } catch (err) {
-        console.error(err);
-      }
     },
-    updateTour({ commit }, data) {
-      try {
-        commit('auth_request');
-        axios({
-          url: `${environment.baseUrl}${endpoints.TOURS}/${data.id}`,
-          method: 'PUT',
-          data,
-          headers: {
-            'auth-token': `Bearer ${localStorage.getItem('token')}`,
-          },
+    getTourSortAsc({ commit }) {
+      return axios.get(`${environment.baseUrl}${endpoints.ASC_TOURS}`)
+        .then((res) => {
+          commit('success');
+          this.state.allTours = res.data;
+        }).catch(() => {
+          commit('error');
         });
-      } catch (err) {
-        console.error(err);
-      }
-    },
-    getTourSortDesc() {
-      try {
-        axios({
-          url: `${environment.baseUrl}${endpoints.DESC_TOURS}`,
-          method: 'GET',
-        })
-          .then((res) => {
-            this.state.allTours = res.data;
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } catch (err) {
-        console.error(err);
-      }
-    },
-    getTourSortAsc() {
-      try {
-        axios({
-          url: `${environment.baseUrl}${endpoints.ASC_TOURS}`,
-          method: 'GET',
-        })
-          .then((res) => {
-            this.state.allTours = res.data;
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } catch (err) {
-        console.error(err);
-      }
-    },
-    deleteTour({ commit }, id) {
-      try {
-        commit('auth_request');
-        axios({
-          url: `${environment.baseUrl}${endpoints.TOURS}/${id}`,
-          method: 'DELETE',
-          headers: {
-            'auth-token': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-      } catch (err) {
-        console.error(err);
-      }
     },
     checkDarkTheme() {
       const html = document.getElementsByTagName('html');
