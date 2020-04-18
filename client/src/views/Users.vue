@@ -84,11 +84,6 @@ export default {
       confirmForm: false,
     };
   },
-  watch: {
-    '$route.query.page': function () {
-
-    },
-  },
   computed: {
     users() {
       return this.$store.getters.users;

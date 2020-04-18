@@ -6,14 +6,14 @@
         </transition>
         <transition name="animate" appear enter-active-class="animated fadeInRight fast">
         <div>
-          {{ $t('dashboard.helloTxt') }} {{ DataUser.name }} !
+          {{ $t('dashboard.helloTxt') }} {{ dataUser.name }} !
         </div>
         </transition>
       </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster delay">
         <div class="info-user">
-          {{ $t('dashboard.emailTxt') }} {{ DataUser.email }}<br>
-          {{ $t('dashboard.roleTxt') }} {{ DataUser.role }}<br>
+          {{ $t('dashboard.emailTxt') }} {{ dataUser.email }}<br>
+          {{ $t('dashboard.roleTxt') }} {{ dataUser.role }}<br>
         </div>
       </transition>
       <transition name="animate" appear enter-active-class="animated bounceInLeft">
@@ -26,11 +26,13 @@
 
 export default {
   name: 'Dashboard',
+
   data() {
     return {
       token: localStorage.getItem('token'),
     };
   },
+
   methods: {
     logout() {
       this.$store.dispatch('logout')
@@ -39,23 +41,9 @@ export default {
         });
     },
   },
-  created() {
-    this.$http.interceptors.response.use(undefined, (err) => new Promise(() => {
-      if (err.status === 401 && err.config) {
-        this.$store.dispatch('logout');
-      }
-      throw err;
-    }));
-  },
+
   computed: {
-    DataUser() { return this.$store.getters.DataUser; },
+    dataUser() { return this.$store.getters.dataUser; },
   },
-  // mounted() {
-  //   this.$store.dispatch('dashboard');
-  // },
 };
 </script>
-
-<style scoped>
-
-</style>

@@ -110,10 +110,10 @@ export default {
   data() {
     return {
       tour: {
-        name: '',
+        name: null,
         category: 'Nature',
-        desc: '',
-        price: '',
+        desc: null,
+        price: null,
       },
     };
   },
@@ -126,20 +126,18 @@ export default {
     },
   },
   methods: {
-    async addTour() {
-      try {
-        const data = {
-          name: this.tour.name,
-          category: this.tour.category,
-          desc: this.tour.desc,
-          price: this.tour.price,
-        };
-        await this.$store.dispatch('newTour', data);
-        await this.$router.push({ name: 'Tours' });
-      } catch (error) {
-        console.log(error);
-        await this.$router.push({ name: 'Error' });
-      }
+    addTour() {
+      const data = {
+        name: this.tour.name,
+        category: this.tour.category,
+        desc: this.tour.desc,
+        price: this.tour.price,
+      };
+      this.$store.dispatch('newTour', data).then(() => {
+        this.$router.push({ name: 'Tours' });
+      }).catch((error) => {
+        console.error(error);
+      });
     },
   },
 };

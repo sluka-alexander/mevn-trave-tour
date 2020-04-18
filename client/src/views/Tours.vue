@@ -128,7 +128,7 @@ export default {
       confirmFormDelete: false,
       buttonEdit: false,
       buttonDelete: false,
-      clickId: '',
+      clickId: null,
       NotTours: false,
       search: this.$route.query.search || '',
       sort: this.$route.query.sort || '',
@@ -207,6 +207,7 @@ export default {
     this.loading();
   },
   watch: {
+  /* eslint-disable func-names */
     search(newVal) {
       this.$router.push({ query: { ...this.$route.query, search: newVal } });
     },

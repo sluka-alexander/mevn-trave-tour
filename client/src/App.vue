@@ -43,7 +43,7 @@
                              class="navbar-mobile__item">
                   {{ $t('navbar.homeItemTxt') }}
                 </router-link>
-                <router-link :to="{ path: '/tours', query: { search: ''} }"
+                <router-link :to="{ path: '/tours', query: { search: null} }"
                              class="navbar-mobile__item">
                   {{ $t('navbar.toursItemTxt') }}
                 </router-link>
@@ -88,7 +88,7 @@
                          class="navbar-desktop__item">
               {{ $t('navbar.homeItemTxt') }}
             </router-link>
-            <router-link :to="{ path: '/tours', query: { search: ''} }"
+            <router-link :to="{ path: '/tours', query: { search: null} }"
                          class="navbar-desktop__item">
               {{ $t('navbar.toursItemTxt') }}
             </router-link>
@@ -106,7 +106,7 @@
           <div class="navbar-desktop__right">
             <div v-if="isLoggedIn" to="/user/dashboard">
               {{ $t('navbar.helloMsg') }},
-              {{ DataUser.name }}
+              {{ dataUser.name }}
             </div>
             <router-link v-if="isLoggedIn" to="/user/dashboard" class="fas fa-home">
             </router-link>
@@ -128,52 +128,53 @@
 <script>
 
 export default {
+
   data() {
     return {
       burgerBtn: false,
       token: localStorage.getItem('token'),
-      role: '',
-      name: '',
     };
   },
+
   methods: {
     openBars() {
       this.burgerBtn = !this.burgerBtn;
       const html = document.getElementsByTagName('html')[0];
       html.style.overflow = this.burgerBtn ? 'hidden' : 'auto';
     },
+
     editLanguage(lang) {
       this.$i18n.locale = lang;
       localStorage.setItem('lang', lang);
     },
+
     darkTheme() {
       this.$store.dispatch('darkTheme');
     },
+
     closeConfirmFormVader() {
       this.$store.dispatch('closeConfirmFormVader');
     },
   },
+
   mounted() {
     if (this.$store.getters.isLoggedIn) {
-      this.$store.dispatch('dashboard');
+      this.$store.dispatch('getDataAuthUser');
     }
-    this.$store.dispatch('checkDarkTheme');
     if (this.$store.state.lang === 'ru') {
       this.editLanguage('ru');
     }
+    this.$store.dispatch('checkDarkTheme');
   },
+
   computed: {
     isLoggedIn() { return this.$store.getters.isLoggedIn; },
-    DataUser() { return this.$store.getters.DataUser; },
+    dataUser() { return this.$store.getters.dataUser; },
     isAdmin() { return this.$store.getters.isAdmin; },
   },
 };
-
 </script>
+
 <style lang="scss">
   @import 'views/scss/main';
-
-  .delay {
-    animation-delay: 0.3s;
-  }
 </style>

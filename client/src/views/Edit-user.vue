@@ -66,7 +66,6 @@ export default {
     return {
       oldTour: [],
       user: [],
-      comparison: false,
     };
   },
 
@@ -86,7 +85,7 @@ export default {
       });
     },
 
-    async updateUser() {
+    updateUser() {
       const data = {
         id: this.$route.params.id,
         date: this.user.date,
@@ -95,8 +94,9 @@ export default {
       };
       this.$store.dispatch('updateUser', data)
         .then(() => this.$router.go(-1))
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     },
+
     back() {
       this.$router.go(-1);
     },

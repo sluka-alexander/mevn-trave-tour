@@ -1723,4 +1723,8 @@ a {
   background-color: #17212b;
 }
 
+.delay {
+  animation-delay: 0.3s;
+}
+
 /*# sourceMappingURL=main.css.map */

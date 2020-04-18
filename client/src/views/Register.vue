@@ -162,7 +162,7 @@ export default {
         })
         .catch((err) => {
           this.validate = true;
-          console.log(err);
+          console.error(err);
         });
     },
   },

@@ -12,7 +12,7 @@
         </transition>
       </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster">
-        <form @submit.prevent="UpdateTour" class="form"
+        <form @submit.prevent="updateTour" class="form"
               :class="{'form_dark-theme' : this.$store.state.isDarkTheme}">
           <div class="form__item"
                :class="{'form__item_err' : $v.tour.name.$error}">
@@ -64,7 +64,7 @@
               {{ $t('validates.field') }}
             </div>
             <div class="error" v-if="!$v.tour.description.minLength">
-              {{ $t('newTour.error.least') }}
+              {{ $t('validates.min') }}
               {{$v.tour.description.$params.minLength.min}}
             </div>
             <div class="error" v-if="!$v.tour.description.maxLength">
@@ -98,7 +98,7 @@
               class="button button_no-active">{{ $t('btn.edit') }}
             </div>
             <button type="submit" v-else class="button">{{ $t('btn.edit') }}</button>
-            <span class="button-back" @click="Back">{{ $t('btn.back') }}</span>
+            <span class="button-back" @click="back">{{ $t('btn.back') }}</span>
           </span>
         </form>
       </transition>
@@ -109,6 +109,8 @@
 <script>
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 import axios from 'axios';
+import endpoints from './store/endpoints.const';
+import environment from './store/environment';
 
 export default {
   name: 'EditTour',
@@ -116,10 +118,10 @@ export default {
   data() {
     return {
       tour: {
-        name: '',
+        name: null,
       },
       oldTour: [{
-        name: '',
+        name: null,
       }],
       comparison: false,
     };
@@ -133,20 +135,21 @@ export default {
       price: { required, maxLength: maxLength(5) },
     },
   },
+
   methods: {
-    async getTour() {
+    getTour() {
       const tourId = { id: this.$route.params.id };
-      axios.get('http://localhost:8081/tours/')
+      axios.get(`${environment.baseUrl}${endpoints.TOURS}`)
         .then((res) => {
         /* eslint no-underscore-dangle: 0 */
           this.oldTour = res.data.filter((tour) => tour._id === tourId.id);
         });
-      await this.$store.dispatch('getTour', tourId).then(() => {
+      this.$store.dispatch('getTour', tourId).then(() => {
         this.tour = this.$store.state.editTour;
       });
     },
 
-    async UpdateTour() {
+    updateTour() {
       const data = {
         id: this.$route.params.id,
         date: this.tour.date,
@@ -155,16 +158,16 @@ export default {
         description: this.tour.description,
         price: this.tour.price,
       };
-      await this.$store.dispatch('updateTour', data).then(() => {
-        setTimeout(() => {
-          this.$router.go(-1);
-        }, 300);
+      this.$store.dispatch('updateTour', data).then(() => {
+        this.$router.go(-1);
       });
     },
-    Back() {
+
+    back() {
       this.$router.push({ name: 'Tours' });
     },
   },
+
   mounted() {
     this.getTour();
   },

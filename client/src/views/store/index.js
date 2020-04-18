@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     status: null,
     error: null,
-    token: localStorage.getItem('token') || '',
+    token: localStorage.getItem('token') || null,
     isAdmin: false,
     isDarkTheme: localStorage.getItem('darkMode') || false,
     isConfirmVader: false,
@@ -58,8 +58,8 @@ export default new Vuex.Store({
       commit('logout');
       localStorage.removeItem('token');
     },
-    dashboard({ commit }) {
-      return axios.post(`${environment.baseUrl}${endpoints.DASHBOARD}`, '',
+    getDataAuthUser({ dispatch, commit }) {
+      return axios.post(`${environment.baseUrl}${endpoints.DASHBOARD}`, null,
         { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
         .then((res) => {
           commit('success');
@@ -68,11 +68,13 @@ export default new Vuex.Store({
             this.state.isAdmin = true;
           }
         }).catch(() => {
+          dispatch('logout');
+          window.location.reload();
           commit('error');
         });
     },
     getAllUsers({ commit }) {
-      return axios.post(`${environment.baseUrl}${endpoints.USERS}`, '',
+      return axios.post(`${environment.baseUrl}${endpoints.USERS}`, null,
         { headers: { 'auth-token': `Bearer ${localStorage.getItem('token')}` } })
         .then((res) => {
           commit('success');
@@ -207,8 +209,8 @@ export default new Vuex.Store({
       state.status = 'error';
     },
     logout(state) {
-      state.status = '';
-      state.token = '';
+      state.status = null;
+      state.token = null;
       state.isAdmin = false;
       state.users = {};
     },
@@ -226,7 +228,7 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
-    DataUser: (state) => state.user,
+    dataUser: (state) => state.user,
     isAdmin: (state) => state.isAdmin,
     users: (state) => state.users,
     allTours: (state) => state.allTours,

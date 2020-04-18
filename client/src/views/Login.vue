@@ -105,7 +105,7 @@ export default {
         .then(() => this.$router.go(-1))
         .catch((err) => {
           this.validate = true;
-          console.log(err);
+          console.error(err);
         });
     },
   },
