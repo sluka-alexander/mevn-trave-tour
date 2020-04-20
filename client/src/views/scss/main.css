@@ -158,10 +158,9 @@
   position: fixed;
   background-color: #433a8b;
   top: 0;
-  bottom: 0;
-  right: 0;
   left: 0;
-  z-index: 5;
+  z-index: 6;
+  overflow: hidden;
 }
 .navbar-mobile-bgc a.router-link-exact-active {
   transition: 0.2s;
@@ -1237,7 +1236,11 @@ html {
   font-family: "Nunito", sans-serif;
   overflow-x: hidden;
   background: #f6f6f6;
-  color: #000;
+  height: 100%;
+}
+
+body {
+  height: 100%;
 }
 
 input,

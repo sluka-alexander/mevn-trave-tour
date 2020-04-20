@@ -54,9 +54,9 @@
         <transition name="animate" appear enter-active-class="animated zoomInDown fast">
           <div class="icon icon_tours"></div>
         </transition>
-        <div class="loading" v-if="!filteredTours.length && !NotTours"></div>
+        <div class="loading" v-if="!filteredTours.length && !notTours"></div>
       </div>
-      <div style="text-align: center;" v-if="!filteredTours.length && NotTours">
+      <div style="text-align: center;" v-if="!filteredTours.length && notTours">
         {{ $t('tours.warningTxt') }}
       </div>
       <transition name="animate" appear enter-active-class="animated zoomIn faster delay">
@@ -86,7 +86,7 @@
               <th v-if="isAdmin">{{ $t('btn.delete') }}</th>
             </tr>
             <tr v-for="tour in filteredTours.slice(0, initialNumberOfTours)"
-                :key="tour.name + tour.isActive ">
+                :key="tour.name + tour.isActive">
               <td>{{ tour.name }}</td>
               <td>{{ tour.category}}</td>
               <td>{{ tour.description}}</td>
@@ -129,10 +129,10 @@ export default {
       buttonEdit: false,
       buttonDelete: false,
       clickId: null,
-      NotTours: false,
       search: this.$route.query.search || '',
       sort: this.$route.query.sort || '',
       initialNumberOfTours: 5,
+      notTours: false,
     };
   },
   methods: {
@@ -180,14 +180,13 @@ export default {
       }
     },
 
-    loading() {
-      setTimeout(() => {
-        this.NotTours = !this.NotTours;
-      }, 200);
-    },
-
     loadMoreTours() {
       this.initialNumberOfTours += 10;
+    },
+    loading() {
+      setTimeout(() => {
+        this.notTours = true;
+      }, 2000);
     },
   },
   computed: {

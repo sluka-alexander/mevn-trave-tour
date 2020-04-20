@@ -67,6 +67,12 @@ export default {
     error: 'Error',
     notFound: 'The page is not found',
   },
+  category: {
+    nature: 'Nature',
+    snow: 'Snow',
+    waterfall: 'Waterfall',
+    mountain: 'Mountain',
+  },
   navbar: {
     helloMsg: 'Hi',
     homeItemTxt: 'Home',

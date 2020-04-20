@@ -45,10 +45,10 @@
                     v-model.trim="tour.category"
                     @blur="$v.tour.category.$touch()"
                     >
-              <option>Nature</option>
-              <option>Snow</option>
-              <option>Waterfall</option>
-              <option>Mountain</option>
+              <option>{{ $t('category.nature') }}</option>
+              <option>{{ $t('category.snow') }}</option>
+              <option>{{ $t('category.waterfall') }}</option>
+              <option>{{ $t('category.mountain') }}</option>
             </select>
           </div>
           <div class="form__item"
@@ -135,7 +135,7 @@ export default {
       };
       this.$store.dispatch('newTour', data).then(() => {
         this.$router.push({ name: 'Tours' });
-      }).catch((error) => {
+      }).catch(error => {
         console.error(error);
       });
     },

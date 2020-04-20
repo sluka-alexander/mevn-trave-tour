@@ -103,7 +103,7 @@ export default {
       };
       this.$store.dispatch('login', data)
         .then(() => this.$router.go(-1))
-        .catch((err) => {
+        .catch(err => {
           this.validate = true;
           console.error(err);
         });

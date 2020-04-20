@@ -67,6 +67,12 @@ export default {
     error: 'Ошибка',
     notFound: 'Страница не найдена',
   },
+  category: {
+    nature: 'Nature',
+    snow: 'Snow',
+    waterfall: 'Waterfall',
+    mountain: 'Mountain',
+  },
   navbar: {
     helloMsg: 'Привет',
     homeItemTxt: 'Главная',

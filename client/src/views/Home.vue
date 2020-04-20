@@ -1,9 +1,12 @@
 <template>
   <div>
-    <transition name="animate" appear enter-active-class="animated zoomIn faster">
-      <div class=" layer-line line-back"></div>
-    </transition>
-      <div class="starting-section" @mousemove="move">
+    <kinesis-container>
+      <kinesis-element :strength="-40">
+        <transition name="animate" appear enter-active-class="animated zoomIn faster">
+          <div class=" layer-line line-back"></div>
+        </transition>
+      </kinesis-element>
+      <div class="starting-section">
         <div class="container">
           <div class="info-and-img">
             <transition name="animate" appear enter-active-class="animated bounceInLeft fast">
@@ -25,14 +28,17 @@
                 </div>
               </div>
             </transition>
+            <kinesis-element :strength="15">
             <transition name="animate" appear enter-active-class="animated zoomIn faster">
-              <div class="layer main-img"></div>
+              <div class="main-img"></div>
             </transition>
+            </kinesis-element>
           </div>
         </div>
       </div>
+    </kinesis-container>
 
-    <transition name="animate" appear enter-active-class="wow animated fadeInLeft">
+    <transition name="animate" appear enter-active-class="animated fadeInLeft">
       <div class="experience">
         <div class="container">
           <div class="title">
@@ -88,7 +94,7 @@
       </div>
     </transition>
 
-    <transition name="animate" appear enter-active-class="wow animated fadeInRight">
+    <transition name="animate" appear enter-active-class="animated fadeInRight">
       <div class="choose-category">
         <div class="container">
           <div class="title">
@@ -195,7 +201,7 @@
       </div>
     </transition>
 
-    <transition name="animate" appear enter-active-class="wow animated zoomIn">
+    <transition name="animate" appear enter-active-class="animated zoomIn">
       <div class="clients">
         <div class="container">
           <div class="title">
@@ -262,7 +268,7 @@
       </div>
     </transition>
 
-    <transition name="animate" appear enter-active-class="wow animated fadeIn">
+    <transition name="animate" appear enter-active-class="animated fadeIn">
       <div class="feedback">
         <div class="feedback__color-back">
           <div class="container">
@@ -276,7 +282,7 @@
       </div>
     </transition>
 
-    <transition name="animate" appear enter-active-class="wow animated fadeInUp">
+    <transition name="animate" appear enter-active-class="animated fadeInUp">
       <div class="footer">
         <div class="container">
           <div class="footer__content">
@@ -400,13 +406,6 @@ export default {
   methods: {
     searchTour() {
       this.$router.push({ name: 'Tours', query: { search: this.search } });
-    },
-
-    move(event) {
-      document.querySelector('.layer').style.transform = `translateX(-${event.pageX / 20}px)
-        translateY(-${event.pageY / 20}px)`;
-      document.querySelector('.layer-line').style.transform = `translateX(${event.pageX / 50}px)
-        translateY(${event.pageY / 50}px)`;
     },
 
     initSliderCategory() {

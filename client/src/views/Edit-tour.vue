@@ -140,7 +140,7 @@ export default {
     getTour() {
       const tourId = { id: this.$route.params.id };
       axios.get(`${environment.baseUrl}${endpoints.TOURS}`)
-        .then((res) => {
+        .then(res => {
         /* eslint no-underscore-dangle: 0 */
           this.oldTour = res.data.filter((tour) => tour._id === tourId.id);
         });

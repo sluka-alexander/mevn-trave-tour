@@ -94,7 +94,7 @@ export default {
       };
       this.$store.dispatch('updateUser', data)
         .then(() => this.$router.go(-1))
-        .catch((err) => console.error(err));
+        .catch(err => console.error(err));
     },
 
     back() {

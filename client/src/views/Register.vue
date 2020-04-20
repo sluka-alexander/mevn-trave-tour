@@ -160,7 +160,7 @@ export default {
         .then(() => {
           this.isConfirmForm = !this.isConfirmForm;
         })
-        .catch((err) => {
+        .catch(err => {
           this.validate = true;
           console.error(err);
         });
