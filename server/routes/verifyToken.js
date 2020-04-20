@@ -7,4 +7,4 @@ module.exports = function verifyToken(req, res, next) {
     } else {
         res.sendStatus(403);
     }
-    }
+};

@@ -213,6 +213,7 @@ export default new Vuex.Store({
       state.token = null;
       state.isAdmin = false;
       state.users = [];
+      state.allTours = [];
     },
     success(state) {
       state.status = 'Success';

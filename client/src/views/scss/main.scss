@@ -459,10 +459,14 @@ a {
 }
 
 .slider {
-  @include size(70%,100%);
+  @include size(100%,100%);
 
   position: relative;
   overflow: hidden;
+
+  &_clients {
+    @include size(70%,100%);
+  }
 
   &__slide {
     @extend %flex-center;

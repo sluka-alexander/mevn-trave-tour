@@ -87,7 +87,7 @@
   }
 }
 
-.burger-bnt {
+.burger-btn {
   @extend %flex-center;
 
   @include size(37px);
@@ -184,7 +184,7 @@
 
     width: 100%;
     border-bottom: 2px solid $white;
-    font-size: calcFluidFontSize($font-L, $font-L, 320, 1920);
+    font-size: calcFluidFontSize($font-M, $font-L, 320, 1920);
     padding: 20px;
     transition: 0.3s;
     cursor: pointer;

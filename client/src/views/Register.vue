@@ -98,7 +98,6 @@
             </div>
             <div class="error" v-if="!$v.password.maxLength">
               {{ $t('validates.long') }}
-              {{$v.password.$params.maxLength.max}}
             </div>
           </div>
           <div class="error" v-if="validate">{{ $t('validates.register') }}</div>

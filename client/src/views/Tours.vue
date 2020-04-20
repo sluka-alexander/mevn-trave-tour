@@ -186,7 +186,7 @@ export default {
     loading() {
       setTimeout(() => {
         this.notTours = true;
-      }, 2000);
+      }, 1000);
     },
   },
   computed: {

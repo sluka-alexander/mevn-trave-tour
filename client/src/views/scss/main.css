@@ -1,8 +1,8 @@
-.confirm-form__buttons, .form__item, .footer__logo, .box, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .boxes, .info-and-img, .navbar-desktop__right, .navbar-desktop__left, .header, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-bnt {
+.confirm-form__buttons, .form__item, .footer__logo, .box, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .boxes, .info-and-img, .navbar-desktop__right, .navbar-desktop__left, .header, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-btn {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-bnt {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-btn {
   justify-content: center;
   align-items: center;
 }
@@ -11,11 +11,11 @@
   justify-content: space-between;
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .box, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-bnt, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .boxes, .info-and-img, .navbar-desktop__right, .navbar-desktop__left, .header {
+.confirm-form__buttons, .form__item, .footer__logo, .box, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-btn, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .boxes, .info-and-img, .navbar-desktop__right, .navbar-desktop__left, .header {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-bnt {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .search__button, .search__input, .navbar-mobile__item, .burger-btn {
   justify-content: center;
   align-items: center;
 }
@@ -96,18 +96,18 @@
   width: 100%;
 }
 
-.burger-bnt {
+.burger-btn {
   height: 37px;
   width: 37px;
   cursor: pointer;
   z-index: 7;
 }
 @media screen and (min-width: 1024px) {
-  .burger-bnt {
+  .burger-btn {
     opacity: 0;
   }
 }
-.burger-bnt__bars {
+.burger-btn__bars {
   height: 5px;
   width: 37px;
   position: absolute;
@@ -116,7 +116,7 @@
   border-radius: 5px;
   transition: 0.4s;
 }
-.burger-bnt__bars::before {
+.burger-btn__bars::before {
   height: 5px;
   width: 37px;
   display: block;
@@ -127,7 +127,7 @@
   border-radius: 5px;
   transition: 0.4s;
 }
-.burger-bnt__bars::after {
+.burger-btn__bars::after {
   height: 5px;
   width: 37px;
   display: block;
@@ -138,15 +138,15 @@
   border-radius: 5px;
   transition: 0.4s;
 }
-.burger-bnt__bars_active {
+.burger-btn__bars_active {
   background-color: transparent;
 }
-.burger-bnt__bars_active::before {
+.burger-btn__bars_active::before {
   transform: rotate(-45deg);
   top: 0;
   background-color: #fff;
 }
-.burger-bnt__bars_active::after {
+.burger-btn__bars_active::after {
   transform: rotate(45deg);
   top: 0;
   background-color: #fff;
@@ -182,7 +182,7 @@
   color: #fff;
   width: 100%;
   border-bottom: 2px solid #fff;
-  font-size: calc( 0 * 100vw + 28px );
+  font-size: calc( 0.005625 * 100vw + 17.2px );
   padding: 20px;
   transition: 0.3s;
   cursor: pointer;
@@ -263,11 +263,11 @@
   background-color: #fe6091;
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .box, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .boxes, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button {
+.confirm-form__buttons, .form__item, .footer__logo, .box, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .boxes, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .burger-bnt, .navbar-mobile__item, .search__input, .search__button {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .box__category, .burger-btn, .navbar-mobile__item, .search__input, .search__button {
   justify-content: center;
   align-items: center;
 }
@@ -383,11 +383,11 @@
   background-image: url("../src/views/img/experience/4.jpg");
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category {
+.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .footer__right, .footer__content, .email, .clients__slider-and-info, .choose-category__arrows, .choose-category__up-content, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .choose-category__arrow, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category {
   justify-content: center;
   align-items: center;
 }
@@ -466,11 +466,11 @@
   background-image: url("../src/views/img/category/4.jpg");
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .footer__right, .footer__content, .email, .clients__slider-and-info, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow {
+.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .footer__right, .footer__content, .email, .clients__slider-and-info, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .video-block__second-circle, .video-block__circle, .video-block__blackout, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow {
   justify-content: center;
   align-items: center;
 }
@@ -552,11 +552,11 @@ iframe {
   transform: rotate(360deg);
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .footer__right, .footer__content, .email, .clients__slider-and-info, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle {
+.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .footer__right, .footer__content, .email, .clients__slider-and-info, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .clients__name, .clients__arrow, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle {
   justify-content: center;
   align-items: center;
 }
@@ -655,11 +655,11 @@ iframe {
   background-image: url("../src/views/img/clients/5.jpeg");
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .footer__right, .footer__content, .email, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name {
+.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .footer__right, .footer__content, .email, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .email__button, .feedback__color-back, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name {
   justify-content: center;
   align-items: center;
 }
@@ -720,11 +720,11 @@ iframe {
   font-size: calc( 0.0225 * 100vw + 6.8px );
 }
 
-.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .footer__right, .footer__content, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button {
+.confirm-form__buttons, .form__item, .footer__logo, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .footer__right, .footer__content, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .footer__made, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button {
   justify-content: center;
   align-items: center;
 }
@@ -844,11 +844,11 @@ iframe {
   border-top: 1px solid #e3e3e3;
 }
 
-.confirm-form__buttons, .form__item, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button, .footer__content, .footer__logo, .footer__right, .footer__made {
+.confirm-form__buttons, .form__item, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button, .footer__content, .footer__logo, .footer__right, .footer__made {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button, .footer__made {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .button-load-tours, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button, .footer__made {
   justify-content: center;
   align-items: center;
 }
@@ -1013,11 +1013,11 @@ hr {
   border-bottom: 1px solid #242f3d;
 }
 
-.confirm-form__buttons, .form__item, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button, .footer__content, .footer__logo, .footer__right, .footer__made, .button-load-tours {
+.confirm-form__buttons, .form__item, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button, .footer__content, .footer__logo, .footer__right, .footer__made, .button-load-tours {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button, .footer__made, .button-load-tours {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .users .page, .users .pages, .users__edit, .users__photo, .users__item, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button, .footer__made, .button-load-tours {
   justify-content: center;
   align-items: center;
 }
@@ -1113,11 +1113,11 @@ hr {
   border: 1px solid #fe6091;
 }
 
-.confirm-form__buttons, .form__item, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-bnt, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button, .footer__content, .footer__logo, .footer__right, .footer__made, .button-load-tours, .users__item, .users__photo, .users__edit, .users .pages, .users .page {
+.confirm-form__buttons, .form__item, .info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .header, .navbar-desktop__left, .navbar-desktop__right, .burger-btn, .navbar-mobile__item, .info-and-img, .search__input, .search__button, .boxes, .box, .box__category, .choose-category__up-content, .choose-category__arrows, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__slider-and-info, .clients__arrow, .clients__name, .feedback__color-back, .email, .email__button, .footer__content, .footer__logo, .footer__right, .footer__made, .button-load-tours, .users__item, .users__photo, .users__edit, .users .pages, .users .page {
   display: flex;
 }
 
-.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .burger-bnt, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button, .footer__made, .button-load-tours, .users__item, .users__photo, .users__edit, .users .pages, .users .page {
+.info-user, .slider__slide, .logOut, .confirm-form__button, .confirm-form, .page-form, .button-back, .icons-lang-desktop, .icons-lang-mobile, .form .button, .burger-btn, .navbar-mobile__item, .search__input, .search__button, .box__category, .choose-category__arrow, .video-block__blackout, .video-block__circle, .video-block__second-circle, .clients__arrow, .clients__name, .feedback__color-back, .email__button, .footer__made, .button-load-tours, .users__item, .users__photo, .users__edit, .users .pages, .users .page {
   justify-content: center;
   align-items: center;
 }
@@ -1641,9 +1641,13 @@ a {
 
 .slider {
   height: 100%;
-  width: 70%;
+  width: 100%;
   position: relative;
   overflow: hidden;
+}
+.slider_clients {
+  height: 100%;
+  width: 70%;
 }
 .slider__slide {
   min-width: 100%;
