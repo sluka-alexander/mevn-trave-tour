@@ -115,13 +115,11 @@ router.beforeEach((to, from, next) => {
     next({ name: 'Login' });
   }
   if (to.matched.some((record) => record.meta.Admin)) {
-    setTimeout(() => {
-      if (store.getters.isAdmin) {
-        next();
-      } else {
-        next({ name: 'Home' });
-      }
-    }, 0);
+    if (store.getters.isLoggedIn && store.getters.isAdmin) {
+      next();
+    } else {
+      next({ name: 'Home' });
+    }
   }
   if (to.matched.some((record) => record.meta.notAuth)) {
     if (store.getters.isLoggedIn) {

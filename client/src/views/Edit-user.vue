@@ -79,9 +79,7 @@ export default {
     getUser() {
       const userId = { id: this.$route.params.id };
       this.$store.dispatch('getUser', userId).then(() => {
-        setTimeout(() => {
-          this.user = this.$store.state.editUser;
-        }, 350);
+        this.user = this.$store.state.editUser;
       });
     },
 
