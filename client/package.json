@@ -9,7 +9,7 @@
     "lint:css": "stylelint src/views/scss"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "stylelint-config-standard": "^20.0.0",
     "v-wow": "git+https://github.com/guisoares2011/vue-wow.git",
